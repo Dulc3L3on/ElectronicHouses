@@ -1,0 +1,11 @@
+//El monto gastado para aplicar el dcto debe ser
+    //en base a lo que pago o a lo que tenía antes
+    //de app un dcto
+        //pregunto porque si es en base a lo que pagó
+            //THEN debo add una columna de dcto a la 
+            //tabla venta, para así ver si en la sig
+            //compra se aplicará o no dcto...
+        //y si es en base a lo que gasstó, entonces
+        //con el atrib TOTAL basta...
+        
+        

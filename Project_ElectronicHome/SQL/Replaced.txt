@@ -1,0 +1,22 @@
+PARA TRANSFERIR
+    //el diálogo de inventary
+
+//cuando no se trabaja con event
+/*     private void setMaximunTransferable(){
+    int value = (Integer) table_transfer.getModel()
+                    .getValueAt(table_transfer.getSelectedRow(),
+                                table_transfer.getSelectedColumn());
+    int limit = (Integer) table_transfer.getModel()
+                    .getValueAt(table_transfer.getSelectedRow(),
+                                table_transfer.getSelectedColumn()-1);//aunque lo ideal sería. Exe una query...
+    
+    if(value > limit){
+        table_transfer.getModel()
+                    .setValueAt(limit,
+                                table_transfer.getSelectedRow(),
+                                table_transfer.getSelectedColumn());
+    }*/
+
+//usand event
+/*int row = e.getFirstRow();//retorna la fila que fue cambiada
+            int column = e.getColumn();       */

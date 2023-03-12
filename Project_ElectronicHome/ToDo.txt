@@ -1,0 +1,20 @@
+//revisar lo de current date
+//revisar lo de ON DELETE, auqneu vagamente recuerdo que solo afecta la columna xD
+
+//Revisar si caudno hay default se necesita NOT NULL o no
+
+ADD
+* la tabla brand
+* la tabla type (que no es igual a categoría, pues en esta se encuentra - microondas, refri...)
+* tabla solicitudes
+MODIFICAR
+* la tabla producto
+    haciendo que categoría sea -
+    y tipo -
+VER
+* si vas a hacer que la fecha y la hora se add a un solo campo
+* se mantengan en separado y así se meustre en la tabla
+* se mantenga separadao pero en la tabla se muestre junto...
+
+
+
