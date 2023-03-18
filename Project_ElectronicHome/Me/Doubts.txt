@@ -1,0 +1,20 @@
+//El monto gastado para aplicar el dcto debe ser
+    //en base a lo que pago o a lo que tenía antes
+    //de app un dcto
+        //pregunto porque si es en base a lo que pagó
+            //THEN debo add una columna de dcto a la 
+            //tabla venta, para así ver si en la sig
+            //compra se aplicará o no dcto...
+        //y si es en base a lo que gasstó, entonces
+        //con el atrib TOTAL basta...
+
+//POSTGRESQL
+    - cómo permitir tildes...
+        - vamos a ver antes, sino
+            -https://foro.comunidad.siu.edu.ar/index.php?topic=2928.0  
+        
+//AUXI
+    - a qué se refiere con que "al menos se deben" es decir que
+      debo cargar eso o se refiere a que en la revisión se hará
+      al menos 5 ventas en c/sucursal...
+

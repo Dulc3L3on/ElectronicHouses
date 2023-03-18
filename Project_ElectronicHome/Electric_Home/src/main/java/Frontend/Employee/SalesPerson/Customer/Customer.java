@@ -29,17 +29,19 @@ public class Customer extends javax.swing.JFrame {
         panel_customer_new = new javax.swing.JPanel();
         panel_customer_photo = new javax.swing.JPanel();
         lbl_customer_photo = new javax.swing.JLabel();
+        txtF_customer_CUI = new javax.swing.JTextField();
         lbl_customer_CUI = new javax.swing.JLabel();
-        lbl_customer_name = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtF_customer_NIT = new javax.swing.JTextField();
         lbl_customer_NIT = new javax.swing.JLabel();
         lbl_customer_adress = new javax.swing.JLabel();
+        txtF_customer_adress = new javax.swing.JTextField();
+        txtF_customer_name = new javax.swing.JTextField();
+        lbl_customer_name = new javax.swing.JLabel();
         lbl_customer_dateOfJoining = new javax.swing.JLabel();
         spinner_customer_DateJoining = new javax.swing.JSpinner();
-        txtF_customer_adress = new javax.swing.JTextField();
-        txtF_customer_NIT = new javax.swing.JTextField();
-        txtF_customer_name = new javax.swing.JTextField();
-        txtF_customer_CUI = new javax.swing.JTextField();
-        btn_customer_SAVE = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -48,105 +50,135 @@ public class Customer extends javax.swing.JFrame {
 
         panel_customer_photo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        txtF_customer_CUI.setEditable(false);
+        txtF_customer_CUI.setText("SHA5 base on NIT");
+
+        lbl_customer_CUI.setText("CUI");
+
+        jLabel2.setFont(new java.awt.Font("Inter", 2, 13)); // NOI18N
+        jLabel2.setText("- Change the picture -");
+
         javax.swing.GroupLayout panel_customer_photoLayout = new javax.swing.GroupLayout(panel_customer_photo);
         panel_customer_photo.setLayout(panel_customer_photoLayout);
         panel_customer_photoLayout.setHorizontalGroup(
             panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_customer_photoLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lbl_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_customer_photoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_customer_photo, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(panel_customer_photoLayout.createSequentialGroup()
+                        .addComponent(lbl_customer_CUI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtF_customer_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
         );
         panel_customer_photoLayout.setVerticalGroup(
             panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_customer_photoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_customer_photo, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(panel_customer_photoLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lbl_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtF_customer_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_customer_CUI))
+                .addGap(31, 31, 31))
         );
 
-        lbl_customer_CUI.setText("CUI");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SavePlane.png"))); // NOI18N
 
-        lbl_customer_name.setText("Name:");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Customer Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
         lbl_customer_NIT.setText("NIT:");
 
         lbl_customer_adress.setText("Adress:");
 
+        lbl_customer_name.setText("Name:");
+
         lbl_customer_dateOfJoining.setText("Date of joining:");
 
         spinner_customer_DateJoining.setEnabled(false);
 
-        txtF_customer_CUI.setEditable(false);
-        txtF_customer_CUI.setText("SHA5 base on NIT");
-
-        btn_customer_SAVE.setText("SAVE");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_customer_dateOfJoining)
+                        .addGap(18, 18, 18)
+                        .addComponent(spinner_customer_DateJoining))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(lbl_customer_NIT)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(lbl_customer_adress)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_customer_name)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtF_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_customer_dateOfJoining)
+                    .addComponent(spinner_customer_DateJoining, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_customer_name, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtF_customer_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_customer_adress))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_customer_NIT))
+                .addGap(15, 15, 15))
+        );
 
         javax.swing.GroupLayout panel_customer_newLayout = new javax.swing.GroupLayout(panel_customer_new);
         panel_customer_new.setLayout(panel_customer_newLayout);
         panel_customer_newLayout.setHorizontalGroup(
             panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_customer_newLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(17, 17, 17)
+                .addComponent(panel_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_customer_newLayout.createSequentialGroup()
-                        .addComponent(lbl_customer_CUI)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtF_customer_CUI))
-                    .addComponent(panel_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_customer_newLayout.createSequentialGroup()
-                        .addComponent(lbl_customer_adress)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panel_customer_newLayout.createSequentialGroup()
-                            .addComponent(lbl_customer_NIT)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panel_customer_newLayout.createSequentialGroup()
-                            .addComponent(lbl_customer_dateOfJoining)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(spinner_customer_DateJoining, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panel_customer_newLayout.createSequentialGroup()
-                            .addComponent(lbl_customer_name)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtF_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btn_customer_SAVE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGap(127, 127, 127)
+                        .addComponent(jLabel1)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         panel_customer_newLayout.setVerticalGroup(
             panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_customer_newLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panel_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_customer_photo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel_customer_newLayout.createSequentialGroup()
-                        .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spinner_customer_DateJoining, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_customer_dateOfJoining))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_customer_name))
-                        .addGap(24, 24, 24)
-                        .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_customer_adress))
-                        .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_customer_newLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_customer_newLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_customer_NIT)))))
-                .addGap(18, 18, 18)
-                .addGroup(panel_customer_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_customer_CUI)
-                    .addComponent(txtF_customer_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_customer_SAVE, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,7 +202,9 @@ public class Customer extends javax.swing.JFrame {
     //el botón cb a EDIT, luego de presionarlo una vez para que no haya errores
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_customer_SAVE;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_customer_CUI;
     private javax.swing.JLabel lbl_customer_NIT;
     private javax.swing.JLabel lbl_customer_adress;

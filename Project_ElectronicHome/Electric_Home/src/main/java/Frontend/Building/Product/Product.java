@@ -26,205 +26,292 @@ public class Product extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        panel_customer_photo = new javax.swing.JPanel();
-        lbl_customer_photo = new javax.swing.JLabel();
-        spinner_customer_DateJoining = new javax.swing.JSpinner();
-        lbl_customer_CUI = new javax.swing.JLabel();
-        lbl_customer_dateOfJoining = new javax.swing.JLabel();
-        txtF_customer_name = new javax.swing.JTextField();
-        lbl_customer_NIT = new javax.swing.JLabel();
-        txtF_customer_NIT = new javax.swing.JTextField();
-        lbl_customer_adress = new javax.swing.JLabel();
-        lbl_customer_name = new javax.swing.JLabel();
-        txtF_customer_adress = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        panel_product_container = new javax.swing.JPanel();
+        panel_product_picture = new javax.swing.JPanel();
+        lbl_product_code = new javax.swing.JLabel();
+        txtF_product_stockID = new javax.swing.JTextField();
+        txtF_product_code = new javax.swing.JTextField();
+        lbl_product_stockID = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lbl_product_photo = new javax.swing.JLabel();
+        lbl_change_photo = new javax.swing.JLabel();
+        panel_product_generalDesc = new javax.swing.JPanel();
+        txtF_product_name = new javax.swing.JTextField();
+        lbl_product_name = new javax.swing.JLabel();
+        cbBox_product_brand = new javax.swing.JComboBox<>();
+        lbl_product_brand = new javax.swing.JLabel();
+        panel_product_category = new javax.swing.JPanel();
+        lbl_product_type = new javax.swing.JLabel();
+        cbBox_product_type = new javax.swing.JComboBox<>();
+        lbl_product_category = new javax.swing.JLabel();
+        cbBox_product_category = new javax.swing.JComboBox<>();
+        panel_product_description = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtA_product_description = new javax.swing.JTextArea();
+        spinner_product_quantity = new javax.swing.JSpinner();
+        lbl_product_price = new javax.swing.JLabel();
+        lbl_product_quantity = new javax.swing.JLabel();
+        spinner_product_price = new javax.swing.JSpinner();
+        lbl_product_Add = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_customer_photo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panel_product_picture.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        javax.swing.GroupLayout panel_customer_photoLayout = new javax.swing.GroupLayout(panel_customer_photo);
-        panel_customer_photo.setLayout(panel_customer_photoLayout);
-        panel_customer_photoLayout.setHorizontalGroup(
-            panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_customer_photoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+        lbl_product_code.setText("Code:");
+
+        txtF_product_stockID.setEditable(false);
+
+        txtF_product_code.setEditable(false);
+
+        lbl_product_stockID.setText("Stock ID:");
+
+        lbl_change_photo.setFont(new java.awt.Font("Inter", 2, 13)); // NOI18N
+        lbl_change_photo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_change_photo.setText("- Change picture -");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbl_product_photo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(lbl_change_photo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(lbl_product_photo, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_change_photo)
                 .addContainerGap())
         );
-        panel_customer_photoLayout.setVerticalGroup(
-            panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_customer_photoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_customer_photo, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
-        spinner_customer_DateJoining.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-
-        lbl_customer_CUI.setFont(new java.awt.Font("Inter", 2, 13)); // NOI18N
-        lbl_customer_CUI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_customer_CUI.setText("- Change picture -");
-
-        lbl_customer_dateOfJoining.setText("Stock ID:");
-
-        txtF_customer_name.setEditable(false);
-
-        lbl_customer_NIT.setText("Code:");
-
-        txtF_customer_NIT.setEditable(false);
-
-        lbl_customer_adress.setText("Brand:");
-
-        lbl_customer_name.setText("Name:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel1.setText("Price:");
-
-        jLabel2.setText("Quantity:");
-
-        jButton1.setText("SAVE");
-
-        jLabel3.setText("Type:");
-
-        jLabel4.setText("Category:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setEnabled(false);
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lbl_customer_dateOfJoining)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtF_customer_NIT))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lbl_customer_NIT)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtF_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_customer_name)
+        javax.swing.GroupLayout panel_product_pictureLayout = new javax.swing.GroupLayout(panel_product_picture);
+        panel_product_picture.setLayout(panel_product_pictureLayout);
+        panel_product_pictureLayout.setHorizontalGroup(
+            panel_product_pictureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_product_pictureLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(panel_product_pictureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_pictureLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbl_product_code)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_customer_adress)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtF_product_code))
+                    .addGroup(panel_product_pictureLayout.createSequentialGroup()
+                        .addComponent(lbl_product_stockID)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtF_product_stockID)))
+                .addGap(14, 14, 14))
+        );
+        panel_product_pictureLayout.setVerticalGroup(
+            panel_product_pictureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_pictureLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(panel_product_pictureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_product_code, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtF_product_code, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_product_pictureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_product_stockID)
+                    .addComponent(txtF_product_stockID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
+        );
+
+        panel_product_generalDesc.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("General Desc.")));
+
+        lbl_product_name.setText("Name:");
+
+        cbBox_product_brand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lbl_product_brand.setText("Brand:");
+
+        javax.swing.GroupLayout panel_product_generalDescLayout = new javax.swing.GroupLayout(panel_product_generalDesc);
+        panel_product_generalDesc.setLayout(panel_product_generalDescLayout);
+        panel_product_generalDescLayout.setHorizontalGroup(
+            panel_product_generalDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_product_generalDescLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panel_product_generalDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_product_generalDescLayout.createSequentialGroup()
+                        .addComponent(lbl_product_name)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtF_product_name)
+                        .addGap(21, 21, 21))
+                    .addGroup(panel_product_generalDescLayout.createSequentialGroup()
+                        .addComponent(lbl_product_brand)
+                        .addGap(24, 24, 24)
+                        .addComponent(cbBox_product_brand, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        panel_product_generalDescLayout.setVerticalGroup(
+            panel_product_generalDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_product_generalDescLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(panel_product_generalDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtF_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_product_name))
+                .addGap(18, 18, 18)
+                .addGroup(panel_product_generalDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbBox_product_brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_product_brand))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        panel_product_category.setBorder(javax.swing.BorderFactory.createTitledBorder("Category"));
+
+        lbl_product_type.setText("Type:");
+
+        cbBox_product_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lbl_product_category.setText("Category:");
+
+        cbBox_product_category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBox_product_category.setEnabled(false);
+
+        javax.swing.GroupLayout panel_product_categoryLayout = new javax.swing.GroupLayout(panel_product_category);
+        panel_product_category.setLayout(panel_product_categoryLayout);
+        panel_product_categoryLayout.setHorizontalGroup(
+            panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_product_categoryLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_product_categoryLayout.createSequentialGroup()
+                        .addComponent(lbl_product_category)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbBox_product_category, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_product_categoryLayout.createSequentialGroup()
+                        .addComponent(lbl_product_type)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbBox_product_type, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_product_categoryLayout.setVerticalGroup(
+            panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_product_categoryLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbBox_product_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_product_type))
+                .addGap(18, 18, 18)
+                .addGroup(panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbBox_product_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_product_category))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        panel_product_description.setBorder(javax.swing.BorderFactory.createTitledBorder("Description"));
+
+        txtA_product_description.setColumns(20);
+        txtA_product_description.setRows(4);
+        jScrollPane1.setViewportView(txtA_product_description);
+
+        spinner_product_quantity.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        lbl_product_price.setText("Price:");
+
+        lbl_product_quantity.setText("Quantity:");
+
+        javax.swing.GroupLayout panel_product_descriptionLayout = new javax.swing.GroupLayout(panel_product_description);
+        panel_product_description.setLayout(panel_product_descriptionLayout);
+        panel_product_descriptionLayout.setHorizontalGroup(
+            panel_product_descriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_descriptionLayout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(panel_product_descriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_descriptionLayout.createSequentialGroup()
+                        .addComponent(lbl_product_price)
+                        .addGap(18, 18, 18)
+                        .addComponent(spinner_product_price, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(spinner_customer_DateJoining, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 25, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(lbl_customer_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                        .addComponent(lbl_product_quantity)
+                        .addGap(18, 18, 18)
+                        .addComponent(spinner_product_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_descriptionLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panel_customer_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_customer_CUI)
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_customer_NIT))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_customer_dateOfJoining)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_customer_adress)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_customer_name))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(spinner_customer_DateJoining, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(56, 56, 56)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+        panel_product_descriptionLayout.setVerticalGroup(
+            panel_product_descriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_descriptionLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(panel_product_descriptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_product_price)
+                    .addComponent(spinner_product_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_product_quantity)
+                    .addComponent(spinner_product_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        lbl_product_Add.setText("le pondras el add, modif?");
+
+        javax.swing.GroupLayout panel_product_containerLayout = new javax.swing.GroupLayout(panel_product_container);
+        panel_product_container.setLayout(panel_product_containerLayout);
+        panel_product_containerLayout.setHorizontalGroup(
+            panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_product_containerLayout.createSequentialGroup()
+                .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_product_containerLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(panel_product_picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_product_containerLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(lbl_product_Add)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_product_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel_product_generalDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_product_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_product_containerLayout.setVerticalGroup(
+            panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_containerLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_product_containerLayout.createSequentialGroup()
+                        .addComponent(panel_product_generalDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panel_product_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panel_product_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_product_containerLayout.createSequentialGroup()
+                        .addComponent(panel_product_picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(lbl_product_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel_product_container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel_product_container, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Métodos a usar de Product_DAO
+        //insert
+        //update - aún no ses como directamente
+            //si lo vas a hacer fácil, entonces se empleará en inventory_content
+        //
+    
+    
     //Iba a decir que el botono SAVE funcionaría igual que el de BODEGA
     //pero en este caso no, porque en las instrucciones el UPDATE no está
     //permitido para el de INVENTARIOS
@@ -233,26 +320,32 @@ public class Product extends javax.swing.JFrame {
             //BODEGA, el caso contrario
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JLabel lbl_customer_CUI;
-    private javax.swing.JLabel lbl_customer_NIT;
-    private javax.swing.JLabel lbl_customer_adress;
-    private javax.swing.JLabel lbl_customer_dateOfJoining;
-    private javax.swing.JLabel lbl_customer_name;
-    private javax.swing.JLabel lbl_customer_photo;
-    private javax.swing.JPanel panel_customer_photo;
-    private javax.swing.JSpinner spinner_customer_DateJoining;
-    private javax.swing.JTextField txtF_customer_NIT;
-    private javax.swing.JTextField txtF_customer_adress;
-    private javax.swing.JTextField txtF_customer_name;
+    private javax.swing.JComboBox<String> cbBox_product_brand;
+    private javax.swing.JComboBox<String> cbBox_product_category;
+    private javax.swing.JComboBox<String> cbBox_product_type;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_change_photo;
+    private javax.swing.JLabel lbl_product_Add;
+    private javax.swing.JLabel lbl_product_brand;
+    private javax.swing.JLabel lbl_product_category;
+    private javax.swing.JLabel lbl_product_code;
+    private javax.swing.JLabel lbl_product_name;
+    private javax.swing.JLabel lbl_product_photo;
+    private javax.swing.JLabel lbl_product_price;
+    private javax.swing.JLabel lbl_product_quantity;
+    private javax.swing.JLabel lbl_product_stockID;
+    private javax.swing.JLabel lbl_product_type;
+    private javax.swing.JPanel panel_product_category;
+    private javax.swing.JPanel panel_product_container;
+    private javax.swing.JPanel panel_product_description;
+    private javax.swing.JPanel panel_product_generalDesc;
+    private javax.swing.JPanel panel_product_picture;
+    private javax.swing.JSpinner spinner_product_price;
+    private javax.swing.JSpinner spinner_product_quantity;
+    private javax.swing.JTextArea txtA_product_description;
+    private javax.swing.JTextField txtF_product_code;
+    private javax.swing.JTextField txtF_product_name;
+    private javax.swing.JTextField txtF_product_stockID;
     // End of variables declaration//GEN-END:variables
 }

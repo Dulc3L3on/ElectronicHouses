@@ -177,7 +177,7 @@
         <Component class="javax.swing.JLabel" name="lbl_employeeName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Inter" size="14" style="0"/>
+              <Font name="AnjaliOldLipi" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Name:"/>
           </Properties>
@@ -185,7 +185,7 @@
         <Component class="javax.swing.JLabel" name="lbl_ID">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Inter" size="14" style="0"/>
+              <Font name="AnjaliOldLipi" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ID:"/>
           </Properties>
@@ -193,7 +193,7 @@
         <Component class="javax.swing.JLabel" name="lbl_position">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Inter" size="14" style="0"/>
+              <Font name="AnjaliOldLipi" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Position:"/>
           </Properties>
@@ -201,7 +201,7 @@
         <Component class="javax.swing.JLabel" name="lbl_office">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Inter" size="14" style="0"/>
+              <Font name="AnjaliOldLipi" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Office:"/>
           </Properties>
@@ -240,11 +240,17 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_date">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="DejaVu Sans Condensed" size="13" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Wednesday, March 8th 2023"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_time">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="DejaVu Sans Condensed" size="13" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="20:15"/>
           </Properties>
         </Component>

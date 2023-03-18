@@ -1,0 +1,58 @@
+//revisar lo de current date
+//revisar lo de ON DELETE, auqneu vagamente recuerdo que solo afecta la columna xD
+
+//Revisar si caudno hay default se necesita NOT NULL o no
+
+ADD
+* la tabla brand
+* la tabla type (que no es igual a categoría, pues en esta se encuentra - microondas, refri...)
+* tabla solicitudes
+MODIFICAR
+* la tabla producto
+    haciendo que categoría sea -
+    y tipo -
+VER
+* si vas a hacer que la fecha y la hora se add a un solo campo
+* se mantengan en separado y así se meustre en la tabla
+* se mantenga separadao pero en la tabla se muestre junto...
+
+13-MAR  
+* terminar INSERTs
+* agregar office en la interfaz/contract
+* ER
+
+March 15th
+ADD
+* y recuerda que la ventanita para
+    **DELETE una venta individual (SOLD) será un JOptionPane
+    **UPDATE una SALE será tb un JOptionPane
+* A y tienes que hacer el LOGIN, lo habías olvidado xD
+    **si te sobra tiempo y ganas, entonces lo de marcaje de hora...
+        ***aunque creo, por lo que he visto en TELUS, porque pensaba
+           diferente al ver lo de ROY, que es otro software, que se
+           conecta a la DB de la tienda...
+* add el atributo de EDIT en SALE (no sold) porque solo es permitida
+  un solo CHANGE pro SALE
+    **entonces el método además de verificar si EDIT (sin importar que
+      lo adquirido sea <= o > se mostrará la ventanita para cobrar) va
+      verificará cuanto CASH hay que devolver
+        ***no te vayas a poner con tus moños y add lo de cards, porque
+           eso si ya es irresponsabilidad, porque dejarías de hacer algo
+           que debes por algo que quieres por puro capricho/ego
+* also add DAO to stock, and TRANSFER
+* and look for this axn that just can be done IF a condition is done.
+    //before add more xD like CHANGE
+
+INTERFFACE
+* ADD button CHANGE to the interface to SALES for SALES_PERSON
+* ADD the textfield to search a sale, by the code of this one.
+    //jaja so this field wil be useful xD
+    * This searching just can be done with this CODE, if there is no
+      code, so it will be impossible to do that.
+        //Actually real companies do that... it make them the job easy
+* la ventanita para cobrar (porque todas las cajas los tienen
+  así se mira más real)
+* LOGIN
+
+
+

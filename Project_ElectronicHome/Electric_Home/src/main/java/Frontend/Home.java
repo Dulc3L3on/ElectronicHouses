@@ -64,16 +64,16 @@ public class Home extends javax.swing.JFrame {
         lbl_changeUser.setFont(new java.awt.Font("Khmer OS", 2, 12)); // NOI18N
         lbl_changeUser.setText("- Click to change user -");
 
-        lbl_employeeName.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        lbl_employeeName.setFont(new java.awt.Font("AnjaliOldLipi", 1, 15)); // NOI18N
         lbl_employeeName.setText("Name:");
 
-        lbl_ID.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        lbl_ID.setFont(new java.awt.Font("AnjaliOldLipi", 1, 15)); // NOI18N
         lbl_ID.setText("ID:");
 
-        lbl_position.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        lbl_position.setFont(new java.awt.Font("AnjaliOldLipi", 1, 15)); // NOI18N
         lbl_position.setText("Position:");
 
-        lbl_office.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        lbl_office.setFont(new java.awt.Font("AnjaliOldLipi", 1, 15)); // NOI18N
         lbl_office.setText("Office:");
 
         txtF_ID.setEditable(false);
@@ -88,8 +88,10 @@ public class Home extends javax.swing.JFrame {
         txtF_office.setEditable(false);
         txtF_office.setFont(new java.awt.Font("Laksaman", 0, 13)); // NOI18N
 
+        lbl_date.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 13)); // NOI18N
         lbl_date.setText("Wednesday, March 8th 2023");
 
+        lbl_time.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 13)); // NOI18N
         lbl_time.setText("20:15");
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ElectronicHome.jpg"))); // NOI18N

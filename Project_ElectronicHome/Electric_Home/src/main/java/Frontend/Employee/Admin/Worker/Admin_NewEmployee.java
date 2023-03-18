@@ -41,7 +41,6 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         lbl_employee_salary = new javax.swing.JLabel();
         txtF_employee_salary = new javax.swing.JTextField();
         spinner_employee_CUI = new javax.swing.JSpinner();
-        btn_employee_accept = new javax.swing.JButton();
         panel_employee_contract = new javax.swing.JPanel();
         lbl_employee_startDate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -49,10 +48,9 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         lbl_employee_endDate = new javax.swing.JLabel();
         formatField_endingDate = new javax.swing.JFormattedTextField();
         formatField_hiringDate = new javax.swing.JFormattedTextField();
+        btn_employee_accept = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        panel_employee_new.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         panel_employee_data.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee data"));
 
@@ -123,33 +121,33 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(panel_employee_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(31, 31, 31)
                 .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_employee_dataLayout.createSequentialGroup()
                         .addComponent(lbl_employee_CUI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_employee_ID)
                         .addGap(18, 18, 18)
-                        .addComponent(spinner_employee_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(txtF_employee_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))
                     .addGroup(panel_employee_dataLayout.createSequentialGroup()
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_employee_dataLayout.createSequentialGroup()
-                                .addComponent(lbl_employee_ID)
+                                .addComponent(lbl_employee_salary)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtF_employee_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(panel_employee_dataLayout.createSequentialGroup()
-                                    .addComponent(lbl_employee_position)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(25, 25, 25)
-                                    .addComponent(lbl_employee_salary)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panel_employee_dataLayout.createSequentialGroup()
-                                    .addComponent(lbl_employee_name)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtF_employee_name))))
-                        .addContainerGap(14, Short.MAX_VALUE))))
+                                .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(spinner_employee_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                                .addComponent(lbl_employee_position)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                                .addComponent(lbl_employee_name)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtF_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(92, Short.MAX_VALUE))))
             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(lbl_changePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,32 +158,29 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panel_employee_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panel_employee_dataLayout.createSequentialGroup()
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_employee_ID)
-                            .addComponent(txtF_employee_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52)
-                        .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtF_employee_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_employee_CUI)
                             .addComponent(spinner_employee_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(56, 56, 56)
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_employee_name))
-                        .addGap(18, 18, 18)
+                            .addComponent(lbl_employee_name)
+                            .addComponent(txtF_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_employee_position)
-                            .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_employee_salary)
-                            .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(panel_employee_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_changePicture)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        btn_employee_accept.setText("ACCEPT");
-        btn_employee_accept.setEnabled(false);
 
         panel_employee_contract.setBorder(javax.swing.BorderFactory.createTitledBorder("Contract"));
 
@@ -207,81 +202,82 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
 
         formatField_hiringDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
+        btn_employee_accept.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Accept.png"))); // NOI18N
+
         javax.swing.GroupLayout panel_employee_contractLayout = new javax.swing.GroupLayout(panel_employee_contract);
         panel_employee_contract.setLayout(panel_employee_contractLayout);
         panel_employee_contractLayout.setHorizontalGroup(
             panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_employee_contractLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_employee_contractLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_employee_contractLayout.createSequentialGroup()
-                        .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panel_employee_contractLayout.createSequentialGroup()
-                                .addComponent(lbl_employee_endDate)
-                                .addGap(18, 18, 18)
-                                .addComponent(formatField_endingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(panel_employee_contractLayout.createSequentialGroup()
+                        .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_employee_contractLayout.createSequentialGroup()
                                 .addComponent(lbl_employee_startDate)
                                 .addGap(18, 18, 18)
-                                .addComponent(formatField_hiringDate)))
-                        .addGap(8, 8, 8))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                                .addComponent(formatField_hiringDate, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_employee_contractLayout.createSequentialGroup()
+                                .addComponent(lbl_employee_endDate)
+                                .addGap(18, 18, 18)
+                                .addComponent(formatField_endingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(270, 270, 270)
+                        .addComponent(btn_employee_accept)))
+                .addGap(24, 24, 24))
         );
         panel_employee_contractLayout.setVerticalGroup(
             panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_employee_contractLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_employee_startDate)
-                    .addComponent(formatField_hiringDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_employee_endDate)
-                    .addComponent(formatField_endingDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_employee_contractLayout.createSequentialGroup()
+                        .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_employee_startDate)
+                            .addComponent(formatField_hiringDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_employee_endDate)
+                            .addComponent(formatField_endingDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btn_employee_accept, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout panel_employee_newLayout = new javax.swing.GroupLayout(panel_employee_new);
         panel_employee_new.setLayout(panel_employee_newLayout);
         panel_employee_newLayout.setHorizontalGroup(
             panel_employee_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_employee_newLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_employee_newLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_employee_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_employee_data, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_employee_contract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(panel_employee_newLayout.createSequentialGroup()
-                .addGap(184, 184, 184)
-                .addComponent(btn_employee_accept, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel_employee_contract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panel_employee_newLayout.createSequentialGroup()
+                        .addComponent(panel_employee_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panel_employee_newLayout.setVerticalGroup(
             panel_employee_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_employee_newLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panel_employee_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panel_employee_contract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_employee_accept, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(panel_employee_contract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_employee_new, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel_employee_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel_employee_new, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel_employee_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -355,7 +351,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
     //no habrá UPDATE por el enunciado!!!
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_employee_accept;
+    private javax.swing.JLabel btn_employee_accept;
     private javax.swing.JComboBox<String> cbBox_employee_position;
     private javax.swing.JFormattedTextField formatField_endingDate;
     private javax.swing.JFormattedTextField formatField_hiringDate;

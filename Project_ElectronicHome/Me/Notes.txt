@@ -1,0 +1,361 @@
+COn respecto a los productos
+//cuando se estén ingresando
+//media vez se haya ingresado el nombre Y la marca
+//además de la "oficina/sucursal"
+    //se procederá a buscar el stock, pues esos datos son los nec
+    //para hallar el stock respectivo
+    //puesto que la tabla "PRODUCTO" almacena el stock al que pertenece
+    //y este tiene la "sucursal" en la que se encuentra.
+
+    //o sea la búsqueda sería así
+        //SEARCH en producto, aquel que tenga el name y brand ingresados
+        //THEN, IF you have an office SO you are going to search the stock
+        //THEN, ELSE you don't have stock, you are going to show nothing
+        //on the stock area.
+            //IF you have already a name, brand and office, and there is no
+            //stock, SO you are going to "create" it
+                //and I used quotations because it is going to be created 
+                //without postgres, then if there is no changes SO, you are
+                //going to create this stock.
+
+        
+    //en el caso de los stock de bodega, estos van a tener diferente inicial
+    //en el code, como SBA y los de tienda SOA (store bodega/office available)
+
+    //ya con ese código, no será necesario crear otra entidad, pues con ese distintivo
+    //basta. Porque si creo bodega como entidad, solo tendría nombre y almacenaría
+    //los stock con los distintivos
+        //lo cual sería como si creara un stock solo para apartar esos stock
+        //lo cual no está mal, para orden pero xD, si quieres no hacer no lo hagas
+        //da tremendamente igual.
+
+
+//Purchase
+    //es la tabla que almacena una fila por cada conjunto de producto igual
+//CUando se vaya a hacer insert, transfer o venta, el stock ser revisará
+//después de tener la "sucursal" así como lo escribiste y rep en tu cuaderno
+
+//CONTRACT
+    //ese es para relacionar al employee with the office
+
+//APPLIANCE
+    //lo cree para que cuando se tenga un producto nunevo, sin precio, entonces
+    //se coloque ahí
+
+//PRODUCT
+    //cuando un appliance ya tiene precio
+    //a partir de este será con el que se harán los JOIN, puesto que tiene stock
+    //y appliance
+
+//Office
+    //más que todo se usará par insertar y para consultar y add info
+
+//OPERACIONES
+    //Con respecto a los dctos, después de preguntar voy a app en la tabla, o
+    //con el programa sin guardarlo, dep de la respuesta.
+
+//SALE
+    //se creará en un principio antes de los PURCHASE, puesto que con eso se
+    //sabrá a quién pertenece un PURCHASE
+        //Es decir que PURCHASE tendrá la FK con el ID de sell
+
+//Store
+    //la agregué por el rol que va a tener el encargado de bodega
+    //pero seguirá siendo lo mismo que dije antes
+        //es decir va a ser básicamente lo mismo que stock, solo
+        //que con diferente formato de identificación y sin office.
+
+        //Ahh no no. No debe existir, bueno si podría, pero por la manera
+        //En que creaste producto, si add store, so you will have to add
+        //another atribute that will be related with Store, but if the 
+        //product is not in the store you will have to give a blank space
+        //and I don't want this.
+            //Also it remind me that if the case of pull or transfer a prod
+            //from store to an office, because of the ID that it will be a PK
+            //I won't be able to change it
+                //so I'll have to delete the stock IF all of the products on
+                //this are removed or transfer. If not, so nothing happens.
+
+
+//STOCK
+    //tendrá una línea por diferente tipo de producto, o de un mismo prod,
+    //si es que este pertenece a otra tienda...
+
+//con FK
+    //prodcut (2)
+    //purchase (2)
+    //contract (2)
+    //sale (2)
+    //stock (1)
+
+
+//IMAGES
+    //si está muy difícil guardar las img en la DB 
+    //entonces solo coloca una imagen general en los
+    //cuadritos que colocaste
+
+//bien podría haber guardado ADRESS para employee
+//pero eso implicaría crear una tabla PERSONA y como
+//ya lo hice así por separado, y sé que si lo hago,
+//tendré que hacer más relaciones y por tanto JOINS
+//entonces pues no lo haré :p
+
+//arreglar y agregar tablas, interfaz LISTA!
+
+
+//NOTA ABOUT POSTGRESQL
+
+//la FK de preferencia debe corresponder a la PK de la
+//entidad primordial en las interacciones, es decir
+//aquella que por las acciones a relaizar, es la que se
+//debe visitar de primero, por lógica y si se quiere 
+//hacer el proceso eficiente
+    //Eso lo descubrí por lo de Employee/contract
+    //pues estba pensando que, bien podía colocar
+    //el ID de contract en Employee, pero si hago eso
+    //Se complicaría la cosa, porque para hallar a un
+    //empleado teniendo el ID, tendría que buscarlo
+    //en contrato, luego hacer con eso el JOIN
+    //y pues resulta más rápido que el dato a buscar
+    //Sea una PK, porque resulta más fácil para la DB
+    //y eso es lo que sucede cuando tengo como PK, el
+    //ID de employee...
+
+
+//ENUMS
+ - justificación: como si se puede seleccionar los valores de los ENUM con un SELECT y como no quier oingresar nada más a
+   estos que el listado existente y quiero hacer casi todo con la DB y se puede add más cosas a los enum, entonces voy a
+   usar estos para Brand, type and category. No para store pues ella tiene más cosas que addle*/
+
+- pensaba en crear en todo caso un enum en Java y con eso setear los vals en la columna de la tabla
+  appliance en este caso, PERO si se add otro, tendría que modif el código de Java y creo que para 
+  ello se emplea la DB, es decir para datos cambiantes. entonces por buenas prácticas xD.
+    - además así pruebo otra manera...
+
+- structure
+    CREATE TYPE brand AS ENUM ('');
+
+//además si hubiera creado una tabla solo por ese dato tendría que haber empleado un join, y no iba
+  a ser una sola columna con ese caso...
+    - así que me ahorro JOINS xD
+        -mira si puedes guardar más de una palabra en un enum, así como en java, como para reemplazar
+         la TABLE store a un ENUM store
+    - para insertar debes usar la palabra como si fuera un VARCHAR y el tipo deberá ser TEXT...
+    - ENUM son case sensitive
+
+//PRODUCT
+    - con respecto a la tabla CTEGORY, la cree, porque como type and line van de la mano, entonces
+      si los creaba por separado como ENUM, podrían cometerse algunos errores, como el colocar un
+      tipo con la línea incorrecta, entonces lo que se hará es que cuando
+        - se INSERT un producto, al select el typo, a partir de él se irá a buscar a la tabla de
+          category, que línea le corresponde para así colocarla en el cbBox que no puede ser SELECT
+          y al presionar SAVE, lo que se hará es ir a buscar el ID de la relación entre esos dos ele
+          en categoría para insertarlo en APPLIANCE
+        - para buscarlo, cuando se seleccione
+            LINE- se seteará solo los TYPE que corresponden a ella(s), y todas si select ALL 
+            TYPE- se colocará automáticamente la LINE corresp en el cbBox y si
+                    > se cb de LINE, entonces se hará el punto1
+                    > se cb de TYPE, se volverá a exe 2, porque ahora la línea es otra...
+
+//ACUERDO
+    //BUSCAR productos
+        //si se selecciona ya sea ALL(type) o los 3 en LINE
+            //entonces no habrá WHERE para las LINE y TYPE                
+              (más que todo line), porque se quiere ver todo
+              //Y en el caso de TYPE si es que se marca 3 de
+                LINE, se pasaría a ALL 
+             //y si es que se select ALL, puedes marcar o
+               desmarcar todo... da lo mismo xD
+                    //mejor marcar todo xd
+        //si se selecciona +1 pero <3 en LINE, entonces
+            //NO habrá WHERE para TYPE, porque es más de
+              1 LINE y no los mismos tipos están en ella...
+            //y solo se colocaría ALL en el cbBox TYPE
+            //creo que en ecoline
+                //mira si vas a considerar ese caso 
+                  o vas a tratar parejo
+                      //porque si sí, entonces ya bien
+                        harías que no se pusiera en ALL
+                        el TYPE cuando eco y UNO más
+                        estuviera SELECT y buscarías en 
+                        la DB
+                      //o harías una bśuqueda previa 
+                        para ver si hay de ese tipo en
+                        AMBAS
+                          //en DEFINITIVA harías el JOIN
+                          para así dejar solo lo que hay
+                          entre ambas
+                              //esto justo después de que
+                                suceda el hecho de que
+                                eco y OTRO más esté select
+                                  //es decir que después de
+                                    eso se cb a la op de
+                                    TYPE all, y se tendría
+                                    lo recolectado por INNER
+
+//NOTAS GENERALES
+    - el ID se incrementará a partir del más grande hallado
+      en cada una de las tablas que tiene un ID incrementable
+      bajo tu criterio
+
+//ACLARACIÓN
+  - En un princiio tenía en mente crear un objeto y que ese tuviera
+    como atributo el DAO, pero NO debe ser así, puesto que en primer
+    lugar, lo primero que debo usar para obtener la data es el DAO,
+    entonces en todo caso debería ser al revés, porque de hacerlo como
+    lo tenía en mente, tendría que hacer el DAO static y así como que
+    no, además si almaceno la data en la entidad para así hallar la info
+    de manera más rápida
+      1. puede que se actualice la data y yo siga empleando la antigua
+      2. en dado caso hiciera un método para que esa data se UPDATE cuando
+         haya un UPDATE o axn modificadora, puede que haya retraso... iba 
+         a decir que para eso mejor jalaba los datos, aunque en mi pensar 
+         eso no estaría nada mal
+            2. pero lo que siempre nos han dicho es que cada vez obtengamos
+               la data de la DB para mayor facilidad xD
+
+
+//ME RECUERDO
+  - y tengo muy en mente, esa vez en que dije que no debía hacer nada porque
+    la clase en sí se ocupada de ordenar la data, puesto que se le había dado
+    la plantilla correspondiente
+    - no se si era para un proyecto que no hice, o que hice pero que no app esto...
+
+//SI pues
+  - ya en la clase Entity de Backend normal, lo que irán ahí son clases normales
+    es decir las que no se usan en la DB o en todo caso si se usan, entonces con
+    más funcionalidades como de costumbre xD
+      - más que todo sería como para complementar el hecho o las axn o ayudar a
+        las axn a hacer pues solo la DB no puede xD
+
+//ABOUT SALES
+  - NO habrá DELETE, puesto que entre las políticas de la empresa
+    //no se permitirá devolución de dinero, en todo caso lo que se
+    //permitiría es un UPDATE, pero deberá conceder permiso el de
+    //inventario
+        //el UPDATE consistiría en eliminar un producto, siempre y
+       //cuando no se quede sin nada, para añadir otro(S), y que
+       //el producto que escoja no se pase del precio valorado
+            //y si es el caso, entonces deberá pagar el remanente
+            //al igual que si paga más productos
+                //Eso si, con eso tendría que crear un método de JAVA
+                //que se encargue de hacer esto, porque lo que debería
+                //pedir es el restante
+                    //y si no hay de igual precio?
+                        //no es lo mejor, pero por facilidad y creo que
+                        //así es. La tienda se quedaría con el resto...
+                    //o sea tb que la caja deberá de percatarse que
+                    //el nuevo listado de productos sea <= al valor orig
+                    //o que si se pasa, cobrar el extra
+
+//ABOUT SALES
+   - Recuerda que con respecto a los UPDATE, se mostrará un JOptionPane
+     para pedir el código del de inventario, pero solo será para que
+     alguien más sea consciente del CHANGE...
+      //porque en realidad esto cuenta como otra venta (ya sea que tenga
+        algo que pagar o no) lo cual está a cargo de salesPerson.    
+
+//ABOUT SOLD
+  - media vez se presione el signo +, esta axn será realizada en la DB, 
+    puesto que ya se habrá creado la SALE con los datos primordiales/req
+    para proceder a hacer la SOLD, entonces no habrá problema.
+      **Es decir que la axn de DELETE sold, will be a reall delete, 'cause
+        it will be already done. 
+
+     ** related with this, SALE, will receive the reamining data, after 
+        press the button PROCEED. 
+
+    //just check that everything about DELETE is ok.
+
+//DELETE las SOLD -> SALE 
+  //first you will delete the sold and
+  //if there is no any SOLD to the specific
+  //SALE, so you will delete this. But until
+  //Reach this point.
+      BUT: it just can happen if there is 
+           no a CHANGE
+
+           //hay otra axn que solo puede suceder si 
+             una condi se cumple
+                //quiza era lo de SOLD y SALE cuando
+                  se quiere UPDATE, relacionado con 
+                  el disccount
+
+//EMPLOYEE/CONTRACT
+  //cunado se actualice, la parte del contrato, más que todo la posi y la fecha de end/ini 
+    //lo que se tendría que hacer es add OTRO contrato al mismo employee
+
+      **eso quiere decir que tengo que cb posición a contrato
+      **y hacer que en la interfaz, la fecha de INI se coloque y cuando pase esto, se add/update
+        en la interfaz, solo cuando contrato vaya a recibir info nueva (sea que tuviera antes o no)
+
+//ENVIO
+  //STORE: add la ventnita para ENVIAR  
+  //y a inventary: para revisar y así ADD
+    //al dar DOUBLE click en una fila, se abrirá para
+      ver detaller y add cuanto se recibió (así como en
+      TRANSFER pero en lugar de poner cuanto se transf,
+      será para insertar)
+        //por esta razón, el doble click ya solo servirá
+          para ver details
+        //con el de STORE seguirá permitiendose esto, porque
+          debe add cuando le llegue más del mismo
+              //Eso si FIJATE que la cdad sea mayor a la que
+                estaba originalmente
+                  //deplano que con otro spinner Y revisando
+                  //O solo revisando
+
+        
+//NOTA
+  ** media vez hago el código para el de INVENTARY solo tendría que hacer adaptaciones para
+     el de stowage...
+
+//INTERFACE
+  //INVENTORY
+      //SEARCH 
+        //cuando solo se coloque código
+          //Se buscará en el STOCK los productos que tengan ese código
+          //para así mostrar todos los que hay en cada tienda
+        //cuando se coloque tienda
+          //en cascada se buscará
+            //Todas las marcas que la tienda maneja
+            //todos los tipos que existan según el listado
+              de marcas
+        //cuando se seleccione solo marca
+          //Se buscará todos los tipos que estén relacionados
+            con esa marca.
+        
+//DAO + ENTITY + DTO 
+  //DAO in charge of CRUD - DB
+  //ENTITY in charge to do every axn that a specific entity has - programming language (as Java)
+  //DTO who receives all the info reolected by a DAO - (receptor/storage)
+
+//DELETE PRODUCT
+  //habí adicho que no, pero si no lo hacemos entonces
+    //seguirá viviendo en la DB, y en todo caso si sigue
+    //así podría hacerlo O hacer que tenga un campo, que
+    //diga si está descontinuado o no O simplemente eli
+    //y hacer que los empleado se recuerden de ello
+        //mejor que se quede (NO DELETE). No es nec add ese
+        //field, but if you want...
+ 
+
+ //I ALREADY HAVE QUERIES of 
+  //Inventary 
+  //Stowage
+  //transfer
+  //Product
+
+  //Para la interfaz de PRODUCTO  
+    //cuando presionan ADD
+        //Se va a buscar
+          //el CODE del producto
+              //IF search_existence()
+                  //search_product();
+              //ELSE create_code()
+          //el stockID()
+              //IF search_existence() //este devuelve la lista d ecosas entonces ya está xD
+              //ELSE create_stockID()
+
+          //ADD reamining info
+          //O si todos TRUE, UPDATE!    
