@@ -20,3 +20,104 @@ PARA TRANSFERIR
 //usand event
 /*int row = e.getFirstRow();//retorna la fila que fue cambiada
             int column = e.getColumn();       */
+
+
+//POSTGRESQL
+
+> CONTRACT
+//Previo a recordar que con columnas autoincre, no es NEC (es nec o no se debe???) ingresar el val para ella...
+/*EOC*/
+    INSERT INTO humanResourcesControl.Contract VALUES (562355, 'EOC-0000000', 'OID-12536477', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562356, 'EOC-0000001', 'OID-12536477', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562357, 'EOC-0000002', 'OID-12536477', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562358, 'EOC-0000003', 'OID-12536477', '31-12-2024', 'inventary');
+    
+    /*EON*/
+    INSERT INTO humanResourcesControl.Contract VALUES (562359, 'EON-3000000', 'OID-12536478', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562360, 'EON-3000001', 'OID-12536478', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562361, 'EON-3000002', 'OID-12536478', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562362, 'EON-3000003', 'OID-12536478', '31-12-2024', 'inventary');
+
+    /*EOS*/
+    INSERT INTO humanResourcesControl.Contract VALUES (562363, 'EOS-6000000', 'OID-12536479', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562364, 'EOS-6000001', 'OID-12536479', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562365, 'EOS-6000002', 'OID-12536479', '31-12-2024', 'sales');
+    INSERT INTO humanResourcesControl.Contract VALUES (562366, 'EOS-6000003', 'OID-12536479', '31-12-2024', 'inventary');
+
+    /*EOB*/
+    INSERT INTO humanResourcesControl.Contract VALUES (562367, 'EOT-9000000', 'OID-12536480', '31-12-2024', 'stowage');
+    INSERT INTO humanResourcesControl.Contract VALUES (562368, 'EOT-9000001', 'OID-12536480', '31-12-2024', 'stowage');
+    INSERT INTO humanResourcesControl.Contract VALUES (562369, 'EOT-9000002', 'OID-12536480', '31-12-2024', 'stowage');
+    INSERT INTO humanResourcesControl.Contract VALUES (562370, 'EOT-9000003', 'OID-12536480', '31-12-2024', 'stowage');
+
+    /*ADMIN*//*pertenece a una tienda??*/
+    INSERT INTO humanResourcesControl.Contract VALUES (562371, 'EOA-8000003', '', '31-12-2024', , 'administrator');
+
+> PRODUCT
+    INSERT INTO goodsControl.Product VALUES (100000000000, 'Door French Refrigerator', 'Frigidaire', 7500.35);
+    INSERT INTO goodsControl.Product VALUES (100000000001, 'Standard Depth Side by Side Refrigerator', 'Frigidaire', 6700.60);
+    INSERT INTO goodsControl.Product VALUES (100000000002, 'Refrigerator French Door 521 L', 'Haier', 8350.66);
+    INSERT INTO goodsControl.Product VALUES (100000000003, 'Stove LG Studio', 'LG Electronics', 9563.55);
+    INSERT INTO goodsControl.Product VALUES (100000000004, 'BLACK+DECKER IRBD100 QUICK AND EASY', 'BLACK+DECKER', 3453.04);
+    INSERT INTO goodsControl.Product VALUES (100000000005, 'CORE I3 Desktop Computer', 'HP', 10236.35);
+    INSERT INTO goodsControl.Product VALUES (100000000006, 'DEMO - ASUS X515EP-BQ222T i5 1135G7', 'ASUS', 13250.47);
+    INSERT INTO goodsControl.Product VALUES (100000000007, 'CELULAR XIAOMI REDMI A1', 'XIAOMI', 6580.35);
+    INSERT INTO goodsControl.Product VALUES (100000000008, 'Over-The-Range Microwave', 'Frigidaire', 3680.35);
+
+    INSERT INTO goodsControl.Product VALUES (100000000009, 'Nintendo Switch', 'Nintendo', 3453.04);
+    INSERT INTO goodsControl.Product VALUES (100000000010, 'Laptop Dell 3502 Celeron', 'Dell', 10236.35);
+    INSERT INTO goodsControl.Product VALUES (100000000011, 'Dish-washer', 'Whirlpool', 13250.47);
+    INSERT INTO goodsControl.Product VALUES (100000000012, 'CELULAR XIAOMI REDMI A1', 'XIAOMI', 6580.35);
+    INSERT INTO goodsControl.Product VALUES (100000000013, 'Oster BLST4655 Blender', 'Oster', 3680.35);
+
+    INSERT INTO goodsControl.Product VALUES (100000000014, 'HP PAVILION X360 14-DY0008LA i5 1135G7', 'HP', 3453.04);
+    INSERT INTO goodsControl.Product VALUES (100000000015, 'Single electric Wall Oven with Total Convection', 'Frigidaire', 10236.35);
+    INSERT INTO goodsControl.Product VALUES (100000000016, 'Laptop Dell 3501 CORE i3', 'Dell', 13250.47);
+    INSERT INTO goodsControl.Product VALUES (100000000017, 'LG CordZero A9 Aspiradora de Mano', 'LG Electronics', 6580.35);
+    INSERT INTO goodsControl.Product VALUES (100000000018, 'Camera EOS Rebel T100', 'Cannon', 3680.35);
+    INSERT INTO goodsControl.Product VALUES (100000000019, 'Oster CKSTAFOV3 Fryer', 'Oster', 3680.35);
+
+    INSERT INTO goodsControl.Product VALUES (100000000020, 'LG K22', 'LG Electronics', 13250.47);
+    INSERT INTO goodsControl.Product VALUES (100000000021, 'Robot Aspiradora Hombot con Motor Smart Inverter', 'LG Electronics', 6580.35);
+    INSERT INTO goodsControl.Product VALUES (100000000022, 'Black+Decker BLBD210GR Durapro', 'BLACK+DECKER', 3680.35);
+    INSERT INTO goodsControl.Product VALUES (100000000023, 'ASUS X515EA-BQ868W i3 1115G4', 'ASUS', 3680.35);
+
+> SELECT from Empl y Contract, puesto que ahí no se había movido a contract POSITION
+
+    private String getSelectedEmployeeSt(){
+        return "SELECT e.CUI e.ID, e.name, c.office p.position, p.salary, c.ID,"
+             + " c.initialDate, c.dueDate FROM humanResourcesControl.Employee as e"
+             + " INNER JOIN humanResourcesControl.Contract as c ON e.ID = c.employee"
+             + " INNER JOIN humanResourcesControl.Position as p c.position = p.position"
+             + " WHERE e.ID = ?";
+    }//READY
+
+
+    private String getEmployeeSt(){
+        return "SELECT e.ID e.CUI, e.name, p.position, c.office"
+             + " FROM humanResourcesControl.Employee as e INNER JOIN"
+             + " humanResourcesControl.Contract as c ON e.ID = c.employee"
+             + " INNER JOIN humanResourcesControl.Position as p c.position = p.position"
+             + " WHERE e.ID = ?";
+    }//READY
+
+-----------
+    /*sale*/
+    CREATE TABLE transactionControl.Sale(
+    ID VARCHAR(30) NOT NULL,/*if you want to make it real, add SERIES*/
+    office VARCHAR(25) NOT NULL, 
+    tender VARCHAR(20) NOT NULL,
+    customer VARCHAR(25) NOT NULL,
+    salesDate DATE DEFAULT CURRENT_DATE /*NOT NULL*/,    
+    disccount DECIMAL (3,2) DEFAULT 0 NOT NULL,/*este dato puede ser encontrado sin nec de SOLDs*/
+    total DECIMAL(16,2) CHECK(total >= 0),/*quité el NOT NULL, puesto que se add luego de press PROCEED*/
+    edit BOOLEAN DEFAULT FALSE,/*aunque como dije antes, creo que es redundante*/
+
+    PRIMARY KEY(ID),
+    FOREIGN KEY(office) REFERENCES officeControl.Office(ID) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY(tender) REFERENCES humanResourcesControl.Employee(ID) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY(customer) REFERENCES customerControl.Customer(NIT) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+    //Previo a ver que en realidad guardar el total anterior sería útil
+      por lo cual EDIT de boolean pasa a ser Double...

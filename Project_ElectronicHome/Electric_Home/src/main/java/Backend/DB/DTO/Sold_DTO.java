@@ -9,42 +9,52 @@ package Backend.DB.DTO;
  * @author phily
  */
 public class Sold_DTO {
-    private int code;
-    private String sale;
-    private long _product;
-    private int _cuantity;
+    private String _code;
+    private String _sale;
+    //esto no incluirá producto aquí fuera, porque Stock, le incluye...
+    private Stock_DTO _stockDTO;
+    private int _quantity;
     private double _subtotal;
 
-    public int getCode() {
-        return code;
+    public Sold_DTO(String code, Stock_DTO stock,
+            int _quantity, double _subtotal) {
+        this._code = code;
+        this._sale = "";        
+        this._stockDTO = stock;
+        this._quantity = _quantity;
+        this._subtotal = _subtotal;
+    }
+    
+    public String getCode() {
+        return _code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setCode(String code) {
+        this._code = code;
     }
 
     public String getSale() {
-        return sale;
+        return _sale;
     }
 
     public void setSale(String sale) {
-        this.sale = sale;
+        this._sale = sale;
     }
 
-    public long getProduct() {
-        return _product;
+    public Stock_DTO getStockDTO() {
+        return _stockDTO;
     }
 
-    public void setProduct(long _product) {
-        this._product = _product;
+    public void setStockDTO(Stock_DTO _stockDTO) {
+        this._stockDTO = _stockDTO;
     }
 
-    public int getCuantity() {
-        return _cuantity;
+    public int getQuantity() {
+        return _quantity;
     }
 
-    public void setCuantity(int _cuantity) {
-        this._cuantity = _cuantity;
+    public void setCuantity(int _quantity) {
+        this._quantity = _quantity;
     }
 
     public double getSubtotal() {

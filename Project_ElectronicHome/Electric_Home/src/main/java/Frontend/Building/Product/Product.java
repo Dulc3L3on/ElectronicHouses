@@ -43,8 +43,8 @@ public class Product extends javax.swing.JFrame {
         panel_product_category = new javax.swing.JPanel();
         lbl_product_type = new javax.swing.JLabel();
         cbBox_product_type = new javax.swing.JComboBox<>();
-        lbl_product_category = new javax.swing.JLabel();
-        cbBox_product_category = new javax.swing.JComboBox<>();
+        lbl_product_line = new javax.swing.JLabel();
+        cbBox_product_line = new javax.swing.JComboBox<>();
         panel_product_description = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtA_product_description = new javax.swing.JTextArea();
@@ -170,10 +170,10 @@ public class Product extends javax.swing.JFrame {
 
         cbBox_product_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lbl_product_category.setText("Category:");
+        lbl_product_line.setText("Line:");
 
-        cbBox_product_category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbBox_product_category.setEnabled(false);
+        cbBox_product_line.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBox_product_line.setEnabled(false);
 
         javax.swing.GroupLayout panel_product_categoryLayout = new javax.swing.GroupLayout(panel_product_category);
         panel_product_category.setLayout(panel_product_categoryLayout);
@@ -183,9 +183,9 @@ public class Product extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_product_categoryLayout.createSequentialGroup()
-                        .addComponent(lbl_product_category)
+                        .addComponent(lbl_product_line)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbBox_product_category, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbBox_product_line, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_product_categoryLayout.createSequentialGroup()
                         .addComponent(lbl_product_type)
                         .addGap(18, 18, 18)
@@ -201,8 +201,8 @@ public class Product extends javax.swing.JFrame {
                     .addComponent(lbl_product_type))
                 .addGap(18, 18, 18)
                 .addGroup(panel_product_categoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbBox_product_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_product_category))
+                    .addComponent(cbBox_product_line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_product_line))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -252,7 +252,7 @@ public class Product extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        lbl_product_Add.setText("le pondras el add, modif?");
+        lbl_product_Add.setText("add/modif - depen del employ");
 
         javax.swing.GroupLayout panel_product_containerLayout = new javax.swing.GroupLayout(panel_product_container);
         panel_product_container.setLayout(panel_product_containerLayout);
@@ -264,7 +264,7 @@ public class Product extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(panel_product_picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_product_containerLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(21, 21, 21)
                         .addComponent(lbl_product_Add)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -276,7 +276,7 @@ public class Product extends javax.swing.JFrame {
         panel_product_containerLayout.setVerticalGroup(
             panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_product_containerLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_product_containerLayout.createSequentialGroup()
                         .addComponent(panel_product_generalDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,10 +285,11 @@ public class Product extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panel_product_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_product_containerLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addComponent(panel_product_picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addGap(28, 28, 28)
                         .addComponent(lbl_product_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -299,7 +300,7 @@ public class Product extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_product_container, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panel_product_container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -321,15 +322,15 @@ public class Product extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbBox_product_brand;
-    private javax.swing.JComboBox<String> cbBox_product_category;
+    private javax.swing.JComboBox<String> cbBox_product_line;
     private javax.swing.JComboBox<String> cbBox_product_type;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_change_photo;
     private javax.swing.JLabel lbl_product_Add;
     private javax.swing.JLabel lbl_product_brand;
-    private javax.swing.JLabel lbl_product_category;
     private javax.swing.JLabel lbl_product_code;
+    private javax.swing.JLabel lbl_product_line;
     private javax.swing.JLabel lbl_product_name;
     private javax.swing.JLabel lbl_product_photo;
     private javax.swing.JLabel lbl_product_price;

@@ -50,9 +50,6 @@ public class Customer extends javax.swing.JFrame {
 
         panel_customer_photo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        txtF_customer_CUI.setEditable(false);
-        txtF_customer_CUI.setText("SHA5 base on NIT");
-
         lbl_customer_CUI.setText("CUI");
 
         jLabel2.setFont(new java.awt.Font("Inter", 2, 13)); // NOI18N
@@ -73,8 +70,8 @@ public class Customer extends javax.swing.JFrame {
                     .addGroup(panel_customer_photoLayout.createSequentialGroup()
                         .addComponent(lbl_customer_CUI)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtF_customer_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
+                        .addComponent(txtF_customer_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25))
         );
         panel_customer_photoLayout.setVerticalGroup(
             panel_customer_photoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,15 +112,14 @@ public class Customer extends javax.swing.JFrame {
                         .addComponent(lbl_customer_dateOfJoining)
                         .addGap(18, 18, 18)
                         .addComponent(spinner_customer_DateJoining))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(lbl_customer_NIT)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(lbl_customer_adress)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_customer_NIT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_customer_adress)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_customer_name)
                         .addGap(18, 18, 18)
@@ -199,6 +195,11 @@ public class Customer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //It is going to appear suddenly as a MODAL when there is NO
+    //customer with the specified NIT on the DB
+    
+    //SI se cierra sin guardar - simplemente no se hará nada xD
+    
     //el botón cb a EDIT, luego de presionarlo una vez para que no haya errores
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,33 +4,35 @@
  */
 package Backend.DB.DTO;
 
-import java.util.Date;
-
 /**
  *
  * @author phily
  */
 public class Customer_DTO {
    private String _NIT;
-   private String _name;
    private String _CUI;
-   private String _adress;
-   private Date _since;
+   private String _name;   
+   private String _address;
+   private java.util.Date _since;
 
+   public Customer_DTO(){}
+   
+   public Customer_DTO(String NIT, String CUI, String name,
+           String address, java.sql.Date since){
+   
+       this._NIT = NIT;
+       this._CUI = CUI;
+       this._name = name;
+       this._address = address;
+       this._since = new java.util.Date(since.getTime());
+   }
+   
     public String getNIT() {
         return _NIT;
     }
 
     public void setNIT(String _NIT) {
         this._NIT = _NIT;
-    }
-
-    public String getName() {
-        return _name;
-    }
-
-    public void setName(String _name) {
-        this._name = _name;
     }
 
     public String getCUI() {
@@ -40,21 +42,29 @@ public class Customer_DTO {
     public void setCUI(String _CUI) {
         this._CUI = _CUI;
     }
-
-    public String getAdress() {
-        return _adress;
+    
+    public String getName() {
+        return _name;
     }
 
-    public void setAdress(String _adress) {
-        this._adress = _adress;
+    public void setName(String _name) {
+        this._name = _name;
     }
 
-    public Date getSince() {
+    public String getAddress() {
+        return _address;
+    }
+
+    public void setAddress(String _adress) {
+        this._address = _adress;
+    }
+
+    public java.util.Date getSince() {
         return _since;
     }
 
-    public void setSince(Date _since) {
+    public void setSince(java.util.Date _since) {
         this._since = _since;
     }
    
-}
+}//Ready

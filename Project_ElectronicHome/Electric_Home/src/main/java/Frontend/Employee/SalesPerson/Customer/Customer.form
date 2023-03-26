@@ -111,10 +111,10 @@
                           <Group type="102" attributes="0">
                               <Component id="lbl_customer_CUI" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtF_customer_CUI" min="-2" pref="138" max="-2" attributes="0"/>
+                              <Component id="txtF_customer_CUI" min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -139,10 +139,6 @@
             <Component class="javax.swing.JLabel" name="lbl_customer_photo">
             </Component>
             <Component class="javax.swing.JTextField" name="txtF_customer_CUI">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="SHA5 base on NIT"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_customer_CUI">
               <Properties>
@@ -188,17 +184,15 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="spinner_customer_DateJoining" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lbl_customer_NIT" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="txtF_customer_NIT" min="-2" pref="279" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lbl_customer_adress" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtF_customer_adress" min="-2" pref="260" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lbl_customer_NIT" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtF_customer_NIT" min="-2" pref="279" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lbl_customer_adress" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtF_customer_adress" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbl_customer_name" min="-2" max="-2" attributes="0"/>

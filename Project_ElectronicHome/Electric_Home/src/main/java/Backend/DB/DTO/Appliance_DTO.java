@@ -11,9 +11,17 @@ package Backend.DB.DTO;
 public class Appliance_DTO {
     private String _name;
     private String _brand;
-    private int _clasification;
+    private Clasification_DTO _clasification;
     private String _detail;
 
+    public Appliance_DTO(String _name, String _brand, 
+            Clasification_DTO _clasification, String _detail) {
+        this._name = _name;
+        this._brand = _brand;
+        this._clasification = _clasification;
+        this._detail = _detail;
+    }   
+    
     public String getName() {
         return _name;
     }
@@ -30,11 +38,11 @@ public class Appliance_DTO {
         this._brand = _brand;
     }
 
-    public int getClasification() {
+    public Clasification_DTO getClasification() {
         return _clasification;
     }
 
-    public void setClasification(int _clasification) {
+    public void setClasification(Clasification_DTO _clasification) {
         this._clasification = _clasification;
     }
 

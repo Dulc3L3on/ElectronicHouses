@@ -10,12 +10,10 @@ package Backend.DB.DAO;
  */
 public class Admin_DAO {
     private Employee_DAO employee_DAO;
-    private Contract_DAO contract_DAO;
     private Report_DAO report_DAO;
     
     public Admin_DAO(){
-        this.employee_DAO = new Employee_DAO();
-        this.contract_DAO = new Contract_DAO();
+        this.employee_DAO = new Employee_DAO();        
         this.report_DAO = new Report_DAO();        
     }
     
@@ -23,11 +21,7 @@ public class Admin_DAO {
         return this.employee_DAO;
     }
     
-    public Contract_DAO getContract_DAO(){
-        return this.contract_DAO;
-    }
-    
     public Report_DAO getReport_DAO(){
         return this.report_DAO;
-    }    
+    }//pending
 }

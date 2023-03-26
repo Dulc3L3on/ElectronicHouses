@@ -34,7 +34,8 @@ public class Inventary_DAO {//CRUD about the person who is in charge
     
     public void add_More(){
         
-        this.stock_DAO.add_More();
+        //para mientras se comentará, pero creo que aquí no es nested...
+        //this.stock_DAO.add_More();
     }
     
     public void request_shipment(){

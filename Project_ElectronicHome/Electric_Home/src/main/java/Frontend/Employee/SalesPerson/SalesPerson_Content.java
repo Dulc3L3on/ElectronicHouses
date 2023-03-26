@@ -9,7 +9,7 @@ package Frontend.Employee.SalesPerson;
  * @author phily
  */
 public class SalesPerson_Content extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form SalesPerson_content
      */
@@ -42,6 +42,8 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         txtF_name = new javax.swing.JTextField();
         txtF_CUI = new javax.swing.JTextField();
         txtF_Adress = new javax.swing.JTextField();
+        lbl_since = new javax.swing.JLabel();
+        txtF_since = new javax.swing.JTextField();
         panel_paymentDescription = new javax.swing.JPanel();
         lbl_headerSubtotal = new javax.swing.JLabel();
         lbl_headerDiscount = new javax.swing.JLabel();
@@ -58,6 +60,8 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
+        lbl_SaleID = new javax.swing.JLabel();
+        lbl_ContentSaleID = new javax.swing.JLabel();
         tab_requestToTransfer = new javax.swing.JPanel();
         button_sendRequest = new javax.swing.JButton();
         lbl_IconState = new javax.swing.JLabel();
@@ -91,7 +95,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         txtF_StockID = new javax.swing.JTextField();
         txtF_Availability = new javax.swing.JTextField();
         txtF_Price = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        button_ADD = new javax.swing.JLabel();
         tab_inventary = new javax.swing.JPanel();
         scrollPanel_inventaryDetails = new javax.swing.JScrollPane();
         table_inventaryDetails = new javax.swing.JTable();
@@ -116,17 +120,17 @@ public class SalesPerson_Content extends javax.swing.JFrame {
 
         table_ProductsAdded.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Quantity", "Code", "Name", "Brand", "StockID", "Price", "Subtotal"
+                "Serial", "Code", "Name", "Brand", "StockID", "Price", "Quantity", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -135,17 +139,20 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table_ProductsAdded);
         if (table_ProductsAdded.getColumnModel().getColumnCount() > 0) {
+            table_ProductsAdded.getColumnModel().getColumn(0).setResizable(false);
             table_ProductsAdded.getColumnModel().getColumn(0).setPreferredWidth(90);
-            table_ProductsAdded.getColumnModel().getColumn(0).setMaxWidth(90);
-            table_ProductsAdded.getColumnModel().getColumn(1).setPreferredWidth(120);
-            table_ProductsAdded.getColumnModel().getColumn(1).setMaxWidth(120);
+            table_ProductsAdded.getColumnModel().getColumn(1).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(1).setPreferredWidth(100);
             table_ProductsAdded.getColumnModel().getColumn(2).setPreferredWidth(250);
+            table_ProductsAdded.getColumnModel().getColumn(3).setResizable(false);
             table_ProductsAdded.getColumnModel().getColumn(3).setPreferredWidth(150);
-            table_ProductsAdded.getColumnModel().getColumn(3).setMaxWidth(150);
+            table_ProductsAdded.getColumnModel().getColumn(4).setResizable(false);
             table_ProductsAdded.getColumnModel().getColumn(4).setPreferredWidth(110);
-            table_ProductsAdded.getColumnModel().getColumn(4).setMaxWidth(110);
+            table_ProductsAdded.getColumnModel().getColumn(5).setResizable(false);
             table_ProductsAdded.getColumnModel().getColumn(5).setPreferredWidth(120);
-            table_ProductsAdded.getColumnModel().getColumn(5).setMaxWidth(120);
+            table_ProductsAdded.getColumnModel().getColumn(6).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(6).setPreferredWidth(90);
+            table_ProductsAdded.getColumnModel().getColumn(7).setResizable(false);
         }
 
         table_similarProducts.setModel(new javax.swing.table.DefaultTableModel(
@@ -225,6 +232,10 @@ public class SalesPerson_Content extends javax.swing.JFrame {
 
         txtF_Adress.setEditable(false);
 
+        lbl_since.setText("Since:");
+
+        txtF_since.setEditable(false);
+
         javax.swing.GroupLayout Panel_DataFormLayout = new javax.swing.GroupLayout(Panel_DataForm);
         Panel_DataForm.setLayout(Panel_DataFormLayout);
         Panel_DataFormLayout.setHorizontalGroup(
@@ -243,8 +254,13 @@ public class SalesPerson_Content extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(Panel_DataFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtF_name, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtF_Adress, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(Panel_DataFormLayout.createSequentialGroup()
+                                .addComponent(txtF_Adress, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(lbl_since)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtF_since, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         Panel_DataFormLayout.setVerticalGroup(
             Panel_DataFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +276,9 @@ public class SalesPerson_Content extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Panel_DataFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtF_Adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_customerAdress))
+                    .addComponent(lbl_customerAdress)
+                    .addComponent(lbl_since)
+                    .addComponent(txtF_since, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -384,6 +402,10 @@ public class SalesPerson_Content extends javax.swing.JFrame {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
+        lbl_SaleID.setText("Sale: ");
+
+        lbl_ContentSaleID.setText("SID-");
+
         javax.swing.GroupLayout tab_saleLayout = new javax.swing.GroupLayout(tab_sale);
         tab_sale.setLayout(tab_saleLayout);
         tab_saleLayout.setHorizontalGroup(
@@ -394,18 +416,26 @@ public class SalesPerson_Content extends javax.swing.JFrame {
                     .addComponent(Panel_DataForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(tab_saleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_paymentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(tab_saleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_paymentDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_processPayment, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                    .addGroup(tab_saleLayout.createSequentialGroup()
+                        .addComponent(lbl_SaleID)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_ContentSaleID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
         tab_saleLayout.setVerticalGroup(
             tab_saleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tab_saleLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(tab_saleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(tab_saleLayout.createSequentialGroup()
-                        .addComponent(btn_processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(tab_saleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_SaleID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_ContentSaleID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panel_paymentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tab_saleLayout.createSequentialGroup()
@@ -620,7 +650,12 @@ public class SalesPerson_Content extends javax.swing.JFrame {
 
         txtF_Price.setEditable(false);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        button_ADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        button_ADD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_ADDMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_ProductSelectedLayout = new javax.swing.GroupLayout(Panel_ProductSelected);
         Panel_ProductSelected.setLayout(Panel_ProductSelectedLayout);
@@ -656,7 +691,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
                     .addComponent(spinner_quantityAdquired)
                     .addComponent(lbl_quantityAquired, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(button_ADD)
                 .addGap(41, 41, 41))
         );
         Panel_ProductSelectedLayout.setVerticalGroup(
@@ -664,7 +699,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
             .addGroup(Panel_ProductSelectedLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(Panel_ProductSelectedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(button_ADD)
                     .addGroup(Panel_ProductSelectedLayout.createSequentialGroup()
                         .addGroup(Panel_ProductSelectedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_name)
@@ -712,17 +747,17 @@ public class SalesPerson_Content extends javax.swing.JFrame {
 
         table_inventaryDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Code", "Name", "Brand", "StockID", "Price", "Avaible"
+                "Code", "Office", "Name", "Brand", "StockID", "Avaible", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -732,16 +767,18 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         scrollPanel_inventaryDetails.setViewportView(table_inventaryDetails);
         if (table_inventaryDetails.getColumnModel().getColumnCount() > 0) {
             table_inventaryDetails.getColumnModel().getColumn(0).setResizable(false);
-            table_inventaryDetails.getColumnModel().getColumn(0).setPreferredWidth(110);
-            table_inventaryDetails.getColumnModel().getColumn(1).setPreferredWidth(250);
-            table_inventaryDetails.getColumnModel().getColumn(2).setResizable(false);
-            table_inventaryDetails.getColumnModel().getColumn(2).setPreferredWidth(210);
+            table_inventaryDetails.getColumnModel().getColumn(0).setPreferredWidth(85);
+            table_inventaryDetails.getColumnModel().getColumn(1).setResizable(false);
+            table_inventaryDetails.getColumnModel().getColumn(1).setPreferredWidth(135);
+            table_inventaryDetails.getColumnModel().getColumn(2).setPreferredWidth(250);
             table_inventaryDetails.getColumnModel().getColumn(3).setResizable(false);
-            table_inventaryDetails.getColumnModel().getColumn(3).setPreferredWidth(110);
-            table_inventaryDetails.getColumnModel().getColumn(4).setPreferredWidth(120);
-            table_inventaryDetails.getColumnModel().getColumn(4).setMaxWidth(120);
-            table_inventaryDetails.getColumnModel().getColumn(5).setPreferredWidth(120);
-            table_inventaryDetails.getColumnModel().getColumn(5).setMaxWidth(120);
+            table_inventaryDetails.getColumnModel().getColumn(3).setPreferredWidth(210);
+            table_inventaryDetails.getColumnModel().getColumn(4).setResizable(false);
+            table_inventaryDetails.getColumnModel().getColumn(4).setPreferredWidth(90);
+            table_inventaryDetails.getColumnModel().getColumn(5).setResizable(false);
+            table_inventaryDetails.getColumnModel().getColumn(5).setPreferredWidth(90);
+            table_inventaryDetails.getColumnModel().getColumn(6).setResizable(false);
+            table_inventaryDetails.getColumnModel().getColumn(6).setPreferredWidth(90);
         }
 
         button_inventaryT2_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SearchVertical.png"))); // NOI18N
@@ -751,7 +788,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         lbl_inventary_productType.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_inventary_productType.setText("Type:");
 
-        cbBox_inventary_productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All (lo demás lo sacas de una tabla)" }));
+        cbBox_inventary_productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
 
         radioButton_inventory_WhiteLine.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_inventory_WhiteLine.setText("White line");
@@ -805,7 +842,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
-        cbBox_inventory_productBrand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "de la tabla" }));
+        cbBox_inventory_productBrand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
 
         lbl_inventary_productCode.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_inventary_productCode.setText("Code:");
@@ -911,10 +948,15 @@ public class SalesPerson_Content extends javax.swing.JFrame {
         //non editables
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void button_ADDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_ADDMouseClicked
+            
+    }//GEN-LAST:event_button_ADDMouseClicked
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel_DataForm;
     private javax.swing.JPanel Panel_ProductSelected;
     private javax.swing.JButton btn_processPayment;
+    private javax.swing.JLabel button_ADD;
     private javax.swing.JLabel button_inventaryT2_search;
     private javax.swing.JButton button_sendRequest;
     private javax.swing.JComboBox<String> cbBox_inventary_productType;
@@ -924,7 +966,6 @@ public class SalesPerson_Content extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -939,7 +980,9 @@ public class SalesPerson_Content extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbl_CUI;
+    private javax.swing.JLabel lbl_ContentSaleID;
     private javax.swing.JLabel lbl_IconState;
+    private javax.swing.JLabel lbl_SaleID;
     private javax.swing.JLabel lbl_availibility;
     private javax.swing.JLabel lbl_brand;
     private javax.swing.JLabel lbl_code;
@@ -961,6 +1004,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_price;
     private javax.swing.JLabel lbl_quantityAquired;
     private javax.swing.JLabel lbl_requestDate;
+    private javax.swing.JLabel lbl_since;
     private javax.swing.JLabel lbl_stockID;
     private javax.swing.JLabel lbl_subtotal;
     private javax.swing.JLabel lbl_title_expiration;
@@ -994,6 +1038,7 @@ public class SalesPerson_Content extends javax.swing.JFrame {
     private javax.swing.JTextField txtF_StockID;
     private javax.swing.JTextField txtF_name;
     private javax.swing.JTextField txtF_searchNIT;
+    private javax.swing.JTextField txtF_since;
     private javax.swing.JTextField txt_Code;
     private javax.swing.JTextField txt_inventory_productCode;
     // End of variables declaration//GEN-END:variables

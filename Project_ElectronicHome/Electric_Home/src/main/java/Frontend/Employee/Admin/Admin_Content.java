@@ -26,6 +26,8 @@ public class Admin_Content extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        group_filters = new javax.swing.ButtonGroup();
+        group_distincion = new javax.swing.ButtonGroup();
         tabPane_admin_actions = new javax.swing.JTabbedPane();
         tab_admin_employee = new javax.swing.JPanel();
         panel_admin_employeeData = new javax.swing.JPanel();
@@ -35,8 +37,10 @@ public class Admin_Content extends javax.swing.JFrame {
         lbl_admin_ID = new javax.swing.JLabel();
         lbl_admin_name = new javax.swing.JLabel();
         txtF_admin_name = new javax.swing.JTextField();
-        panel_admin_employee_filter = new javax.swing.JPanel();
         radioButton_ID = new javax.swing.JRadioButton();
+        radioButton_name = new javax.swing.JRadioButton();
+        panel_admin_employee_filter = new javax.swing.JPanel();
+        radioButton_filter_ID = new javax.swing.JRadioButton();
         radioButton_admin_name = new javax.swing.JRadioButton();
         radioButton_admin_lastName = new javax.swing.JRadioButton();
         radioButton_admin_dateSignIn = new javax.swing.JRadioButton();
@@ -51,6 +55,7 @@ public class Admin_Content extends javax.swing.JFrame {
         table_admin_employees = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         button_inventoryT1_search = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tab_admin_reports = new javax.swing.JPanel();
@@ -75,7 +80,7 @@ public class Admin_Content extends javax.swing.JFrame {
         panel_admin_employeeData.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "General Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
         lbl_admin_store.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
-        lbl_admin_store.setText("Store:");
+        lbl_admin_store.setText("Office:");
 
         cbBox_store.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All (lo sacarás de la tabla)" }));
 
@@ -85,41 +90,65 @@ public class Admin_Content extends javax.swing.JFrame {
         lbl_admin_name.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_admin_name.setText("Name:");
 
+        txtF_admin_name.setEditable(false);
         txtF_admin_name.setText("por si se les olvida su ID");
+
+        group_distincion.add(radioButton_ID);
+        radioButton_ID.setSelected(true);
+
+        group_distincion.add(radioButton_name);
 
         javax.swing.GroupLayout panel_admin_employeeDataLayout = new javax.swing.GroupLayout(panel_admin_employeeData);
         panel_admin_employeeData.setLayout(panel_admin_employeeDataLayout);
         panel_admin_employeeDataLayout.setHorizontalGroup(
             panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
-                        .addComponent(lbl_admin_store)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbBox_store, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
-                        .addComponent(lbl_admin_name)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtF_admin_name, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
+                                .addComponent(radioButton_name)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbl_admin_name)
+                                .addGap(11, 11, 11)
+                                .addComponent(txtF_admin_name, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
+                                .addGap(0, 6, Short.MAX_VALUE)
+                                .addComponent(lbl_admin_store)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbBox_store, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_admin_employeeDataLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(radioButton_ID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl_admin_ID)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtF_admin_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addComponent(txtF_admin_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))))
         );
         panel_admin_employeeDataLayout.setVerticalGroup(
             panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_admin_ID)
-                    .addComponent(txtF_admin_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtF_admin_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_admin_name, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(panel_admin_employeeDataLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioButton_ID)
+                            .addComponent(txtF_admin_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_admin_employeeDataLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbl_admin_ID)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_admin_name)
+                        .addComponent(txtF_admin_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(radioButton_name))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_admin_employeeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbBox_store, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_admin_store))
@@ -128,20 +157,25 @@ public class Admin_Content extends javax.swing.JFrame {
 
         panel_admin_employee_filter.setBorder(javax.swing.BorderFactory.createTitledBorder("Filter"));
 
-        radioButton_ID.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
-        radioButton_ID.setText("ID");
+        group_filters.add(radioButton_filter_ID);
+        radioButton_filter_ID.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
+        radioButton_filter_ID.setSelected(true);
+        radioButton_filter_ID.setText("ID");
 
+        group_filters.add(radioButton_admin_name);
         radioButton_admin_name.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_admin_name.setText("Name");
 
+        group_filters.add(radioButton_admin_lastName);
         radioButton_admin_lastName.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
-        radioButton_admin_lastName.setText("Last name");
+        radioButton_admin_lastName.setText("CUI");
         radioButton_admin_lastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButton_admin_lastNameActionPerformed(evt);
             }
         });
 
+        group_filters.add(radioButton_admin_dateSignIn);
         radioButton_admin_dateSignIn.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_admin_dateSignIn.setText("Date sign in");
 
@@ -158,11 +192,12 @@ public class Admin_Content extends javax.swing.JFrame {
                     .addGroup(panel_admin_employee_filterLayout.createSequentialGroup()
                         .addGroup(panel_admin_employee_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(radioButton_admin_name)
-                            .addComponent(radioButton_admin_lastName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                            .addComponent(radioButton_filter_ID))
+                        .addGap(71, 71, 71)
                         .addGroup(panel_admin_employee_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(radioButton_admin_dateSignIn)
-                            .addComponent(radioButton_ID))))
+                            .addComponent(radioButton_admin_lastName))
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addGap(36, 36, 36))
         );
         panel_admin_employee_filterLayout.setVerticalGroup(
@@ -173,12 +208,12 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(panel_admin_employee_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioButton_admin_name)
-                    .addComponent(radioButton_admin_dateSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                    .addComponent(radioButton_admin_lastName))
+                .addGap(18, 18, 18)
                 .addGroup(panel_admin_employee_filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioButton_admin_lastName)
-                    .addComponent(radioButton_ID))
-                .addGap(25, 25, 25))
+                    .addComponent(radioButton_filter_ID)
+                    .addComponent(radioButton_admin_dateSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panel_admin_employee_position.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Position", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
@@ -187,6 +222,7 @@ public class Admin_Content extends javax.swing.JFrame {
         radioButton_admin_inventory.setText("Inventory");
 
         radioButton_admin_all.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
+        radioButton_admin_all.setSelected(true);
         radioButton_admin_all.setText("All");
 
         radioButton_admin_sales.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
@@ -200,15 +236,15 @@ public class Admin_Content extends javax.swing.JFrame {
         panel_admin_employee_positionLayout.setHorizontalGroup(
             panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_admin_employee_positionLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(43, 43, 43)
+                .addGroup(panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(radioButton_admin_sales)
                     .addComponent(radioButton_admin_store))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(radioButton_admin_inventory)
                     .addComponent(radioButton_admin_all))
-                .addGap(22, 22, 22))
+                .addGap(37, 37, 37))
         );
         panel_admin_employee_positionLayout.setVerticalGroup(
             panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,26 +253,26 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addGroup(panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioButton_admin_sales)
                     .addComponent(radioButton_admin_inventory))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_admin_employee_positionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioButton_admin_store)
                     .addComponent(radioButton_admin_all))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         table_admin_employees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "CUI", "Name", "Position", "Store"
+                "ID", "CUI", "Name", "Position", "Office", "Hired"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -255,11 +291,15 @@ public class Admin_Content extends javax.swing.JFrame {
             table_admin_employees.getColumnModel().getColumn(3).setPreferredWidth(125);
             table_admin_employees.getColumnModel().getColumn(4).setResizable(false);
             table_admin_employees.getColumnModel().getColumn(4).setPreferredWidth(125);
+            table_admin_employees.getColumnModel().getColumn(5).setResizable(false);
+            table_admin_employees.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/less.png"))); // NOI18N
+
+        jLabel5.setText("UPdate");
 
         javax.swing.GroupLayout panel_admin_employee_detailLayout = new javax.swing.GroupLayout(panel_admin_employee_detail);
         panel_admin_employee_detail.setLayout(panel_admin_employee_detailLayout);
@@ -271,8 +311,9 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panel_admin_employee_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         panel_admin_employee_detailLayout.setVerticalGroup(
             panel_admin_employee_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,7 +322,9 @@ public class Admin_Content extends javax.swing.JFrame {
                     .addGroup(panel_admin_employee_detailLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel5)
+                        .addGap(45, 45, 45)
                         .addComponent(jLabel3))
                     .addGroup(panel_admin_employee_detailLayout.createSequentialGroup()
                         .addContainerGap()
@@ -319,7 +362,7 @@ public class Admin_Content extends javax.swing.JFrame {
                     .addComponent(panel_admin_employee_position, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(tab_admin_employeeLayout.createSequentialGroup()
                         .addComponent(button_inventoryT1_search, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panel_admin_employeeData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel_admin_employee_filter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -467,14 +510,22 @@ public class Admin_Content extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioButton_admin_lastNameActionPerformed
 
+    
+    //nos vamos a encrgar que si, selecciona all, entonces que se deseleccionen
+    //los demás, y si select todos que se select ALL
+        //esto último si todavía quieres xd
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel button_inventoryT1_search;
     private javax.swing.JComboBox<String> cbBox_filter;
     private javax.swing.JComboBox<String> cbBox_store;
+    private javax.swing.ButtonGroup group_distincion;
+    private javax.swing.ButtonGroup group_filters;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_admin_ID;
     private javax.swing.JLabel lbl_admin_name;
@@ -504,6 +555,8 @@ public class Admin_Content extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioButton_admin_name;
     private javax.swing.JRadioButton radioButton_admin_sales;
     private javax.swing.JRadioButton radioButton_admin_store;
+    private javax.swing.JRadioButton radioButton_filter_ID;
+    private javax.swing.JRadioButton radioButton_name;
     private javax.swing.JTabbedPane tabPane_admin_actions;
     private javax.swing.JPanel tab_admin_employee;
     private javax.swing.JPanel tab_admin_reports;

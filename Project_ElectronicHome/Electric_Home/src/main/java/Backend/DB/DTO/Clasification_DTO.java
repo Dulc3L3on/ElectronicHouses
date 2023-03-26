@@ -13,6 +13,12 @@ public class Clasification_DTO {
     private String _type;
     private String _line;
 
+    public Clasification_DTO(int _ID, String _type, String _line) {
+        this._ID = _ID;
+        this._type = _type;
+        this._line = _line;
+    }
+
     public int getID() {
         return _ID;
     }

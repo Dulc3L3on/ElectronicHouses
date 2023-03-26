@@ -16,8 +16,16 @@ public class Sale_DTO {
     private String _tender;
     private String _customer;
     private Date _salesDate;
+    private double _disccount;
     private double _total;
-
+    private double _pastTotal;//porque aquí se guardará la cdad antigua...
+    
+    public Sale_DTO(String customer, double disccount, double total){
+        this._customer = customer;
+        this._disccount = disccount;
+        this._total = total;
+    }
+    
     public String getCode() {
         return _code;
     }
@@ -58,12 +66,28 @@ public class Sale_DTO {
         this._salesDate = _salesDate;
     }
 
+    public double getDisccount() {
+        return _disccount;
+    }
+
+    public void setDisccount(double _disccount) {
+        this._disccount = _disccount;
+    }
+
     public double getTotal() {
         return _total;
     }
 
     public void setTotal(double _total) {
         this._total = _total;
+    }
+    
+    public double getPastTotal() {
+        return _pastTotal;
+    }
+
+    public void setPastTotal(double pastTotal) {
+        this._pastTotal = pastTotal;
     }
     
 }

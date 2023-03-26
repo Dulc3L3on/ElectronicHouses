@@ -1,0 +1,1199 @@
+   //PREVIO a darme cuenta que en ningún momento coloqué los "?" típicos colocados para
+   //evitar una inyección    
+    
+    private String getSearchStatement(String office, String[] position, String orderBy){
+        String search = "SELECT e.ID e-CUI e.name e.position c.office"
+                     + " FROM humanResourcesControl.Employee as e INNER JOIN"
+                     + " humanResourcesControl.Contract as c ON e.ID = c.employee";
+        
+        if(!office.equalsIgnoreCase("all")){
+            search += " AND c.office = "+ office;
+        }
+        if(position != null && !position[0].equalsIgnoreCase("all")){
+            for(int indice = 0; indice < position.length; indice++) {
+                search += " AND e.position = "+ position[indice] ;
+            }
+        }
+        
+        return (search += " ORDER BY "+ orderBy);
+        //orderBy, includes, by what and the type of order.
+    }//READY
+
+
+    //previo a darme cta que estaba repitiendo código
+    //al buscar employee (que en realidad es employees, debido
+    //a que pueden haber muchas personas bajo el mismo nombre xd)
+
+    ---------
+    public Employee_DTO getDetailedEmployee(ResultSet result){
+        try{
+            return new Employee_DTO(result.getString(0), result.getString(1),
+                                result.getString(2), result.getString(3),
+                                result.getDate(4), null);
+        }catch (SQLException e) {
+            System.out.println("Error: seting an EMPLOYEE");
+        }
+        
+        return null;
+    }//Ready
+
+    //Preio a darme cuenta de que getEmployees aunque no llene todos
+      los campos de Contract, debe tener ese objeto existente con los
+      campos recibidos...
+
+    ----------
+
+
+    /**
+     * Search a specific SOLD
+     * by code. It will be useful
+     * when there is a SALE
+     * UPDATE to find the next ID
+     * so it means that it will
+     * return the last ID registered
+     * to the specific SALE
+     */
+    public void findLastID(){
+    
+    }//By salesPerson
+    
+    /**
+     *It will be useful when we will
+     * want DELETE something, 'cause
+     * the posi of the row on the table,
+     * be the same code that the DB has
+     * if there was a previous delete
+     * and because we don't know, so...
+     */
+    public void searchToDelete(){
+    
+    }//By: salesPerson
+     //param: code of product
+
+     //PREVIO a cb el pensamiento que tenía de colocar un code
+       interno, porque en 1ER lugar, no ayudaba en nada y en 2DO
+       nada más daba trabajo, entonces ahora será un correlativo
+       general SERIAL (si no funciona entonces correlativo VARCHAR
+       by the Indexator TABLE)
+        //Entonces al hacer una update de una SALE no será nec buscar
+          que producto fue el últimoq ue se registró en ella, para
+          saber el ID, porque ahora es un correlativo general :) xD
+
+------------------
+//Previo a darme cta que en realidad es el stock el que se requiere en 
+  estos casos.
+    Por lo cual, la invocación al método que obtiene Productos, no 
+    aplica aquí...
+
+    /**
+     * Search the product that was 
+     * selected from the reference
+     * table.
+     */
+    public void search_selectedStock(long code, String brand,
+            String type, String line){       
+        this.movements_UI_DAO.search_product(code, brand, type, line);
+        
+        /*this.product_DAO.search_product(code, brand, type, line);
+            this.stock_DAO.search_Existence(code);*/
+    }
+
+----------------------
+Previo a implementar los métodos, puesto que ahora pienso que 
+este comentario, es NO APLICABLE, porque I already have all
+the nec methods implemented.
+
+    //methos of Movements_UI_DAO
+        //All except for the movements [until > search_Product()]
+            //because they just can request a tranfer
+            //not see all of them
+
+---------------------
+TRANSFOMER - getSold
+    //Previo a darme cuenta que estaba dejando perdidos varios 
+      datos de columnas necesarias, para mostrar una SOLD realizada
+      (en este caso pro UPDATE...)
+
+--------------------
+Movements_UI_DAO
+    //Previo a notar que tb debo especificar la store... por lo cual
+      se debe emplear una query más compleja...
+
+    private String getBranByType(){
+        return "SELECT a.theBrand FROM goodsControl.Appliance as a"
+             + " INNER JOIN goodsControl.Clasification as s"
+             + " ON a.clasification = s.ID"
+             + " WHERE c.type = ?";
+    }
+
+    /**
+     * Find a list of brands that
+     * have the selected type and
+     * are from the store
+     */
+    public String BrandByType(String type, String office){
+         try(PreparedStatement statement
+                = connection.prepareStatement(this.getBranByType())){
+            statement.setString(1, type);
+                            
+            ResultSet result = statement.executeQuery();
+            
+            if(result!= null && this.transformer_SPS.moveBegin(result)){
+                return result.getString(1);
+            }
+        }catch(SQLException e){            
+            System.out.println("Error: Impossible FIND a StoresBrandList");
+        }
+        return null;//pero esto no va a suceder xdxd
+    }//READY
+
+
+    --------------------
+    //No tiene error ni está mal, pero me di cta que debía escoger
+      entre usar get types of a list of brands OR get brands of a specific
+      type. Y como me costó más lo primero, y eso tenía pensado en un 
+      principio, entonces ese se quedó xD.
+        //Es que si dejaba este al final no me iba a dejar escoger la 
+          BRAND, porque c/v iba a estar cb ya sea por select otra BRAND o 
+          cb de TYPE
+
+    //_Creo que este no, porque si se aplica habría conflicto al momento
+    //y al final de cuentas no dejaría que se seteara si noe stoy mal la BRAND
+    private String getBranByType(){
+        return "SELECT p.theBrand FROM goodsControl.Product as p"
+             + " INNER JOIN goodsControl.Stock as s ON s.product = p.code"
+             + " INNER JOIN goodsControl.Appliance as a ON a.name = p.name"
+             + " INNER JOIN goodsControl.Clasification as c ON a.clasification = c.ID"
+             + " WHERE c.type = ? AND s.office = ?";
+    }
+    
+    /**
+     * Find a list of brands that
+     * have the selected type and
+     * are from the store
+     */
+    public ArrayList<String> BrandByType(String type, String office){
+         try(PreparedStatement statement
+                = connection.prepareStatement(this.getBranByType())){
+            statement.setString(1, type);
+            statement.setString(2, office);
+                
+            ResultSet result = statement.executeQuery();
+            
+            if(result!= null && this.transformer_SPS.moveBegin(result)){
+                return this.transformer_SPS.getList(result);
+            }
+        }catch(SQLException e){            
+            System.out.println("Error: Impossible FIND a StoresBrandList");
+        }
+        return new ArrayList<>();//pero esto no va a suceder xdxd
+    }//READY
+     //the opposite of getBrands_TYpes
+     //because instead or recolet types
+     //by a type we are going to collect the brand
+    
+    //_entonces o usas estos o lo de arriba, y como me costó más
+    //lo de arriba, entonces será eso xD
+
+    -----------------
+
+    //Previo a ver que me faltaba la palabra WHERE
+        //FROM: Employee_DAO
+
+    private String getEmployeesSt(String name, String office, String[] position,
+                                    String orderBy){
+        boolean where = false;
+        
+        String search = "SELECT e.ID e.CUI, e.name, c.position, c.office e.hired"
+                     + " FROM humanResourcesControl.Employee as e INNER JOIN"
+                     + " humanResourcesControl.Contract as c ON e.ID = c.employee";
+        
+        if(name != null){
+            search += " AND e.name = ?";
+        }        
+        if(!office.equalsIgnoreCase("all")){
+            search += " AND c.office = ?";
+        }
+        if(position != null && !position[0].equalsIgnoreCase("all")){
+            for(int indice = 0; indice < position.length; indice++) {
+                search += " AND c.position = ?";
+            }
+        }
+        
+        return (search += "ORDER BY e."+ orderBy +", e.hired");//puesto que es ordery by, colocaremos directamente la data
+        //orderBy, includes, by what and the type of order.
+    }//READY
+
+
+    ------------------
+
+    //Previo a darme cuenta de que hace falta la imple de
+      clasificación y de Appliance
+        //Mas que todo lo que voy a componer, es el String
+          SEARCH
+
+       private String getSearchProductSt(boolean code, boolean office, 
+        boolean brand, boolean type, boolean line){//al menos uno debe estar seleccionado...
+        boolean where = false;
+        
+        String search = "SELECT p.code, p.name, p.theBrand, s.ID, s.quantity,"
+             + "p.price FROM goodsControl.Product as p INNER JOIN"
+             + " goodsControl.Stock as s ON s.product = p.code";
+        
+        if(code){
+            search += " WHERE p.code = ?";
+            where = true;
+        }if(office){
+            search += ((!where)?" WHERE":" AND") + " s.office = ?";
+            if(!where) where = true;
+        }if(brand){
+            search += ((!where)?" WHERE":" AND") + " p.theBrand = ?";
+            if(!where) where = true;
+        }if(type){
+            search += ((!where)?" WHERE":" AND") + " s.office = ?";
+            if(!where) where = true;
+        }//falta clasificación... y por lo tanto appliance
+             
+        
+        return "";     
+    }
+
+------------------------
+Ya no porque el código será manejado por medio del ALTER
+entonces la DB tiene a cargo esta tarea...
+
+/**
+     * WHen a product doesn't exist
+     * in the whole DB
+     */
+    public void create_code(){
+    
+    }
+
+--------------------------
+Ya no, al menos no con estos parám, porque como hay un método
+para buscar más de 1 producto con estos criterios, entonces
+bien puedo utilizar ese para buscar solo 1...
+
+    /**
+     * It searchs a product, by
+     * the code and maybe by brand,
+     * type and line that are no
+     * mandatory when is already
+     * existent (search).
+     * 
+     */
+    public void search_product(long code, String brand, String type, String line){
+    
+    }//By: inventory AND store
+        //Bueno en realidad con el PLURAL basta porque podría ser 
+        //una lista de 1 elemento
+        //It is the same that I did for salesPerson to the inventary-tab, just add everything     
+
+-------------------------
+
+Antes de darme cuenta que un producto engloba un apliance (que por sí solo
+no tiene valor de venta)
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package Backend.DB.DTO;
+
+/**
+ *
+ * @author phily
+ */
+public class Product_DTO {
+   private long _code;
+   private String _name;
+   private String _brand;//Recuerda que en el caso del jasper, os nombres de los atrib del repo son los que deben corresponder a estos...   
+   private double _price;
+
+    public Product_DTO(long _code, String _name, String _brand, double _price){
+        this._code = _code;
+        this._name = _name;
+        this._brand = _brand;
+        this._price = _price;
+    }
+   
+    public long getID() {
+        return _code;
+    }
+
+    public void setID(long _code) {
+        this._code = _code;
+    }
+
+    public String getName() {
+        return _name;
+    }
+
+    public void setName(String _name) {
+        this._name = _name;
+    }
+
+    public String getBrand() {
+        return _brand;
+    }
+
+    public void setBrand(String _brand) {
+        this._brand = _brand;
+    }
+
+    public double getPrice() {
+        return _price;
+    }
+
+    public void setPrice(double _price) {
+        this._price = _price;
+    }
+  
+}
+
+------------------
+Puesto que un stock incluye un producto y por lo tanto
+el colocar el producto a fuera al giaul que adrentro de
+stock, es no válido/lógico.
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Backend.DB.DTO;
+
+/**
+ *
+ * @author phily
+ */
+public class Sold_DTO {
+    private String _code;
+    private String _sale;
+    private Product_DTO _productDTO;//esto no debería estar aquí, porque un Stock, incluye un Porducto...
+    private Stock_DTO _stockDTO;
+    private int _quantity;
+    private double _subtotal;
+
+    public Sold_DTO(String code, Product_DTO productDTO, Stock_DTO stock,
+            int _quantity, double _subtotal) {
+        this._code = code;
+        this._sale = "";
+        this._productDTO = productDTO;
+        this._stockDTO = stock;
+        this._quantity = _quantity;
+        this._subtotal = _subtotal;
+    }
+    
+    public String getCode() {
+        return _code;
+    }
+
+    public void setCode(String code) {
+        this._code = code;
+    }
+
+    public String getSale() {
+        return _sale;
+    }
+
+    public void setSale(String sale) {
+        this._sale = sale;
+    }
+
+    public Product_DTO getProduct_DTO() {
+        return _productDTO;
+    }
+
+    public void setProduct(Product_DTO _product) {
+        this._productDTO = _product;
+    }
+
+    public Product_DTO getProductDTO() {
+        return _productDTO;
+    }
+
+    public void setProductDTO(Product_DTO _productDTO) {
+        this._productDTO = _productDTO;
+    }
+
+    public Stock_DTO getStockDTO() {
+        return _stockDTO;
+    }
+
+    public void setStockDTO(Stock_DTO _stockDTO) {
+        this._stockDTO = _stockDTO;
+    }
+
+    public int getQuantity() {
+        return _quantity;
+    }
+
+    public void setCuantity(int _quantity) {
+        this._quantity = _quantity;
+    }
+
+    public double getSubtotal() {
+        return _subtotal;
+    }
+
+    public void setSubtotal(double _subtotal) {
+        this._subtotal = _subtotal;
+    }
+    
+}
+
+--------------
+Previo a darme cuenta de que para producto, y stock (pero específicamente
+para producto en esta situación), debido a que engloba appliance, y que 
+no en todos los casos, detail y clasification estan prtes, entonces, para
+no tener que estar repitiendo los métodos, o hacer un método que decida
+cuál de los dos escoger para reducir un poco la repetición, es mejor
+hacer que esos dos campos los reciba directamente
+    pues si
+        - el result los tiene, entonces se los pueda enviar
+        - o si no, entonces que se envíe el respectivo espacio vacío xD
+
+---------------
+Previo a darme cta de que en realidad ya en los objetos, lo de clasificación
+debería estar pero con sus respectivos 2 atrib en lugar del int que le rep 
+o un objeto que reciba esos 2 atrib
+    //obvidamente me tiraré por un obj xD
+
+public class Appliance_DTO {
+    private String _name;
+    private String _brand;
+    private int _clasification;
+    private String _detail;
+
+    public Appliance_DTO(String _name, String _brand, int _clasification, String _detail) {
+        this._name = _name;
+        this._brand = _brand;
+        this._clasification = _clasification;
+        this._detail = _detail;
+    }   
+    
+    public String getName() {
+        return _name;
+    }
+
+    public void setName(String _name) {
+        this._name = _name;
+    }
+
+    public String getBrand() {
+        return _brand;
+    }
+
+    public void setBrand(String _brand) {
+        this._brand = _brand;
+    }
+
+    public int getClasification() {
+        return _clasification;
+    }
+
+    public void setClasification(int _clasification) {
+        this._clasification = _clasification;
+    }
+
+    public String getDetail() {
+        return _detail;
+    }
+
+    public void setDetail(String _detail) {
+        this._detail = _detail;
+    }
+    
+}
+
+------------------
+Previo a ver que no molestaría y hasta estaría mejor, el mostrar
+correspondiente en la tabla de los R// en el apartado inventory
+tanto de salesPerson, Inventory y Stowage...
+
+//para el inventory
+ /**
+     * It is the method that gather
+     * the 2 methdos that are going
+     * to be used when a salesPerson
+     * uses the inventary-tab.
+     */
+    
+    public ArrayList<Stock_DTO> searchOnInventary(String code, String store, 
+            String brand, String type, String[] line){       
+        
+        if(code != null && store.equals("all") && brand.equals("all")
+                && type.equals("all") && line[0].equals("all")){
+           return this.search_similarProducts(null, code);//puesto que este espacio se dedicó al hecho de que no se especificó la store...
+        }else{//tb podría ser code == null y los demás == all... lo cual noe está mal...
+            //si hay code, solo code + store tiene sentido... pero eso dependerá del user...
+            this.searchProduct(code, store, brand, type, line);
+        }        
+        return new ArrayList<>();
+    }
+    
+    private String getSearchProductSt(boolean code, boolean office, 
+        boolean brand, boolean type, boolean line){//al menos uno debe estar seleccionado...
+        boolean where = false;
+        
+        String search = "SELECT p.code, p.name, p.theBrand, s.ID, s.quantity,"
+             + " p.price FROM goodsControl.Product as p "
+             + " INNER JOIN goodsControl.Stock as s ON s.product = p.code"
+             + " INNER JOIN goodsControl.Appliance as a ON a.name = p.name"
+             + " INNER JOIN goodsControl.Clasification as c ON c.ID = a.clasification";             
+        
+        if(code){//cuando algo más a parte de code se escribe es cuando este aplica, porque si estuviera solo entonces se emplearía el método de getSimilar
+            search += " WHERE p.code = ?";
+            where = true;
+        }if(office){
+            search += ((!where)?" WHERE":" AND") + " s.office = ?";
+            if(!where) where = true;
+        }if(brand){
+            search += ((!where)?" WHERE":" AND") + " p.theBrand = ?";
+            if(!where) where = true;
+        }if(type){
+            search += ((!where)?" WHERE":" AND") + " c.tyoe = ?";
+            if(!where) where = true;
+        }if(line){
+            search += ((!where)?" WHERE":" AND") + " c.line = ?";            
+        }
+        return search;     
+    }
+    
+    /**
+     * It will be used to search a
+     * product when the filters were
+     * used.
+     */
+    private ArrayList<Stock_DTO> searchProduct(String code, String office, String brand,
+        String type, String[] line){
+        
+        int index = 1;
+        
+        try(PreparedStatement statement
+                = connection.prepareStatement(
+                  this.getSearchProductSt((code!=null),(!office.equals("all")),
+                   (!brand.equals("all")), (!type.equals("all")), (!line[0].equals("all"))))){
+            if(code != null){
+                statement.setString(index, code);
+                index++;
+            }        
+            if(!office.equals("All")){
+                statement.setString(index, office);
+                index++;
+            }if(!brand.equals("All")){
+                statement.setString(index, brand);
+                index++;
+            }if(!type.equalsIgnoreCase("all")){
+                statement.setString(index, type);
+                index++;
+            }if(line != null && !line[0].equals("All")){
+                for(int indice = 0; indice < line.length; indice++) {
+                    statement.setString(indice+index, line[indice]);
+                }
+            }
+            
+            ResultSet result = statement.executeQuery();
+            
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getStocks(result, null);//puesto que la tabla tiene las mismas columnas en sale como acá en inventary, entonces puede reutilizarse... además como al dar click podrá ver el produto detallado entocnes ahí verá de qué tienda es xD
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
+        }
+        return new ArrayList<>();    
+    }/*este solo se encarga de enviar los campos según el string generado arribita xD*/
+    
+    //-------
+
+De colado se van estos dos, aunque no se vaya a mostrar en la tabla, de todos modos no fastidia xD
+    //----------Para sales tab e inventary tab (porque tienen los mismos campos a SELECT...
+    
+    private String getSimilarProductsSt(boolean office, String like){
+        return "SELECT p.code, p.name, p.brand, s.ID, s.quantity"
+             + " p.price FROM goodsControl.Product as p "
+             + " INNER JOIN goodsControl.Stock as s ON p.code = s.product"
+             + " "+ ((office)?"WHERE s.office = ? AND ": "") 
+             + " p.code LIKE \'" + like + "%\'";//to find any code that starts with the given entrance
+    }//cuando se use para SALE -> WHERE = true, caso contrario en inventary
+        //aunque tb hubiera podido hacer que en el caso de inventary office = current()
+    /**
+     * It will search the list by 
+     * the code that the salesperson
+     * is entering. For sale and check
+     * (sale and inventary tab).
+     */
+    public ArrayList<Stock_DTO> search_similarProducts(String office, String code){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSimilarProductsSt(
+                        ((office==null)?false:true), code))){
+            statement.setString(1, office);            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getStocks(result, office);
+            }else{
+                return new ArrayList<>();
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the similar Stocks -> " +e.getMessage());
+            return null;
+        }
+    }//Ready
+    
+    //-----------
+
+    Previo a darme cta que estaba colocando Producto afuera, cuando en
+    realidad solo debería ir dentro de Stock, aprovechando que está prte
+
+     public Sold_DTO getSold(ResultSet result){
+        try{
+            return new Sold_DTO(result.getString(1),
+                new Product_DTO(result.getLong(2), 
+                        new Appliance_DTO(result.getString(3), result.getString(4),
+                            new Clasification_DTO(0, "", ""), ""),
+                        result.getDouble(6)),
+                new Stock_DTO(result.getString(5)), result.getInt(7),
+                result.getDouble(8));
+        }catch (SQLException e) {
+            System.out.println("Error: setting a Sold");
+        }
+        return null;
+    }
+
+
+    ///////////////////////////////////////7
+    - La clase entera o bueno 95% xD, puesto que es puro código repetido
+      y así que chiste, entonces ahí lo que voy a add es aquel código que
+      vaya a ser utilizado para buscar las TRANSFER hechas
+
+        //----------Para sales tab e inventary tab (porque tienen los mismos campos a SELECT...
+    
+    private String getSimilarProductsSt(boolean office, String like){
+        return "SELECT p.code, s.office, p.name, p.brand, s.ID, s.quantity"
+             + " p.price FROM goodsControl.Product as p "
+             + " INNER JOIN goodsControl.Stock as s ON p.code = s.product"
+             + " "+ ((office)?"WHERE s.office = ? AND ": "") 
+             + " p.code LIKE \'" + like + "%\'";//to find any code that starts with the given entrance
+    }//cuando se use para SALE -> WHERE = true, caso contrario en inventary
+        //aunque tb hubiera podido hacer que en el caso de inventary office = current()
+    /**
+     * It will search the list by 
+     * the code that the salesperson
+     * is entering. For sale and check
+     * (sale and inventary tab).
+     */
+    public ArrayList<Stock_DTO> search_similarProducts(String office, String code){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSimilarProductsSt(
+                        ((office==null)?false:true), code))){            
+            if(office!=null){
+                statement.setString(1, office);            
+            }
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getStocks(result);
+            }else{
+                return new ArrayList<>();
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the similar Stocks -> " +e.getMessage());
+            return null;
+        }
+    }//Ready
+    
+    //-----------
+    
+    private String getSelectedStockSt(){
+        return "SELECT SELECT p.code, s.office, p.name, p.brand, s.ID, s.quantity"
+             + " p.price FROM goodsControl.Product as p "
+             + " INNER JOIN goodsControl.Stock as s ON p.code = s.product "
+             + " WHERE s.office = ? AND p.code = ?";
+    }    
+    
+    /**
+     * Search the product that was 
+     * selected from the reference
+     * table.
+     */
+    public Stock_DTO search_selectedStock(String office, long code){//tb pudo haber sido el s.ID, pero para hacerlo similar a lo de arriba, entonces... xD
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSelectedStockSt())){
+            statement.setString(1, office);
+            statement.setLong(2, code);
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getSelectedStock(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
+        }
+        return null;
+    }///este no tiene revisasdo el transofmer (recvisa los TO DO...)
+    
+    //------------- To show the transferred product on the ALREADY table
+    
+    private String getTransferredProductSt(){
+        return "SELECT t.code, p.code, p.name, p.brand, s.ID, p.price,"
+             + " t.requested FROM transactionControl.Transferred as t"
+             + " INNER JOIN goodsControl.Product as p ON t.product = p.code"
+             + " INNER JOIN goodsControl.Stock as s ON s.product = p.code"
+             + " WHERE t.transfer = ? ORDER BY t.code DESC LIMIT 1";//para agarrar c/v el más reciente.
+    }
+    
+    /**
+     * Será exe justo después de hacer
+     * una inserción, puesto que luego
+     * de presionar (+) se add a la DB
+     * entonces esto reflejará that was
+     * done.
+     * 
+     */
+    public Transferred_DTO search_TransferredProduct(String transfer){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getTransferredProductSt())){
+            ResultSet result = statement.executeQuery();
+         
+            statement.setString(1, transfer);
+            
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getTransferredProduct(result, transfer);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the selected Stock (TRANSFERRED) -> " +e.getMessage());            
+        }
+        return null;
+    }
+    
+    //---------
+    
+    //------to navigate on inventory
+
+    /**
+     * It is the method that gather
+     * the 2 methdos that are going
+     * to be used when a salesPerson
+     * uses the inventary-tab.
+     */
+    
+    public ArrayList<Stock_DTO> searchOnInventary(String code, String store, 
+            String brand, String type, String[] line){       
+        
+        if(code != null && store.equals("all") && brand.equals("all")
+                && type.equals("all") && line[0].equals("all")){
+           return this.search_similarProducts(null, code);//puesto que este espacio se dedicó al hecho de que no se especificó la store...
+        }else{//tb podría ser code == null y los demás == all... lo cual noe está mal...
+            //si hay code, solo code + store tiene sentido... pero eso dependerá del user...
+            this.searchProduct(code, store, brand, type, line);
+        }        
+        return new ArrayList<>();
+    }
+    
+    private String getSearchProductSt(boolean code, boolean office, 
+        boolean brand, boolean type, boolean line){//al menos uno debe estar seleccionado...
+        boolean where = false;
+        
+        String search = "SELECT p.code, s.office, p.name, p.theBrand, s.ID,"
+             + " s.quantity, p.price FROM goodsControl.Product as p "
+             + " INNER JOIN goodsControl.Stock as s ON s.product = p.code"
+             + " INNER JOIN goodsControl.Appliance as a ON a.name = p.name"
+             + " INNER JOIN goodsControl.Clasification as c ON c.ID = a.clasification";             
+        
+        if(code){//cuando algo más a parte de code se escribe es cuando este aplica, porque si estuviera solo entonces se emplearía el método de getSimilar
+            search += " WHERE p.code = ?";
+            where = true;
+        }if(office){
+            search += ((!where)?" WHERE":" AND") + " s.office = ?";
+            if(!where) where = true;
+        }if(brand){
+            search += ((!where)?" WHERE":" AND") + " p.theBrand = ?";
+            if(!where) where = true;
+        }if(type){
+            search += ((!where)?" WHERE":" AND") + " c.type = ?";
+            if(!where) where = true;
+        }if(line){
+            search += ((!where)?" WHERE":" AND") + " c.line = ?";            
+        }
+        return search;     
+    }
+    
+    /**
+     * It will be used to search a
+     * product when the filters were
+     * used.
+     */
+    private ArrayList<Stock_DTO> searchProduct(String code, String office, String brand,
+        String type, String[] line){
+        
+        int index = 1;
+        
+        try(PreparedStatement statement
+                = connection.prepareStatement(
+                  this.getSearchProductSt((code!=null),(!office.equals("all")),
+                   (!brand.equals("all")), (!type.equals("all")), (!line[0].equals("all"))))){
+            if(code != null){
+                statement.setString(index, code);
+                index++;
+            }        
+            if(!office.equals("All")){
+                statement.setString(index, office);
+                index++;
+            }if(!brand.equals("All")){
+                statement.setString(index, brand);
+                index++;
+            }if(!type.equals("All")){
+                statement.setString(index, type);
+                index++;
+            }if(line != null && !line[0].equals("All")){
+                for(int indice = 0; indice < line.length; indice++) {
+                    statement.setString(indice+index, line[indice]);
+                }
+            }
+            
+            ResultSet result = statement.executeQuery();
+            
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getStocks(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
+        }
+        return new ArrayList<>();    
+    }/*este solo se encarga de enviar los campos según el string generado arribita xD*/
+    
+    //-------
+
+        AH SI, recuerda que aquí por error reemplacé getSoldProduct por 
+        getTransferredProduct, puesto que no me di cta que eso no era 
+        una copia xD
+
+---------------------
+    Previo a darme cuenta de que no tomé en cta que line es un arreglo 
+    por lo tanto debería aparecer el número de veces correspondiente a
+    su tamanio.
+
+--------------------
+    Puesto que se puede sustituir cada uno de esos if por un op ternario
+    encerrado en un for, para así cb entre arrays 
+
+
+        if(states != null && !states[0].equals("All")){
+            for(int indice = 0; indice < states.length; indice++) {
+                search += ((!where)?" WHERE":" AND") + " transferState = ?";
+                if(!where) where = true;
+            }
+        }
+        if(dateType != null && !dateType[0].equals("All")){
+            for(int indice = 0; indice < dateType.length; indice++) {
+                search += ((!where)?" WHERE":" AND") + " transferState = ?";
+                if(!where) where = true;
+            }
+        }
+        
+--------------------
+    Puesto que es lo mismo que eal buscar las ventas, entonces
+    lo hice en una clase que solo es de las axn de inv y stowage
+    ya no en la clase de Transfer...
+
+    public void searchTransfers(){
+    
+    }//By Inventary/Stowage
+    
+    public void searchTransfer(){
+    
+    }//By Inventary/Stowage
+
+---------------------
+
+Puesto que ya lo hice (me ref al método de la tab-inventary que tb, se
+puede emplear para inventary y stowage. El que busca por filtros y
+devuelve una lista tb el otro que devuelve uno en específico...)
+
+
+    /**
+     * It search a list of products
+     * by brand, and sometimes by
+     * type &/|| type and line.
+     */
+    public void search_Products(){
+    
+    }//By: inventory AND store
+        //It will be the same that I did for SalesPerson to navigate throught the system...
+
+-----------------------
+
+Quité este método porque no se va a emplear, ya que por lo lógica que
+sigue el programa, no es nec buscar un listado de TRANSFERRED.... ya que
+   ya implementamos los métodos para hacer la búsqueda en la tab Story de
+   transferencias, del de Inventary y Stowage...
+
+   /**
+     * It will be used to
+     * get a list of the
+     * prodcuts that were
+     * transferred
+     */
+    public ArrayList<Transferred_DTO> search(){
+        ArrayList<Transferred_DTO> transferredList = new ArrayList<>();
+        
+        return transferredList;//TODAS las transfer deben tener al menos 1 ele
+    }//By Inventary/Stowage    
+
+
+------------------------
+Lo quité no porque esté mal, sino porque ya tenía uno en T_SPS
+y está por mucho, más ordenado
+
+  public Stock_DTO getStock(ResultSet result){
+        try{
+            return new Stock_DTO(result.getString(2),
+                new Product_DTO(result.getLong(1),
+                    new Appliance_DTO(result.getString(3), result.getString(4), 
+                        new Clasification_DTO(-1, result.getString(5), result.getString(6)),
+                    result.getString(9)), result.getDouble(7)),
+            result.getInt(8), "");//no puse OFFICE, puesto que ya es obvio, porque esta SEARCH si es para un producto de una tienda en específico...
+        }catch (SQLException e) {
+            System.out.println("Error: seting an EMPLOYEE");
+        }        
+        return null;//pero en este caso no sé si no se mostrará nada, inclusive un JOP o se mostrará el JOP y nada en la window...
+    }
+
+---------------------
+Acabo de crear este método, pero me di cta de que está mal,
+porque la existencia se debe revisar en dos partes, ya que tengo seccionado esto
+[lo mismo va a suceder con la INSERT (pues primero insertarás el PROD, luego el STOCK
+o solo el STOCK si ya existe el PROD) y con la DELETE (solo vas a app esto al STOCK BUT
+ahora que recuerdo, esto se supone que no debía appse, porque si llegaba a 0, la cdad del stock
+dije que sería mejor que se quedara ahí, para no estar deleteando y creadno de nuevo otro
+STOCK)]
+
+ private String getSearchExistenceSt(){
+        return "SELECT p.code, s.ID, p.name, p.theBrand, c.type, c.line,"
+             + " p.price, s.quantity, a.detail FROM goodsControl.Product as p"
+             + " INNER JOIN goodsControl.Stock as s ON s.product = p.code"
+             + " INNER JOIN goodsControl.Appliance as a ON p.name = a.name"
+             + " INNER JOIN goodsControl.Clasification as c ON c.ID = a.clasification"
+             + " WHERE p.name = ? and s.office = ?";//si de verdad quisieras asegurarte, harías esta búsqueda después de tener BRAND...
+    }
+    
+    /**
+     * It will be used to know if a
+     * product already exist in the
+     * whole DB and knows if you 
+     * have to do an ADD or UPDATE.
+     * (It will be used on Product window)
+     */
+    public Stock_DTO search_existence(String name, String office){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchExistenceSt())){
+            statement.setString(1, name);
+            statement.setString(2, office);
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer_SPS.getDetailedStock(result, office);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
+        }
+        return null;   
+    }//By Product_UI (inventary;stowage)
+        //Será útil cuando sea el caso en el que se confundan de ventanita. Además no cae mal una 2da capa de seguridad xD
+    
+////
+
+SUMMARY
+    -INVENTORY 
+    - check if EXIST 
+        - 1st PRODUCT
+        - 2nd STOCK
+    - INSERT
+        ADD
+        - CREATE product and stock OR stock depending on the case 
+        ADD more
+        - UPDATE quntity if there is a stock on the office (and of course the product on the DB)
+        DELETE 
+        - no aplica porque cuando llega a 0,, se auto deletea la existencia
+          de los item a vender, mas no del stock, lo cual facilita el proceso...        
+
+    PERO
+        momento, porque y que pasa con APPLIANCE???
+            - iba a decir que solo aplicara a los de bodega, pero en ese caso
+              tb PRODUCTO debería app solo a ellos
+
+        ACUERDO
+            - quedé en que
+                - para el caso de los de INVENTARY
+                        ellos no pueden crear
+                            APPLIANCE ni PRODUCT. Eso es trabajo de los
+                            de STOWAGE.
+
+                            Por lo tanto los de inventario, solo pueden add
+                            quantity y el stock_ID se generará en ese momento
+                                -ya solo tendrían que comparar con la desc y 
+                                 listo!
+                    - eso si, aunque no creen, se revisará la existencia de los
+                      appliance y product (esto se hace, buscand appliance, llenado
+                      buscando product y llenado la UI)
+                        - en caso no se hallara, le caería a los de STOWAGE, porque
+                          no hicieron su trabajo...
+                            - porque se supone ellos deberían registrar los productos
+                              que llegan de primero
+                                - ya con eso me pongo a pensar si con ellos debería
+                                  existir STOCK o tuve que haber hecho que se usara
+                                  otra cosa
+                                    - o en todo caso, debería add lo de transfer con ellos
+                                      tb puesto que una transfer impllicaría sacar los ele
+                                      de su stock, y con eso ya no habría conflicto xD
+                                        - solo mira si el proyecto no lo restringe...
+
+                                    - SI PUES... ya había pensado en esto, es decir ENVÍOS, 
+                                      pero el aux no me dejó (está bien porque sino tendría
+                                      que crear otra entidad y otra tab xD)
+                                        - entonces lo qu eme dijo fue, que no usara envíos 
+                                          (imagino que por la defi de los proy), sino que
+                                          "sacaría" los productos, al acpetar una TRANSFER de
+                                          la boodega hacia la tienda que solicitaba...
+                                            - de cualquiera de las 2 formas, el stock perteneciente
+                                              a los de bodega, está bien xD (es decir, no causa conflicto xD)
+                - para los de STOWAGE
+                    - INSERT: pueden crear (mejor dicho , DEBEN) APPLIANE y PRODUCT además de stock
+                      si no existe ahí dentro
+                    - UPDATE: de cdades de stocks. LO harán cuando acepten TRANSFERIR hacia una tienda
+                      y solo ahí.
+                    - DELTE: lo mismo que con inventary, no hay un delete directo, sino indirecto, cuando el
+                      stock se quede siin quantity. NO dejará de existir pero no porá entrar en axn por la
+                      escazes en la que estaŕia pasando...
+-------------
+
+No será nec, porque para OBTERNER la Clasification, se hará junto con APPLIANCE
+porque así tiene más sentido, entonces solo la inserción se pondrá xD
+    - update digo que no xD
+    
+    AH SI, con respecto a update para producto, creo que tb el nombre, porque ahí podría
+    haber errores humanos, pero por el hecho que es PRODUCT, esto sería solo exe por STOWAGE...
+
+
+  
+    private String getSearchExistence(){
+        return "SELECT type, line FROM goodsControl.Clasification WHERE ID = ?";
+    }
+    
+    /**
+     * It will be used, to check if
+     * an applaince already exists, 
+     * if yes - so it info will show
+     * on PRODUCT window. Office it is
+     * not nec because it is a GLOBAL
+     * existence.
+     */
+    public Appliance_DTO search_Existence(String name){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchExistence())){
+            statement.setString(1, name);            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformer.getDetailedStock(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
+        }
+        return null;   
+    }//Global existence, so OFFICE it is NOT nec.
+
+-----------
+ O sea si, pero no porque debe ser global, a lo que voy es que el comentario
+ es el que ya no encaja xD
+
+ /**
+     * It will search if a product exists
+     * in a specific office (on product_UI)
+     * because UPDATE and movement
+     * (just use this) because of the context
+     * the product already exists on the DB
+     * @return
+     */
+    public ArrayList<String> search_Existence(long code){
+        return null;
+    }
+
+------------
+Ya no, porque acordamos que no se podrá eliminar un producto, porque
+al menos yo querría dejarlo en el historal para así tener precedentes xD
+
+    /**
+     * It will be use (MAYBE) when a 
+     * product is no more longer in 
+     * a office (store/stowage)
+     */
+    public void delete(){
+    
+    }//By: inventary and stowage
+    //see note in Notes xD
+
+---------
+Si, pero no con ese comentario, pues es cuando NO EXISTE en una tienda,
+porque stock general NO HAY.
+
+/**
+     * It will be use, when a product
+     * is
+     *  - not existent
+     *  - or already existent but doesn't
+     *    be on the specific store
+     */
+    public void add_NewOne(String type){
+        if(type.equals("realNew")){
+            this.product_DAO.insert();
+        }else{
+        
+        }
+    }
+
+-------------
+Ya no será así, sino que más sencillo xD
+
+/**
+     * It will be use when a
+     * product is already
+     * existent and is nec
+     * add more on quantity.
+     */
+    public boolean add_More(boolean nested, String office, long product, int quantity){//puesto que no hay límite en la cdad que pueda almacenar 1 solo stock, entonces con que se sepa de qué tineda, se encuentra el stock deseado...
+        this.product_DAO.update();
+        
+        //el JOP igual que en Contract, porque tiene
+        //la misma rel que Employee/Contract
+        
+        return false;
+    }
+
+-------------
+Ya lo cree, y además no sé porque tiene un msje de eli :v 
+
+    /**
+     * It will be used to modify
+     * the quantity
+     */
+    public void update(){
+    
+    }//ahora que lo pienso
+        //si la cdad llega a 0, no es nec que
+        //el stock sea eliminado...
+            //entonces dejalo ahí xD
+                //así tb no andas creando c/v +...
+
+
+
+    
+

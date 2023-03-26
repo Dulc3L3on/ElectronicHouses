@@ -55,4 +55,205 @@ INTERFFACE
 * LOGIN
 
 
+//add contract on EmployeeDTO [v]
+  //en transformer env NULL on contract when is not detailed... [v]
+//eli employee de Contract [V]
+//terminar transformer
 
+
+MARCH 24
+  //SEARCH customer (LISTO)
+    //cuando halla error - null
+    //cuando no exista ese customer - objeto vacío
+  
+  //SEARH sale (to update) [LISTO]
+    //el JOIN 
+    [delete sale y sold ya está]
+    //se hará un JOIN 
+      //para obtener el SALE_DTO
+        //proque este tiene un listado de SOLD 
+        //adentro y para ello se requerirá obtener
+        //la data de ambos
+
+      //para el caso de lo dell cliente
+        //Se exe justo después de obtener la
+        //Data de sale, para así no repetir código
+        //y complicar un poquis más el método
+        //por el hecho de tener que devolver maś
+        //De un tipo de objeto...
+
+      //NOTA
+        NO se usó el JOIN puesto que SALE solo abarca una
+        row, y como SOLD posiblemente más de 1, entonces
+          luego de exe SALE > SOLD > CUSTOMER y los métodos
+          imagino que se exe por aparte (es decir, no se
+          anidarán...)
+
+  //UPDATE SALE [LISTO]
+    //tengo que ver lo del EDIT
+      [si al final se guardará un boolean o
+       el monto anterior...]
+      pero en sí la axn además de cb el
+      EDIT, es TOTAL!!!
+
+  //TRANSFER [LISTO]
+    //esto ha de estar fácil que solo es insert en 
+    //Este caso
+      //pero mira si lo vas a dejar en el DAO del de
+      //salesPerson 
+          //si es el caso, quizá tb sería bueno pasar 
+          //el delete del SOLD a el DAO del de inventary...
+      //Sino dejalo ahpi xD
+    
+    //después pasas a iventary si quieres, ya que es
+    //practicament elo mismo que eld e bodega (???,
+      no estoy segura si ese era el similar, si si,
+      entonces ya solo te faltaría los reportes Y
+      ensamblar :'), gracias DIOS :3
+
+TO DO
+  + ver lo de interface_salesPerson_DAO
+    //porque tienes un movement_DATO dentro del método
+      //y por lo que he estado trabajndo, simplemente
+        //debería tener un método para
+          //buscar coincidencias, cuando se vaya a vender
+          //para el product select.... (no creo, bueno si, 
+            pero es porque la cdad del producto podría cb mientras
+            se localizaba... aunque en realidad solo hay una caja
+            pero si quieres dejarlo de una vez para el caso en que
+            se add más Cajas, entonces dale xD)
+      //uno para revisar el inventario
+        //que prácticamente es el mismo que el inventario y
+        //stowage
+          //Ahhh ya entendí
+            //Ese método es para invocar el msimo que el de
+              inventary y stowage usan
+                //pero en ese caso mejor haz que ambos
+                //utilicen la misma clase...
+                  //que se llamaría como interfaz_existency_table
+                    //y si hay variaciones, pue entonces ahí las
+                      add y ya solo invocas en el de interface de cada
+                      empleado, el método correspondiente
+                        //si no hya variacione, entonces... iba a decir
+                          que solo add elobjeto al empleaod, pero para
+                          evitar erroers, si mejor invoca al método exacto...
+
+    Ahorita solo estás
+    * arreglando lo del SOLD
+      //haciendo que se envie un obj Produc and Stock, puesto que en realidad
+        si se emplean al hablar de una SOLD en la interfaz
+    * arreglando el método del triansform
+    *terminando el método de la query que se encarga de mostrar esto en la UI...
+
+
+TO DO
+*inventary 
+*stowage, inventary - transfer 
++ acoplar métodos con la interface
+*probar..
+
+* mira si applica el método de transfomer para sotck, sino crea otro o modificalo
+  pero te FIJAS si no te vas  ahcer bolas...
+
+* luego implementas el método para buscar si HAY existencia
+  ahí por medio del código y tb por office, porque estará siendo exe
+  por uno de inventario en específico,o storage porque queire add/modif
+  entonces...
+
+* luego a los métodos que no están imple del de inven y stowage
+* luego (yo sé que aplica, pero revisa) el método que usa el de 
+  sales perosn para reevisar en el inventary y si si ya estas xD
+    poara el de towage solo es un apeq modif
+* luego aplicas los métodos donde deben
+* los pruebas y LISTO :3
+
+TO DO
+* arreglar lo de stock, porque no debería haber un producto fuera
+  si hay un sotck 
+    *eso lo apliqué a SOLD
+      * de todso modos si quieres revisarlo, dale...
+*ya apliacaste el cb que le hiciste a producto a lo de los transofmradrores
+   (es decir, incluir el appliance)
+    * solo haz que reciba en parámetros los valores que en una query
+      no van a ser nec y en otra si
+        *vista SALE and INVENTARY-tab de salesPerson
+          * especificamente es cuando se muestra en sale/inventary y la window del producto para verlo más detallado...
+     *ELSE crea otras iguales pero que si tomen en cuenta que el 
+      resukt icluye esos datos... :v NO eso no, please lo primero xd
+* arreglar todo lo que se fue de colado y recapitular antes xd
+[LISTO]
+
+*LO demás por TODO xd
+  - lo relacionado con INVENTARY and STOWAGE
+
+TO DO
+  - todos los métodos que tienes para hacer la SALE
+    - buscar coincidencias (para la reference table)
+    - buscar la ref select
+    - buscar la sold recientemente add a la DB después de presionar (+)
+
+    mira si vas a crear su equivalente pero para Transferred o si vas a
+    seguir trabajando como si fuera una SOLD a EXCEPT del string, donde
+    harás notas que es una transfer...
+      //lo pruimero que pensé hacer fue, copiar y pegar todo de nuevo
+      //pero creo que si convendría hcer lo 2do xD
+
+      //Revisa
+        //los meodos que copiaste para colocarlo en una clase exclusiva
+          de inventory/stowage
+            //y decide, si vas a hacer eso o renombrar la clase a 
+              algo más general para que los 3 employees puedan emplear
+              los datos 
+                //POR EL MOMENTO, si tienen los mismísimos métodos
+                    //THEN, solo mira que harás con transfer
+                        //yo digo que modificar el string dep de que
+                          sea CREACIÓN de (sale/transfer...)
+                //solo revisa que se usen todos los métodos si vas a hacer
+                  una clase general
+                //y mira lo de transfer||sold que mencioné arribita
+                
+    //si todo NICE, entonces solo te faltaría ver lo de las update (de
+      estados y revisiones de las request, que ya solo eso hace falta Y
+      los reportes...)
+
+  TO DO
+   * inserción, update de productos 
+      [delete habíamos quedado que no...]
+   * reportes
+   * ensamblaje
+   * probar
+
+   TO DO previo
+    * busca el método que se creo hoy a inicios para mostrar el listado
+      de transfers como el equivalente cuando se bsca los SOLD en la misma gen TAB
+        **puesto que nec eso para mostrar en MOV 
+          * y previo a crear el método voy a ver si aplica o si me puedo guiar
+              * más pienso que lo 2do xD, pero ya es algo xD.
+        
+        LUEGO de eso, si pasas a lo rel con PRODs
+
+  
+  + agregar el btn para eliminar una transfer
+    /recuerda que antes se eli las transferred, luego la transfer
+     para evitar conflictos...
+
+  * revisar que en trasnferred (por el momento porque tb debo hacerlo
+    en aquellas tablas que tienen LON/SERIAL) que al hablar del code,
+    lo esté haciendo con el tipo LONG...
+
+TO DO
+  igual que el de arriba al previo xD (pero al menos ya terminé lo de transferencias xdxd)
+     Al menos deberás queadrte al inicio de la probada o a mediados del 
+     ensamblaje :p xD
+
+TO DO
+  * search existence [LISTO]
+  * create [LISTO]
+  update PR, AP, ST[]
+  creation of ID (of tables with String ID)
+    //recuerda que en el caso del Stock ID y el code del producto, auqnue estos no existan los mostrarás en la ventanita, aunque aúnno hayan sido creados..
+  reportes []
+  ensamblaje []
+  probar []
+
+  y arreglar sold xD 

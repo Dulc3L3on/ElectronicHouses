@@ -34,20 +34,24 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         lbl_employee_name = new javax.swing.JLabel();
         txtF_employee_name = new javax.swing.JTextField();
         cbBox_employee_position = new javax.swing.JComboBox<>();
-        lbl_employee_position = new javax.swing.JLabel();
+        lbl_employee_office = new javax.swing.JLabel();
         panel_employee_photo = new javax.swing.JPanel();
         lbl_employee_photo = new javax.swing.JLabel();
         lbl_changePicture = new javax.swing.JLabel();
         lbl_employee_salary = new javax.swing.JLabel();
         txtF_employee_salary = new javax.swing.JTextField();
         spinner_employee_CUI = new javax.swing.JSpinner();
+        comboBox_office = new javax.swing.JComboBox<>();
+        lbl_employee_position = new javax.swing.JLabel();
+        lbl_password = new javax.swing.JLabel();
+        txtF_password = new javax.swing.JTextField();
         panel_employee_contract = new javax.swing.JPanel();
         lbl_employee_startDate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtA_employee_contract = new javax.swing.JTextArea();
         lbl_employee_endDate = new javax.swing.JLabel();
-        formatField_endingDate = new javax.swing.JFormattedTextField();
         formatField_hiringDate = new javax.swing.JFormattedTextField();
+        formatField_endingDate = new javax.swing.JFormattedTextField();
         btn_employee_accept = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,7 +61,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         lbl_employee_ID.setText("ID:");
 
         txtF_employee_ID.setEditable(false);
-        txtF_employee_ID.setText("SHA based on NIT");
+        txtF_employee_ID.setText("based on the most recent");
         txtF_employee_ID.setEnabled(false);
 
         lbl_employee_CUI.setText("CUI:");
@@ -77,7 +81,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
             }
         });
 
-        lbl_employee_position.setText("Position:");
+        lbl_employee_office.setText("Office:");
 
         panel_employee_photo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -114,6 +118,15 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
             }
         });
 
+        comboBox_office.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lbl_employee_position.setText("Position:");
+
+        lbl_password.setText("Password:");
+
+        txtF_password.setEditable(false);
+        txtF_password.setText("byMD5");
+
         javax.swing.GroupLayout panel_employee_dataLayout = new javax.swing.GroupLayout(panel_employee_data);
         panel_employee_data.setLayout(panel_employee_dataLayout);
         panel_employee_dataLayout.setHorizontalGroup(
@@ -122,32 +135,42 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(panel_employee_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_employee_dataLayout.createSequentialGroup()
-                        .addComponent(lbl_employee_CUI)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_employee_ID)
+                .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_employee_dataLayout.createSequentialGroup()
+                        .addComponent(lbl_employee_name)
                         .addGap(18, 18, 18)
-                        .addComponent(txtF_employee_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))
+                        .addComponent(txtF_employee_name))
                     .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                        .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                                .addComponent(lbl_employee_office)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboBox_office, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                                .addComponent(lbl_password)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtF_password)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                                 .addComponent(lbl_employee_salary)
-                                .addGap(18, 18, 18)
+                                .addGap(39, 39, 39)
                                 .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                                .addComponent(lbl_employee_position)
+                                .addGap(26, 26, 26)
+                                .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panel_employee_dataLayout.createSequentialGroup()
+                        .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                                 .addGap(58, 58, 58)
                                 .addComponent(spinner_employee_CUI, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
-                                .addComponent(lbl_employee_position)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_employee_dataLayout.createSequentialGroup()
-                                .addComponent(lbl_employee_name)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtF_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(92, Short.MAX_VALUE))))
+                            .addComponent(lbl_employee_CUI))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_employee_ID)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtF_employee_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16))
             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(lbl_changePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,12 +194,16 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
                             .addComponent(txtF_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_employee_position)
-                            .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_employee_office)
+                            .addComponent(comboBox_office, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_employee_salary)
-                            .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtF_employee_salary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_password)
+                            .addComponent(txtF_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_changePicture)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -192,15 +219,15 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
 
         lbl_employee_endDate.setText("Date of ending:");
 
-        formatField_endingDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        formatField_endingDate.setEnabled(false);
-        formatField_endingDate.addActionListener(new java.awt.event.ActionListener() {
+        formatField_hiringDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        formatField_hiringDate.setEnabled(false);
+        formatField_hiringDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                formatField_endingDateActionPerformed(evt);
+                formatField_hiringDateActionPerformed(evt);
             }
         });
 
-        formatField_hiringDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        formatField_endingDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
         btn_employee_accept.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Accept.png"))); // NOI18N
 
@@ -209,27 +236,27 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         panel_employee_contractLayout.setHorizontalGroup(
             panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_employee_contractLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1)
                     .addGroup(panel_employee_contractLayout.createSequentialGroup()
-                        .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_employee_contractLayout.createSequentialGroup()
                                 .addComponent(lbl_employee_startDate)
                                 .addGap(18, 18, 18)
-                                .addComponent(formatField_hiringDate, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(formatField_hiringDate))
                             .addGroup(panel_employee_contractLayout.createSequentialGroup()
                                 .addComponent(lbl_employee_endDate)
                                 .addGap(18, 18, 18)
-                                .addComponent(formatField_endingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(270, 270, 270)
+                                .addComponent(formatField_endingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(262, 262, 262)
                         .addComponent(btn_employee_accept)))
                 .addGap(24, 24, 24))
         );
         panel_employee_contractLayout.setVerticalGroup(
             panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_employee_contractLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(14, 14, 14)
                 .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_employee_contractLayout.createSequentialGroup()
                         .addGroup(panel_employee_contractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,13 +276,12 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         panel_employee_new.setLayout(panel_employee_newLayout);
         panel_employee_newLayout.setHorizontalGroup(
             panel_employee_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_employee_newLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(panel_employee_newLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(panel_employee_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_employee_contract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panel_employee_newLayout.createSequentialGroup()
-                        .addComponent(panel_employee_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(panel_employee_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel_employee_contract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         panel_employee_newLayout.setVerticalGroup(
             panel_employee_newLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,9 +297,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel_employee_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(panel_employee_new, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,14 +319,14 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         generateID();
     }//GEN-LAST:event_cbBox_employee_positionActionPerformed
 
-    private void formatField_endingDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatField_endingDateActionPerformed
-        if(!formatField_endingDate.getText().isBlank() && !formatField_endingDate.getText().isEmpty()){
+    private void formatField_hiringDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatField_hiringDateActionPerformed
+        if(!formatField_hiringDate.getText().isBlank() && !formatField_hiringDate.getText().isEmpty()){
             fillOutContract();
             btn_employee_accept.setEnabled(true);
         }else{
             btn_employee_accept.setEnabled(false);
         }
-    }//GEN-LAST:event_formatField_endingDateActionPerformed
+    }//GEN-LAST:event_formatField_hiringDateActionPerformed
 
     private void generateID(){
         if((!txtF_employee_name.getText().isEmpty() && !txtF_employee_name.getText().isBlank()
@@ -312,15 +336,15 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
             && txtF_employee_ID.getText().isEmpty()){//sino se reemplazaría cada vez que se modificara datos y todos ya hubieran tenido algo antes...
             
             txtF_employee_ID.setText("123456789012");//SHA based on CUI and name
-            formatField_endingDate.setEnabled(true);//se activa el campo para llenar el endDate
+            formatField_hiringDate.setEnabled(true);//se activa el campo para llenar el endDate
             
-            if(!formatField_endingDate.getText().isBlank() && !formatField_endingDate.getText().isEmpty()){
+            if(!formatField_hiringDate.getText().isBlank() && !formatField_hiringDate.getText().isEmpty()){
                 fillOutContract();
                 btn_employee_accept.setEnabled(true);
             }//por si acaso ya tenían la fecha, porque si no hago esto y no borro el ending, tendría que volver a setear la fecha y que fastidioso sería eso...
         }else{
             txtF_employee_ID.setText("");//por si acaso borran la data
-            formatField_endingDate.setEnabled(false);//tengo que desactivar este tb porque si no lo hiciera y setearan otra fecha por molestar, por ese hecho el botón de accept se activaría auqneu la data del empleado no esté completa...
+            formatField_hiringDate.setEnabled(false);//tengo que desactivar este tb porque si no lo hiciera y setearan otra fecha por molestar, por ese hecho el botón de accept se activaría auqneu la data del empleado no esté completa...
             btn_employee_accept.setEnabled(false);//este era un hecho que se debía desactivar...
         }
     }//LISTO   
@@ -333,9 +357,10 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
                 + " por lo tanto estoy consciente que debo respetar, cumplir y actuar"
                 + " como la reglamentación interna me lo ordene.\n Habiendo dicho esto"
                 + " acepto el puesto de " 
-                + cbBox_employee_position.getSelectedItem().toString().toUpperCase()                  
-                + " en el periodo del " + formatField_hiringDate.getText()
-                + " al " + formatField_endingDate.getText()
+                + cbBox_employee_position.getSelectedItem().toString().toUpperCase()
+                + " en la ofcina " + comboBox_office.getSelectedItem().toString().toUpperCase()
+                + " en el periodo del " + formatField_endingDate.getText()
+                + " al " + formatField_hiringDate.getText()
                 + " con un salario de Q." + lbl_employee_salary
                 + "trabajando de lunes a viernes en un horario de 9:00 AM a 16:00 PM"
                 + "y descansando fines de semana.\n"
@@ -353,6 +378,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_employee_accept;
     private javax.swing.JComboBox<String> cbBox_employee_position;
+    private javax.swing.JComboBox<String> comboBox_office;
     private javax.swing.JFormattedTextField formatField_endingDate;
     private javax.swing.JFormattedTextField formatField_hiringDate;
     private javax.swing.JScrollPane jScrollPane1;
@@ -361,10 +387,12 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_employee_ID;
     private javax.swing.JLabel lbl_employee_endDate;
     private javax.swing.JLabel lbl_employee_name;
+    private javax.swing.JLabel lbl_employee_office;
     private javax.swing.JLabel lbl_employee_photo;
     private javax.swing.JLabel lbl_employee_position;
     private javax.swing.JLabel lbl_employee_salary;
     private javax.swing.JLabel lbl_employee_startDate;
+    private javax.swing.JLabel lbl_password;
     private javax.swing.JPanel panel_employee_contract;
     private javax.swing.JPanel panel_employee_data;
     private javax.swing.JPanel panel_employee_new;
@@ -374,5 +402,6 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
     private javax.swing.JTextField txtF_employee_ID;
     private javax.swing.JTextField txtF_employee_name;
     private javax.swing.JTextField txtF_employee_salary;
+    private javax.swing.JTextField txtF_password;
     // End of variables declaration//GEN-END:variables
 }

@@ -358,4 +358,304 @@ COn respecto a los productos
               //ELSE create_stockID()
 
           //ADD reamining info
-          //O si todos TRUE, UPDATE!    
+          //O si todos TRUE, UPDATE!   
+          
+//LOGIN
+  //Al final lo dejé como una sola consulta, porque el hecho de que los programas
+  //Reales digan que "ya sea" un dato u otro es incorrecto, es porque el verdadero
+  //user se supone debería saber...
+
+//EMPLOYEE UPDATE (name/pwd)
+  //Para saber si un campo se updateo o no 
+    //Vamos a comparar el valor que tenía antes con el 
+    //Reciente, que se obtuvo luego de presionar el BTN 
+    //si son iguales entonces NULL
+
+//EMPLOYEE UPDATE (hiring state)
+  //cuando se intente add un nuevo EMPLOYEE
+  //si ya había trabajdo antes
+      //se recuperará la data del EMPLOYEE
+      //se creará un new CONTRACT
+      //se usará UPDATE_HIRING para actualizar el estado
+
+  //Entonces al intentar ADD un employee, a partir del CUI
+  //luego de ingresarlo todo, se va a SEARCH si existe un EMPLOYEE
+  //con ese CUI
+    //IF
+       //hacer lo de arriba
+    //ELSE
+      //hacer lo normal
+          //Recibir toda la data
+          //Crear employee________] INSERT
+          //crear contract        ]
+
+//SALES
+  //DELETE
+    //there will no more changes that delete a sale
+        //but I think you only will ask for the code
+        //to have a testified, because that is not a
+        //job for an inventory manager (based on proj rules)
+        
+INDEXOR
+  //Después de todos los métodos que reciban un ID y no sea
+  //generado de manera automática por la DB, exe el UPDATE
+  //de indexor to make sure that every ID is fine.
+
+SALES
+  //IF customer DOESN'T exist
+    //CREATE customer
+  //ELSE 
+    //CREATE sale
+      //después de tener el customer
+          //sin importar que todavía no exista la factura
+            //por esto es que había considerado que 
+            //Delete podría existir (solicitando el ID del
+              de inventario, para que el TENDER pudiera eli
+              por si acaso el CUSTOMER se arrepentía, puesto
+              que ya estaba creada la row de SALE)
+    //create solds
+      //Conforme se va presionando (+) para add a la TABLE
+    //end SALE
+      //al generar la facturita
+
+//RECUERDA!!!
+  //el STOCK no se va a borrar!!
+      //sin improtar que se quede con quantity == 0
+        se quedará ahí, así lo habías acordado hace
+        tiempecito, y como sí sale más facil entonces xD
+
+//RECUERDA!!!
+  //En el caso de SOLD, el delete como es un DES-venta
+    que es = a ADD productos, entonces, será exe by the
+    INVENTARY MANAGER...
+
+//GENERAL!!!
+  //Es útil que los métodos de las queries devuelvan
+    un boolean, para así saber si se va a hacer algo
+    con la interfaz o se dejará intacta...
+
+//SALE 
+  //En el caso de subtotal y disccount
+    //al momneto de buscar una venta por devolución
+      //subtotal se opbtendrá a partir de SUM(sold.subt)
+      //el disccount si se calculará proque no sé como 
+      //multiplicar
+  //pero al momento de CREATE
+    //Esos 2 se irán cb a partir de funciones de la 
+      interfaz que estarán definidas en el backend...
+
+//el total anterior de la Sale, se deberá guardar en una
+  var para que nose pierda el dato ants de UPDATE la Sale
+
+TRANSFORMER 
+  //Con respecto a los métodos de getProduct, Stock y sus 
+    plurales, estaba viendo que esos solo van a funcionar
+    para esa interacción en específico, puesto que el dato
+    de la columna del RESULT tiene un correlativo, por lo
+    cual estaba pensando que podría hacerlos general, de la
+    manera en que, reciban el String, long o tipo de caracter
+    directamente y no el result, para así obtenerlo de ahí
+    pero eso haría que tuviera MÁS métodos (en específico, 
+    creo que 1 más)
+      //Por lo cual aunque se repita un poco (lo cual sucedería
+        tb en el otro caso, pero más disimulado) voy a hacer
+        que esos solo se empleen para el SEARCHING del 
+        SalesPerson y otros que solo servirán para la bśuqueda
+        en inventario, lo cual Hopefully espero que funcione 
+        tanto para SalesPerson, Inventary y Stowage...
+
+
+NOTAS
+  //COn respecto al métood de listar todos los tipos con respecto
+    a un listado de BRANDs, no tiene sentido, porque en todo caso
+    lo que se debería hacer es
+      + cuando se tenga ALL en las BRAND, que la op por defecto
+        sea ALL Y 
+          //si llegan a cb a otro type, entonces
+              + que se busque todas las marcas que tienen ese type              
+          //o viceversa
+              + si cb de marca (ALL a otra o de otra a otra xD)
+                  + que se busquen los tipos que corresp a esta BRAND
+
+          //+ si va a aplicar le listado de tipos 
+            //por la interfaz
+                //Decide si lo harás facil o no xD
+
+JUEGO de CBBOX
+1. All - all por defecto
+2. otro type - BRANDS que tienen ese TYPE
+    //pero por defecto, media vez 
+3. otra BRAND - los type que hay en esa BRAND      
+
+-----------------
+
+//IDEA para obtener types de una lista de BRANDs
+    /*
+        SELECT c.type FROM goodsControl.Clasification as c
+        INNER JOIN ---- as --- ON ---.clasi = c.ID
+        WHERE office = ?
+    */
+
+------------------
+
+//En este caso si es nec, obtener aunque sea la tienda
+     //porque no todas tienen los mismos productos disp para
+     //la venta...
+        //Para productos individuales
+            //Code Y store
+        //para NO específicos
+            //store, brand O
+            //store, brand ,type/line(s)
+
+//Si no se tienen los datos necesarios, entonces se mostrará
+  un JOP indicando eso
+    + solo decide si el msje lo harás específico (Es ddecir por
+      caso) o dejarás de una vez el msje de los dos...
+
+----------------
+
+//Sales person - inventary interface 
+  //lo del LIKE
+    //funcionará sin presionar el btn BUSCAR
+    //por lo tanto no le improtan los filtros
+    //solo necesita e code...
+  //al presionar buscar, los filtros si tendrá efecto
+
+  ------------
+  Inventory-tab
+
+  IF store/office = all (claramente tb tendrá todas las office existentes)
+    THEN brand, type = all + todos los elementos
+  IF store specifica
+    THEN brands de esa store; types que tengan esas brand
+    IF bran específica 
+      THEN types de esa brand
+
+------
+ Yo diría que en transformer.getStocks, ya no debería de mandar OFFICE, 
+ puesto que el result ya lo tendrá, entonces no es nec...
+
+ ------
+ Postion; line; state, datesType, date
+  Creo que con respecto a esos, a partir del 2do tendría que colocar OR
+    porque sino no va a encontrar ninguna sola línea en la que esos
+    campos tengan más de 1 valor...
+    * esto se haría así como se hizo con WHERE, es decir que
+        * crearía una var booleana para saber si ya es el 2do elemento
+          y así colocar OR en lugar de AND
+            * y también sin improtar cuantos ele (para reducir un poco
+              las condi) encerrar todos los WHERE de un solo tipo (como
+              los listados arriba) entre PARÉNTESIS.
+
+--------------
+Ahi te recuerdas que después de un DONE on TRANSFER
+se tiene que add los producos a la STORE
+  - como ese estado lo cb el de INVENTARY que está en
+    la store que debía recibir la transfer...
+
+-----------
+Basándonos en ROY
+este método es para revisar existencia al add/update para saber que corresp.
+//(porque si fue una transfer o envío, quiere decri que ya existía...)
+        //en el caso real, este método, solo podría ser app en Procudt_UI if stowage, 
+        //puesto que los de stowage, harían algo como una transfe y los demás solo
+        //Se encargarían de revisar eso, pero vamos a omitir eso y dejarlo en general,
+        //(inventary/stowage) porque quizá los prod llegaron desde el proveedor
+        //y no la stowage a pesar de ser neuvos... xD
+
+INTERFAZ
+++ al momento de editar, solamente QUANTITY y PRICE estarán habilitados
+   para cbs, peusto que lo demás no tendría porqué cb, y en todo caso 
+   sucediera, que se notifique a los DBMS para aplicar el cb... y ver si
+   se habilitará o no xD
+
+
+INVENTARY (classes)
++ general
+* appliance (JUST existence)
+* prodcut/stock [searhc existence] and if something from salesPerson is applicable here so also this xD
++ stock [insert/update por medio de transfer (o sea UPDATE es no directo)]
+
+STOWAGE
++clasification (existence, creation)
++appliance ("", "")
++ product ("", "")//y si hay algo que se use en salesPerson, a menso que sea de sale-sold, tb xD
++ 
+////
+
+SUMMARY
+    -INVENTORY 
+    - check if EXIST 
+        - 1st PRODUCT
+        - 2nd STOCK
+    - INSERT
+        ADD
+        - CREATE product and stock OR stock depending on the case 
+        ADD more
+        - UPDATE quntity if there is a stock on the office (and of course the product on the DB)
+        DELETE 
+        - no aplica porque cuando llega a 0,, se auto deletea la existencia
+          de los item a vender, mas no del stock, lo cual facilita el proceso...        
+
+    PERO
+        momento, porque y que pasa con APPLIANCE???
+            - iba a decir que solo aplicara a los de bodega, pero en ese caso
+              tb PRODUCTO debería app solo a ellos
+
+        ACUERDO
+            - quedé en que
+                - para el caso de los de INVENTARY
+                        ellos no pueden crear
+                            APPLIANCE ni PRODUCT. Eso es trabajo de los
+                            de STOWAGE.
+
+                            Por lo tanto los de inventario, solo pueden add
+                            quantity y el stock_ID se generará en ese momento
+                                -ya solo tendrían que comparar con la desc y 
+                                 listo!
+                    - eso si, aunque no creen, se revisará la existencia de los
+                      appliance y product (esto se hace, buscand appliance, llenado
+                      buscando product y llenado la UI)
+                        - en caso no se hallara, le caería a los de STOWAGE, porque
+                          no hicieron su trabajo...
+                            - porque se supone ellos deberían registrar los productos
+                              que llegan de primero
+                                - ya con eso me pongo a pensar si con ellos debería
+                                  existir STOCK o tuve que haber hecho que se usara
+                                  otra cosa
+                                    - o en todo caso, debería add lo de transfer con ellos
+                                      tb puesto que una transfer impllicaría sacar los ele
+                                      de su stock, y con eso ya no habría conflicto xD
+                                        - solo mira si el proyecto no lo restringe...
+
+                                    - SI PUES... ya había pensado en esto, es decir ENVÍOS, 
+                                      pero el aux no me dejó (está bien porque sino tendría
+                                      que crear otra entidad y otra tab xD)
+                                        - entonces lo qu eme dijo fue, que no usara envíos 
+                                          (imagino que por la defi de los proy), sino que
+                                          "sacaría" los productos, al acpetar una TRANSFER de
+                                          la boodega hacia la tienda que solicitaba...
+                                            - de cualquiera de las 2 formas, el stock perteneciente
+                                              a los de bodega, está bien xD (es decir, no causa conflicto xD)
+                - para los de STOWAGE
+                    - INSERT: pueden crear (mejor dicho , DEBEN) APPLIANE y PRODUCT además de stock
+                      si no existe ahí dentro
+                    - UPDATE: de cdades de stocks. LO harán cuando acepten TRANSFERIR hacia una tienda
+                      y solo ahí.
+                    - DELTE: lo mismo que con inventary, no hay un delete directo, sino indirecto, cuando el
+                      stock se quede siin quantity. NO dejará de existir pero no porá entrar en axn por la
+                      escazes en la que estaŕia pasando...
+
+      Acerca de la CATEGORY, eso no lo puede crear los de STOWAGE(en realdiad debería pero vamos a poner
+      una excusa para no add más, porque en ese caso, tendría que mostrar un JOP o un mini dialogo para hacerlo
+      ya que en el cbBox solo aparece los por defecto...)
+        pero eso no es como que urga xD
+          - en ese caso debería add un (+) button on category card, to do this, but JUST when a STOWAWGE is
+            who is the host of the app...
+-------------
+
+    
+  REMEMBER: la UPDATE of qunatity will be
+    - directly (inv/stow)
+    - sold (--)
+    - transfer (++) DONE 

@@ -114,6 +114,7 @@ public class Inventary_Content extends javax.swing.JFrame {
         table_inventary_details = new javax.swing.JTable();
         button_transfer = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -283,11 +284,15 @@ public class Inventary_Content extends javax.swing.JFrame {
         lbl_inventary_since.setText("Since:");
 
         spinner_inventary_since.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
+        spinner_inventary_since.setModel(new javax.swing.SpinnerDateModel());
+        spinner_inventary_since.setEnabled(false);
 
         lbl_until.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_until.setText("Until:");
 
         spinner_inventary_until.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
+        spinner_inventary_until.setModel(new javax.swing.SpinnerDateModel());
+        spinner_inventary_until.setEnabled(false);
 
         button_inventoryT1_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SearchPlane.png"))); // NOI18N
 
@@ -340,17 +345,17 @@ public class Inventary_Content extends javax.swing.JFrame {
         table_requests.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         table_requests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "From", "To", "Date Requested", "Requered Date", "State"
+                "ID", "From", "To", "Date Requested", "Requered Date", "State"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -360,15 +365,17 @@ public class Inventary_Content extends javax.swing.JFrame {
         jScrollPane2.setViewportView(table_requests);
         if (table_requests.getColumnModel().getColumnCount() > 0) {
             table_requests.getColumnModel().getColumn(0).setResizable(false);
-            table_requests.getColumnModel().getColumn(0).setPreferredWidth(220);
+            table_requests.getColumnModel().getColumn(0).setPreferredWidth(150);
             table_requests.getColumnModel().getColumn(1).setResizable(false);
-            table_requests.getColumnModel().getColumn(1).setPreferredWidth(220);
+            table_requests.getColumnModel().getColumn(1).setPreferredWidth(210);
             table_requests.getColumnModel().getColumn(2).setResizable(false);
-            table_requests.getColumnModel().getColumn(2).setPreferredWidth(250);
+            table_requests.getColumnModel().getColumn(2).setPreferredWidth(210);
             table_requests.getColumnModel().getColumn(3).setResizable(false);
-            table_requests.getColumnModel().getColumn(3).setPreferredWidth(250);
+            table_requests.getColumnModel().getColumn(3).setPreferredWidth(220);
             table_requests.getColumnModel().getColumn(4).setResizable(false);
-            table_requests.getColumnModel().getColumn(4).setPreferredWidth(170);
+            table_requests.getColumnModel().getColumn(4).setPreferredWidth(220);
+            table_requests.getColumnModel().getColumn(5).setResizable(false);
+            table_requests.getColumnModel().getColumn(5).setPreferredWidth(150);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -654,17 +661,17 @@ public class Inventary_Content extends javax.swing.JFrame {
 
         table_ProductsAdded.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Quantity", "Code", "Name", "Brand", "StockID", "Price", "Subtotal"
+                "Serial", "Code", "Name", "Brand", "StockID", "Price", "Quantity", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -672,6 +679,23 @@ public class Inventary_Content extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(table_ProductsAdded);
+        if (table_ProductsAdded.getColumnModel().getColumnCount() > 0) {
+            table_ProductsAdded.getColumnModel().getColumn(0).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(0).setPreferredWidth(75);
+            table_ProductsAdded.getColumnModel().getColumn(1).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(1).setPreferredWidth(80);
+            table_ProductsAdded.getColumnModel().getColumn(2).setPreferredWidth(110);
+            table_ProductsAdded.getColumnModel().getColumn(3).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(3).setPreferredWidth(100);
+            table_ProductsAdded.getColumnModel().getColumn(4).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(4).setPreferredWidth(85);
+            table_ProductsAdded.getColumnModel().getColumn(5).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(5).setPreferredWidth(70);
+            table_ProductsAdded.getColumnModel().getColumn(6).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(6).setPreferredWidth(70);
+            table_ProductsAdded.getColumnModel().getColumn(7).setResizable(false);
+            table_ProductsAdded.getColumnModel().getColumn(7).setPreferredWidth(70);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -883,17 +907,17 @@ public class Inventary_Content extends javax.swing.JFrame {
 
         table_inventary_details.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Code", "Office", "Name", "Brand", "Price", "Avaible"
+                "Code", "Office", "Name", "Brand", "Stock_ID", "Avaible", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -909,14 +933,18 @@ public class Inventary_Content extends javax.swing.JFrame {
             table_inventary_details.getColumnModel().getColumn(3).setResizable(false);
             table_inventary_details.getColumnModel().getColumn(3).setPreferredWidth(80);
             table_inventary_details.getColumnModel().getColumn(4).setResizable(false);
-            table_inventary_details.getColumnModel().getColumn(4).setPreferredWidth(70);
+            table_inventary_details.getColumnModel().getColumn(4).setPreferredWidth(85);
             table_inventary_details.getColumnModel().getColumn(5).setResizable(false);
             table_inventary_details.getColumnModel().getColumn(5).setPreferredWidth(50);
+            table_inventary_details.getColumnModel().getColumn(6).setResizable(false);
+            table_inventary_details.getColumnModel().getColumn(6).setPreferredWidth(70);
         }
 
         button_transfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/transfer.png"))); // NOI18N
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+
+        jLabel4.setText("Upd");
 
         javax.swing.GroupLayout tab_inventoryLayout = new javax.swing.GroupLayout(tab_inventory);
         tab_inventory.setLayout(tab_inventoryLayout);
@@ -926,9 +954,11 @@ public class Inventary_Content extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(scrollPanel_inventary_details, javax.swing.GroupLayout.PREFERRED_SIZE, 1064, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(tab_inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_transfer)
-                    .addComponent(jLabel1))
+                .addGroup(tab_inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(tab_inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(button_transfer)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel4))
                 .addGap(11, 11, 11))
             .addComponent(panel_searchOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -941,6 +971,8 @@ public class Inventary_Content extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(33, 33, 33)
                         .addComponent(button_transfer)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_inventoryLayout.createSequentialGroup()
@@ -1012,6 +1044,7 @@ public class Inventary_Content extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

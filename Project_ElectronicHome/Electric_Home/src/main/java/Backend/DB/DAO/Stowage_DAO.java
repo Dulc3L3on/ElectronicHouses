@@ -31,7 +31,8 @@ public class Stowage_DAO {
     }
     
     public void add_More(){
-        this.stock_DAO.add_More();
+        //no creo que aquí sea nested xd, pero para miesntras se comentará xD
+        //this.stock_DAO.add_More();
     }
     
     //methods that will be used from MOV_Interface
