@@ -54,3 +54,4 @@ public class Product_Interface_DAO {
           //campos deberán ser llenados...
     
 }
+//Candidata a ser eliminada

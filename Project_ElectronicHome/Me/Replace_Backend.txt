@@ -1193,7 +1193,279 @@ Ya lo cree, y además no sé porque tiene un msje de eli :v
             //entonces dejalo ahí xD
                 //así tb no andas creando c/v +...
 
+------------------
+ANTIGUO INVENTARY_DAO
 
-
+public Inventary_DAO(){
+        this.movement_UI_DAO = new Movements_UI_DAO();     
+        this.stock_DAO = new Stock_DAO();
+    }
     
+     /**
+     * TO add a real new one
+     * or a new product at the
+     * store
+     */
+    public void add_NewOne(String type){
+        
+        this.stock_DAO.add_NewOne(type);               
+    
+    }//by: inventary   
+    
+    public void add_More(){
+        
+        //para mientras se comentará, pero creo que aquí no es nested...
+        //this.stock_DAO.add_More();
+    }
+    
+    public void request_shipment(){
+        //Se tiene que obtener el los datos de c/prod a 
+        //pedir, según la tienda escogida
+    }//BY: inventary
+    
+    
+    //methods that I will use from Mov_interface
+        //ALL
+
+--------------------
+ANTIGUO SROWAGE_DAO
+
+public class Stowage_DAO {
+    private DBMS connection;
+    
+    private Movements_UI_DAO movement_interface_DAO;//product_DAO included        
+    private Stock_DAO stock_DAO;
+    
+    
+    public Stowage_DAO(){
+        this.movement_interface_DAO = new Movements_UI_DAO();     
+        this.stock_DAO = new Stock_DAO();
+    }
+     
+    /**
+     * TO add a real new one
+     * or a new in the store
+     */
+    public void add_NewOne(String type){
+        this.stock_DAO.add_NewOne(type);
+    }
+    
+    public void add_More(){
+        //no creo que aquí sea nested xd, pero para miesntras se comentará xD
+        //this.stock_DAO.add_More();
+    }
+    
+    //methods that will be used from MOV_Interface
+        //All except for Store_Brands
+            //because everything will be base on 
+            //stowage
+    
+}
+
+----------------
+Won't be necessary because there was a class that manage this
+by mean of the IDEXATOR table that was something that I almost
+forgot xD
+    
+    >>> FROM STOCK_DAO
+   
+    /**
+     * WHen the product appears
+     * into the DB but it doesn't
+     * exist in the require store.
+     */
+    public String create_ID(){
+        
+        //aunque no exista el producto o solo el stock, se mostrará para evitar confusiones
+        //igual con el code de producto...
+        return "";
+    }
+
+-----------------
+Previo a ver que los metodos para exe la query, se repiten, por lo tanto
+voy a dejar solo 2, porque uno será para 3F, otro para 2F y ya solo tendría
+que hacer otro método por medio del cual envíe la string corresp
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Backend.DB.DAO;
+
+import Backend.DB.DBMS;
+import Backend.DB.Tools.Transformer_Reports;
+import Backend.Entity.Reports.Report_2F;
+import Backend.Entity.Reports.Report_3F;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author phily
+ */
+public class Report_DAO {
+    private Connection connection = DBMS.initConnection();
+    private Transformer_Reports transformerReports;
+    
+    public Report_DAO(){
+        this.transformerReports = new Transformer_Reports();
+    }    
+    
+    private String getSearchReport1(){
+        return "SELECT p.name, t.office, COUNT(p.name) as c FROM transactionControl.Sold as v"
+             + " INNER JOIN transactionControl.Sale as s ON s.ID = v.sale"
+             + " INNER JOIN goodsControl.Product as p ON v.product = p.code"
+             + " GROUP BY p.name"
+             + " ORDER BY c DESC LIMIT 10";
+    }//3F
+    
+    /**
+     * Top 10: productos 
+     * más vendidos.
+     */
+    public ArrayList<Report_3F> searchReport1(){
+         try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchReport1(), ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE)){            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformerReports.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformerReports.getReports_3F(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the REPORT1(3F) -> " +e.getMessage());            
+        }
+        return null;
+    }
+    
+    private String getSearchReport2(){
+        return "SELECT customer, SUM(total) as sum FROM transactionControl.Sale"
+             + " GROUP BY customer"
+             + " ORDER BY sum DESC LIMIT 10";
+    }//2F
+    
+    /**
+     * Top 10: clientes que
+     * generan más ganancias.
+     */
+    public ArrayList<Report_2F> searchReport2(){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchReport2(),
+                        ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformerReports.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformerReports.getReports_2F(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the REPORT2(2F) -> " +e.getMessage());            
+        }
+        return null;
+    }//quienes compran más xD
+    
+    private String getSearchReport3(){
+        return "SELECT office, COUNT(office) as c FROM transactionControl.Sale"
+             + " GROUP BY office"
+             + " ORDER BY c DESC LIMIT 3";
+    }//2F
+    
+    /**
+     * Top 3: sucursales con
+     * más ventas.
+     */
+    public ArrayList<Report_2F> searchReport3(){
+      try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchReport2(),
+                        ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformerReports.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformerReports.getReports_2F(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the REPORT3(3F) -> " +e.getMessage());            
+        }
+        return null;  
+    }
+    
+    private String getSearchReport4(){
+        return "SELECT office, SUM(total) as sum FROM transactionControl.Sale"
+             + " GROUP BY office"
+             + " ORDER BY sum DESC LIMIT 3";
+    }//2F
+    
+    /**
+     * Top 3: sucursales con más
+     * ingresos.
+     */
+    public void searchReport4(){
+      try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchReport2(),
+                        ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformerReports.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformerReports.getReports_2F(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the REPORT3(3F) -> " +e.getMessage());            
+        }
+        return null;  
+    }
+    
+    /**
+     * Top 3: empleados con maś
+     * ventas.
+     */
+    public void searchReport5(){
+    
+    }
+    
+    /**
+     * Top 3: empleados con más
+     * ingresos.
+     */
+    public void searchReport6(){
+    
+    }
+    
+    /**
+     * Top 10: productos con más
+     * ingresos.
+     */
+    public void searchReport7(){
+    
+    }//si se red a ingreso monetario, entonces se debe buscar en venta
+     //y hacer una suma por cada producto para hallar esto, pues no
+     //nec el más vendido es el que más ingresos deja.
+    
+    /**
+     * Top 5: productos más
+     * vendidos por sucursal.
+     */
+    public void searchReport8(){
+    
+    }
+    
+    /**
+     * Top 5: productos con más
+     * ingresos por sucursal.
+     */
+    public void searchReport9(){
+    
+    }
+    
+    //el 6 es un reporte repetido
+}
+
+---------------
+
+
 

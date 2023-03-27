@@ -102,8 +102,9 @@ public class Transfer_DAO {
     /**
      * It will be used to update the whole
      * transfer, specifically: transferState,
-     * and did. or just transferState if it 
-     * was already DONE.
+     * and did when (processed) or just 
+     * transferState like when it was already
+     * DONE, read.
      */
     public boolean update(String ID, String date, String state){//puesto que puede ser utilizado para decir PROCESSED (with did), or solo DONE
         try(PreparedStatement statement = connection.prepareStatement
@@ -133,6 +134,10 @@ public class Transfer_DAO {
              + " WHERE ID = ?";
     }
     
+    /**
+     * When a total transfer is
+     * cancelled
+     */
     public boolean delete(String ID){
          try(PreparedStatement instrucciones 
                  = connection.prepareStatement(this.getDelete())){

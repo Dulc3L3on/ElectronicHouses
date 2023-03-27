@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,20 +27,7 @@ public class Stock_DAO {
     public Stock_DAO(){
         this.transformer = new Transformer();
         //this.product_DAO = new Product_DAO();//:v ?
-    }
-    
-    /**
-     * WHen the product appears
-     * into the DB but it doesn't
-     * exist in the require store.
-     */
-    public String create_ID(){
-        
-        //aunque no exista el producto o solo el stock, se mostrará para evitar confusiones
-        //igual con el code de producto...
-        return "";
-    }
-
+    } 
     
     private String getSearchExistenceSt(){
         return "SELECT ID, quantity FROM goodsControl.Stock"
@@ -106,9 +92,9 @@ public class Stock_DAO {
      * It will be use when a
      * product is already
      * existent and is nec
-     * add more on quantity.
+     * add or reduce the quantity.
      */
-    public boolean add_More(boolean nested, String ID, int quantity){//puesto que no hay límite en la cdad que pueda almacenar 1 solo stock, entonces con que se sepa de qué tineda, se encuentra el stock deseado...        
+    public boolean update(boolean nested, String ID, int quantity){//puesto que no hay límite en la cdad que pueda almacenar 1 solo stock, entonces con que se sepa de qué tineda, se encuentra el stock deseado...        
         try(PreparedStatement statement 
                 = connection.prepareStatement(this.getUpdateSt())){                     
             statement.setInt(1, quantity);//serpa el nuevo total, no algo que se deba sumar...
@@ -126,4 +112,7 @@ public class Stock_DAO {
         }        
         return false;
     }
+    //reduce WHEN a sale or a transfer is sended (processed)
+    //addition WHEN a transfer is received (done)
+    
 }//READY

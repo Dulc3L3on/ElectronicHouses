@@ -659,3 +659,20 @@ SUMMARY
     - directly (inv/stow)
     - sold (--)
     - transfer (++) DONE 
+
+------------
+super obvi note
+  //si se ref a ingreso monetario, entonces se debe buscar en SOLD
+  //y hacer una suma por cada producto para hallar esto, pues no
+  //nec el más vendido es el que más ingresos deja.
+
+JASPER----------
+Yo me acuerdo que se podía enviar un ArrayList de ArrayList, al momento
+de enviar la data a ser setear, PERO no me acuerdo si debía hacer algo 
+en específico o no
+  - creo que se tenía que usar en ese caso, SUB reportes...
+
+  Pero como no tengo tiempo de revisar en mis proyectos (puesto que no
+  me recuerdo en cuál emplee esto, si es que no me acuerdo mal).
+    THEN voy a enviar una sola lista en lugar de tener una por cada tienda
+    y por eso tenga que setearlas en otra para que se envíe todo xD

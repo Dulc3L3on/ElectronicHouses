@@ -249,10 +249,10 @@ TO DO
 TO DO
   * search existence [LISTO]
   * create [LISTO]
-  update PR, AP, ST[]
-  creation of ID (of tables with String ID)
+  update PR, AP, ST[LISTO]
+  creation of ID (of tables with String ID) [already did]
     //recuerda que en el caso del Stock ID y el code del producto, auqnue estos no existan los mostrarás en la ventanita, aunque aúnno hayan sido creados..
-  reportes []
+  reportes [LISTO]
   ensamblaje []
   probar []
 

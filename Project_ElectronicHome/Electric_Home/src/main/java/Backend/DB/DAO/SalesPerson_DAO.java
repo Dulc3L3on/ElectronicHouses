@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class SalesPerson_DAO {
     private DBMS connection;    
     
-    private SalesPerson_Interface_DAO salesPerson_Interface_DAO;
+    private Employees_Interface_DAO salesPerson_Interface_DAO;
     private Movements_UI_DAO movementsUI_DAO;
     private Customer_DAO customer_DAO;
     private Sale_DAO sale_DAO;
@@ -25,7 +25,7 @@ public class SalesPerson_DAO {
     private Product_DAO product_DAO;//Este contiene el método para buscar el proucto a detallar, get BrandsSt, getTypes y solo xD
     
     public SalesPerson_DAO(){
-        this.salesPerson_Interface_DAO = new SalesPerson_Interface_DAO();
+        this.salesPerson_Interface_DAO = new Employees_Interface_DAO();
         this.movementsUI_DAO = new Movements_UI_DAO();
         this.customer_DAO = new Customer_DAO();
         this.sale_DAO = new Sale_DAO();
@@ -39,7 +39,7 @@ public class SalesPerson_DAO {
         return this.customer_DAO;
     }//Ready
     
-    public SalesPerson_Interface_DAO getSalesPerson_IntDAO(){
+    public Employees_Interface_DAO getSalesPerson_IntDAO(){
         return this.salesPerson_Interface_DAO;
     }
     

@@ -42,3 +42,5 @@ public class Movement_interface_DAO {
     //that MOVEMENT_UI is going to receive
         
 }
+
+//Candidata a ser eliminada

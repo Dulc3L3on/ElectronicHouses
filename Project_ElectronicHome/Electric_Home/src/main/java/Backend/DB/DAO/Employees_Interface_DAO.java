@@ -21,14 +21,14 @@ import java.util.ArrayList;
  *
  * @author phily
  */
-public class SalesPerson_Interface_DAO {
+public class Employees_Interface_DAO {
     private Connection connection = DBMS.initConnection();
     private Transformer transformer;
     private Transformer_SalesPersonSearching transformer_SPS;
     
     private Movements_UI_DAO movements_UI_DAO;           
     
-    public SalesPerson_Interface_DAO(){
+    public Employees_Interface_DAO(){
         this.movements_UI_DAO = new Movements_UI_DAO();
         
         this.transformer = new Transformer();

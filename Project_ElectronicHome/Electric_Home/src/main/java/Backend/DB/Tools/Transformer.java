@@ -202,9 +202,7 @@ public class Transformer {
             System.out.println("Error: seting an PRODUCT");
         }
         return null;
-    }
-    
-    
+    }    
 }//ENDED
 //es que cosas más específicas son las que se mandan a la clase transfoemr específica
 //pero las generalaes (que invlucren Entitys without extras entonces xD)

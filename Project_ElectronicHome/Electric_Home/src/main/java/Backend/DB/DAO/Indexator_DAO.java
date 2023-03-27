@@ -21,6 +21,13 @@ public class Indexator_DAO {
         return "SELECT indice FROM tool.indexator WHERE prefix = ?";//no coloco tableName, porquecon el prefix basta...
     }//Ready
     
+    /**
+     * Will be used to search the
+     * last index that was added to
+     * a specific table to show the
+     * ID and with that be able to
+     * update the value.     
+     */
     public long search(String prefix){
         try(PreparedStatement statement = 
             connection.prepareStatement(this.getSerialSt())){            
@@ -31,7 +38,7 @@ public class Indexator_DAO {
             resultado.first();
             return Long.valueOf(resultado.getString(0)) +1;            
         }catch(SQLException e) {
-            System.out.println("Error: impossible to get serial IDEXATOR");
+            System.out.println("Error: impossible to FIND serial IDEXATOR");
         }        
         return -1;
     }//Ready
@@ -40,6 +47,12 @@ public class Indexator_DAO {
         return "UPDATE tool.Indexator SET indice = ? WHERE prefix = ?";
     }//Ready
     
+    /**
+     * It will be used to UPDATE
+     * with the value that was given
+     * by the search method of
+     * this class.
+     */
     public boolean update(Long indice){
         try(PreparedStatement statement = 
             connection.prepareStatement(this.getUpdateSt())){
@@ -49,7 +62,7 @@ public class Indexator_DAO {
             statement.executeUpdate();
             return true;
         }catch(SQLException e) {
-            System.out.println("Error: impossible to get serial IDEXATOR");
+            System.out.println("Error: impossible to UPDATE serial IDEXATOR");
         }        
         return false;
     }//Ready

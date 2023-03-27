@@ -135,11 +135,11 @@ public class Sold_DAO {
                 connection.prepareStatement(this.getDeletionSt())){
             statement.setLong(1, product);
             
-            statement.executeUpdate();            
+            statement.executeUpdate();                        
             
-            correct = this.stockDAO.add_More(true, office, product, quantity);//Lo tendré
-            //que exe después de este método, pues para las devoluciones no se deber add
-            //nuevamente la cdad que existía ahí, porque la razón por la que devolvieron
+            //about UPDATE de stock
+            //tendré que exe después de este método, pues para las devoluciones no se deber
+            //add nuevamente la cdad que existía ahí, porque la razón por la que devolvieron
             //es porque estaba defectuoso, entonces NO aplica!!!
                 //igual lo de la anidación sigue en pie, porque de esa manera no se podrá
                 //repetir el JOP lo cual está NICE
