@@ -33,7 +33,8 @@ public class Office_DAO {
      
     public ArrayList<String> searchAll(){
         try(PreparedStatement statement
-                = connection.prepareStatement(this.getSearchAllSt())){
+                = connection.prepareStatement(this.getSearchAllSt(), ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE)){
             ResultSet result = statement.executeQuery();
             
             if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...

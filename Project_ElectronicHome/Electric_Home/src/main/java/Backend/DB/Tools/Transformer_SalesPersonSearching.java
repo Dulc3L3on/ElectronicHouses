@@ -145,11 +145,11 @@ public class Transformer_SalesPersonSearching {
             result.first();
         
             for (int indice = 0; indice < size; indice++) {                
-                list.add(result.getString(indice));
+                list.add(result.getString(indice+1));
                 result.next();
             }
          } catch (SQLException e) {
-            System.out.println("Error: setting a list for UI");
+            System.out.println("Error: setting a list for UI" + e.getMessage());
         }
         return list;
     }//empleado por los 3 métodos para los cbBox

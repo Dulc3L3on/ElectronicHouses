@@ -5,7 +5,10 @@
 package Frontend;
 
 import Backend.DB.DAO.Login_DAO;
+import Backend.DB.DAO.Office_DAO;
+import Backend.DB.DAO.Position_DAO;
 import Backend.DB.DTO.Employee_DTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +19,7 @@ public class Login extends javax.swing.JFrame {
     
     private Login_DAO loginDAO;
     private Employee_DTO employee;    
+    private Office_DAO office_DAO;
     
     /**
      * Creates new form Login
@@ -23,6 +27,9 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.loginDAO = new Login_DAO();
+        this.office_DAO = new Office_DAO();
+        
+        this.setOffices();
     }
 
     /**
@@ -51,7 +58,6 @@ public class Login extends javax.swing.JFrame {
         lbl_password.setText("password:");
 
         cbBox_store.setFont(new java.awt.Font("Jamrul", 0, 12)); // NOI18N
-        cbBox_store.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btn_login.setText("Login");
         btn_login.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +138,14 @@ public class Login extends javax.swing.JFrame {
 
     public Employee_DTO getEmployee(){
         return this.employee;
+    }
+    
+    private void setOffices(){
+        ArrayList<String> list = this.office_DAO.searchAll();
+        
+        for (int index = 0; index < list.size(); index++) {
+            this.cbBox_store.addItem(list.get(index));
+        }        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
