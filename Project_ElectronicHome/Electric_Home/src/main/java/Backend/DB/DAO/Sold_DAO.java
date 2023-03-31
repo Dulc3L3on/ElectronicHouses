@@ -61,23 +61,23 @@ public class Sold_DAO {
     }//Ready
     
     private String getInsertionSt(){
-        return "INSERT INTO transactionControl.Sold (sale, product, quantity, subtotal)"
+        return "INSERT INTO transactionControl.Sold "
+             + "(sale, product, quantity, subtotal)"
              + " VALUES (?,?,?,?)";
     }
     
     /**
      * It will be used to add
      * the individual sales
-     * that a whole sale has
-     * to allow fancy axns.
+     * to a whole sale.
      */
     public void insert(String sale, long productCode, int quantity, double subtotal){
          try(PreparedStatement statement = 
-                connection.prepareStatement(this.getInsertionSt())){
-            statement.setString(1, sale);
-            statement.setLong(2, productCode);
-            statement.setInt(3, quantity);
-            statement.setDouble(4, subtotal);
+                connection.prepareStatement(this.getInsertionSt())){            
+            statement.setString(2, sale);
+            statement.setLong(3, productCode);
+            statement.setInt(4, quantity);
+            statement.setDouble(5, subtotal);
             
             statement.executeUpdate();
         }catch(SQLException e){            
@@ -119,30 +119,23 @@ public class Sold_DAO {
     ///////////////////////////////////////////////////////////////---INVENTARY
     
     private String getDeletionSt(){
-        return "DELETE FROM transactionControl.Sold WHERE product = ?";
+        return "DELETE FROM transactionControl.Sold WHERE code = ?";
     }
     
     /**
      * It will be used to delete
-     * an individual sale, before
+     * an individual sold, before
      * the sale was do or already
      * did because of a CAHNGE.
      */
-    public boolean delete(String office, long product, int quantity){
+    public boolean delete(long code){//qunatity no porque si no tendría que hacer que la tabla permitirera esa edición y no queiro pober maś!
         boolean correct = true;
         
         try(PreparedStatement statement = 
                 connection.prepareStatement(this.getDeletionSt())){
-            statement.setLong(1, product);
+            statement.setLong(1, code);
             
-            statement.executeUpdate();                        
-            
-            //about UPDATE de stock
-            //tendré que exe después de este método, pues para las devoluciones no se deber
-            //add nuevamente la cdad que existía ahí, porque la razón por la que devolvieron
-            //es porque estaba defectuoso, entonces NO aplica!!!
-                //igual lo de la anidación sigue en pie, porque de esa manera no se podrá
-                //repetir el JOP lo cual está NICE
+            statement.executeUpdate();                                    
             
         }catch(SQLException e){            
             System.out.println("Error: Impossible to DELETE the Sold: "+ e.getMessage());

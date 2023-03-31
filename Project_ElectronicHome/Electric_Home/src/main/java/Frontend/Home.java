@@ -1,5 +1,12 @@
 package Frontend;
 
+import Backend.DB.DTO.Employee_DTO;
+import Backend.Tools.Time;
+import Frontend.Building.Inventary.Inventary_Content;
+import Frontend.Building.Stowage.Stowage_Content;
+import Frontend.Employee.Admin.Admin_Content;
+import Frontend.Employee.SalesPerson.SalesPerson_Content;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -10,12 +17,54 @@ package Frontend;
  * @author phily
  */
 public class Home extends javax.swing.JFrame {
-
+    private Admin_Content admin_C;
+    private SalesPerson_Content salesPerson_C;
+    private Inventary_Content inventary_C;
+    private Stowage_Content stowage_C;   
+    
+    private Time time;
+    
+    private Employee_DTO employee;
+    
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home(Employee_DTO currentEmployee) {
         initComponents();
+        
+        this.employee = currentEmployee;
+        this.time = new Time();
+                
+        this.setHeader();
+        this.setInternalFrame();                
+    }
+    
+    private void setInternalFrame(){
+        if(employee.getContract().getPosition().equals("administrator")){
+            this.admin_C = new Admin_Content(this.employee);
+            this.Home_desktopPane.add(this.admin_C);
+            this.admin_C.setVisible(true);
+        }else if(employee.getContract().getPosition().equals("sales")){
+            this.salesPerson_C = new SalesPerson_Content(this.employee);
+            this.Home_desktopPane.add(this.salesPerson_C);
+            this.salesPerson_C.setVisible(true);
+        }else if(employee.getContract().getPosition().equals("inventary")){
+            this.inventary_C = new Inventary_Content(this.employee);
+            this.Home_desktopPane.add(this.inventary_C);
+            this.inventary_C.setVisible(true);
+        }else{
+            this.stowage_C = new Stowage_Content(this.employee);
+            this.Home_desktopPane.add(this.stowage_C);
+            this.stowage_C.setVisible(true);
+        }
+    }
+    
+    private void setHeader(){
+        this.txtF_name.setText(this.employee.getName());
+        this.txtF_ID.setText(this.employee.getID());
+        this.txtF_position.setText(this.employee.getContract().getPosition());
+        this.txtF_office.setText(this.employee.getContract().getOffice());
+        this.time.getTime(this.lbl_date);
     }
 
     /**
@@ -39,9 +88,8 @@ public class Home extends javax.swing.JFrame {
         txtF_position = new javax.swing.JTextField();
         txtF_office = new javax.swing.JTextField();
         lbl_date = new javax.swing.JLabel();
-        lbl_time = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
-        panel_content = new javax.swing.JPanel();
+        Home_desktopPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -91,9 +139,6 @@ public class Home extends javax.swing.JFrame {
         lbl_date.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 13)); // NOI18N
         lbl_date.setText("Wednesday, March 8th 2023");
 
-        lbl_time.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 13)); // NOI18N
-        lbl_time.setText("20:15");
-
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ElectronicHome.jpg"))); // NOI18N
 
         javax.swing.GroupLayout panel_employeeInfoLayout = new javax.swing.GroupLayout(panel_employeeInfo);
@@ -114,8 +159,7 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(lbl_office)
                         .addGap(43, 43, 43)
                         .addComponent(txtF_office, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_time, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panel_employeeInfoLayout.createSequentialGroup()
                         .addGroup(panel_employeeInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_employeeInfoLayout.createSequentialGroup()
@@ -132,7 +176,7 @@ public class Home extends javax.swing.JFrame {
                                     .addGap(66, 66, 66)
                                     .addComponent(txtF_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(62, 62, 62))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
                         .addGroup(panel_employeeInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbl_logo)
                             .addComponent(lbl_date))))
@@ -146,9 +190,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(panel_employeeInfoLayout.createSequentialGroup()
                         .addComponent(lbl_logo)
                         .addGap(18, 18, 18)
-                        .addComponent(lbl_date)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_time))
+                        .addComponent(lbl_date))
                     .addGroup(panel_employeeInfoLayout.createSequentialGroup()
                         .addComponent(panel_photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,14 +214,14 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panel_contentLayout = new javax.swing.GroupLayout(panel_content);
-        panel_content.setLayout(panel_contentLayout);
-        panel_contentLayout.setHorizontalGroup(
-            panel_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1156, Short.MAX_VALUE)
+        javax.swing.GroupLayout Home_desktopPaneLayout = new javax.swing.GroupLayout(Home_desktopPane);
+        Home_desktopPane.setLayout(Home_desktopPaneLayout);
+        Home_desktopPaneLayout.setHorizontalGroup(
+            Home_desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        panel_contentLayout.setVerticalGroup(
-            panel_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        Home_desktopPaneLayout.setVerticalGroup(
+            Home_desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 780, Short.MAX_VALUE)
         );
 
@@ -187,56 +229,22 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel_employeeInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Home_desktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_employeeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Home_desktopPane))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Home_desktopPane;
     private javax.swing.JLabel lbl_ID;
     private javax.swing.JLabel lbl_changeUser;
     private javax.swing.JLabel lbl_date;
@@ -244,8 +252,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_office;
     private javax.swing.JLabel lbl_position;
-    private javax.swing.JLabel lbl_time;
-    private javax.swing.JPanel panel_content;
     private javax.swing.JPanel panel_employeeInfo;
     private javax.swing.JPanel panel_photo;
     private javax.swing.JTextField txtF_ID;

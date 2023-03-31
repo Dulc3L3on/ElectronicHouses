@@ -20,26 +20,100 @@ import javax.swing.JOptionPane;
 public class Sale_DAO {
     private Connection connection = DBMS.initConnection();
     private Transformer transformer;
+    private Indexator_DAO indexator;
     
     public Sale_DAO(){
         this.transformer = new Transformer();
+        this.indexator = new Indexator_DAO();
+    }
+    
+    private String getWasEditSt(){
+        return "SELECT total, pastTotal FROM transactionControl.Sale WHERE ID = ?";
+    }
+    
+    /**
+     * It will be used to check if
+     * a sale was already CHANGEd     
+     */
+    public int wasEdit(String sale){
+        try(PreparedStatement statement = connection.prepareStatement(this.getWasEditSt())){//si falla, ya sabes que add xd            
+            statement.setString(1, sale);
+            
+            ResultSet result = statement.executeQuery();
+            
+            if(result!=null && transformer.moveBegin(result)){                
+                if(result.getDouble(2) == 0){
+                    return 1;
+                }else{
+                    JOptionPane.showConfirmDialog(null, "This sale was already CHANGED.\n"
+                        + "The last amount "+ result.getDouble(1)+"was changed by"
+                        + result.getDouble(2) + ".\nImpossible to proceed", "Already did",
+                        JOptionPane.DEFAULT_OPTION);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Incorrect ID, check it"
+                        + "\n and try again.", "Invalid SALE-ID", JOptionPane.ERROR_MESSAGE);
+                return 3;
+            }       
+        }catch(SQLException e) {
+            System.out.println("Error: al buscar an EMPLOYEE -> " +e.getMessage());
+        }        
+        return 2;
+    }//1 = C, 2 = Error, 3 = NExiste
+    
+    private String getPreviousAmountSt(){
+        return "SELECT total FROM transactionControl.Sale WHERE ID = ?";
+    }
+    
+    /**
+     * It will be used to obtain
+     * the prevoius amount (total
+     * prev a update) that is going
+     * to be turn onto pastTotal.
+     */
+    public double searchPreviousAmount(String ID){
+        try(PreparedStatement statement = connection.prepareStatement(this.getPreviousAmountSt())){
+            statement.setString(1, ID);
+                
+            ResultSet result = statement.executeQuery();
+            
+            if(result!= null && this.transformer.moveBegin(result)){
+                return result.getDouble(1);
+            }
+        }catch(SQLException e){            
+            System.out.println("Error: Impossible FIND a PAST_TOTAL");
+        }        
+        return 0;
+    }
+    
+    public String searchActualID(){
+        return ""+this.indexator.search("SID");//y así con las 4 restantes
+    }
+    
+    public void updateID(){
+        this.indexator.update("SID");//y así con las 4 restantes
     }
     
     private String getSearchingSt(){
-        return "SELECT s.customer, SUM(v.subtotal), (SUM(v.subtotal)*s.disccount),"
-             + " s.disccount, s.total FROM transactionControl.Sale as s INNER JOIN"
-             + " transactionControl.Sold as v ON s.ID = v.sale WHERE s.ID = ?";
+        return "SELECT s.ID, c.NIT, c.name, c.CUI, c.address, c.since, s.salesDate"
+             + " SUM(v.subtotal), (SUM(v.subtotal)*s.disccount), s.disccount, s.total"
+             + " FROM transactionControl.Sale as s"
+             + " INNER JOIN customerControl.Customer as c ON c.NIT = s.customer"
+             + " INNER JOIN transactionControl.Sold as v ON v.sale = s.ID"
+             + " WHERE s.ID = ?";
     }//AL final no usé el JOIN, porque si colocaba lo de las SOLD no sé como se 
     //hubiera guardado la data de SALE, ya que es UNA sola fila. Imagino que se
     //Repetiría esa misma data en cada una de las lineas generadas debido a SOLD...
     
     /**
      * It will be useful to
-     * a CHANGE of sale.
+     * set the Sale header 
+     * when there is requested
+     * a CHANGE of this.
      */
-    public Sale_DTO search(String code){
+    public Sale_DTO search(String ID){
         try(PreparedStatement statement = connection.prepareStatement(this.getSearchingSt())){
-            statement.setString(1, code);
+            statement.setString(1, ID);
                 
             ResultSet result = statement.executeQuery();
             
@@ -55,9 +129,9 @@ public class Sale_DAO {
         return null;
     }//By: salesPerson
     
-    public String getDisccountSt(){
-        return "SELECT total FROM transactionControl.Sale WHERE NIT = ?"
-             + "ORDER BY salesDate DESC";//yo diría que DESC es del más antiguo al más reciente...
+    private String getDisccountSt(){
+        return "SELECT total FROM transactionControl.Sale WHERE customer = ?"
+             + "ORDER BY salesDate DESC LIMIT 1";//yo diría que DESC es del más antiguo al más reciente...
     }
     
     /**
@@ -72,13 +146,13 @@ public class Sale_DAO {
         try(PreparedStatement statement = 
                 connection.prepareStatement(this.getDisccountSt())){
             
-            double amount = statement.executeQuery().getDouble(0);
+            double amount = statement.executeQuery().getDouble(1);
             
-            if(amount >= 1000 && amount <= 5000){
+            if(amount >= 1000 && amount < 5000){
                 return 0.02;
-            }else if(amount >= 5000 && amount <= 10000){
+            }else if(amount >= 5000 && amount < 10000){
                 return 0.05;
-            }else{
+            }else if(amount >= 10000){
                 return 0.1;
             }
             
@@ -120,21 +194,22 @@ public class Sale_DAO {
      //Ready
     
     private String getCompleteInsertionSt(){
-        return "UPDATE transactionControl.Sale subtotal = ?, disccount = ?,"
-             + " total = ? WHERE ID = ? ";
+        return "UPDATE transactionControl.Sale subtotal = ?, total = ?"
+             + " WHERE ID = ? ";
     }//Ready
     
     /**
      * It will be used when a sale
      * is already ended.
      */
-    public boolean completeInsert(String ID, double total){//el subtotal se sacará con la función SUM(table.column)
+    public boolean completeInsert(String ID, double subtotal, double total){//el subtotal se sacará con la función SUM(table.column)
         
         try(PreparedStatement statement = connection.prepareStatement
                 (this.getCompleteInsertionSt())){            
             
-            statement.setDouble(1, total);
-            statement.setString(2, ID);
+            statement.setDouble(1, subtotal);
+            statement.setDouble(2, total);
+            statement.setString(3, ID);
                 
             statement.executeUpdate();
             return true;
@@ -147,8 +222,8 @@ public class Sale_DAO {
     }//Ready
     
     private String getUpdateSt(){
-        return "UPDATE transactionControl.Sale SET pastTotal = ?, total =  ?"
-             + " WHERE ID = ?";
+        return "UPDATE transactionControl.Sale SET subtotal = ?, pastTotal = ?,"
+             + " total =  ? WHERE ID = ?";
     }
     
     /**
@@ -156,10 +231,12 @@ public class Sale_DAO {
      * was an issue with the original
      * product.
      */
-    public boolean update(String ID, double pastTotal, double total){
+    public boolean update(String ID, double subtotal, double pastTotal,
+            double total){
         try(PreparedStatement statement 
                 = connection.prepareStatement(this.getUpdateSt())){
             
+            statement.setDouble(1, subtotal);
             statement.setDouble(1, pastTotal);
             statement.setDouble(2, total);
             statement.setString(3, ID);

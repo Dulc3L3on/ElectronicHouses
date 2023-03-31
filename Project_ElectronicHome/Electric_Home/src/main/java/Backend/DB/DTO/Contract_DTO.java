@@ -10,7 +10,7 @@ package Backend.DB.DTO;
  */
 public class Contract_DTO {
     private long _ID;    
-    private String _office;    
+    private String _office;//debería ser un onbjeto... 
     private String _position;
     private double _salary;
     private java.util.Date _initialDate;

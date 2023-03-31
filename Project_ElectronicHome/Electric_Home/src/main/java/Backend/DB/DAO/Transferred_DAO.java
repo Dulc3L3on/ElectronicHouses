@@ -60,7 +60,7 @@ public class Transferred_DAO {
             System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
         }
         return null;
-    }
+    }//inventary/stowage
     
     //----------
     
@@ -84,13 +84,13 @@ public class Transferred_DAO {
             return true;
         }catch(SQLException e){            
             JOptionPane.showMessageDialog(null,
-                 "Impossible to CREATE the list of Transferences."
+                 "Impossible to INSERT the TRANSFERRED product."
                  + "\n Try one more time.", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Error: creating the list of Transferences" 
+            System.out.println("Error: creating a TRANSFERRED" 
                     + e.getMessage());
         }
         return false;        
-    }//By: SalesPerson, Inventary and Stowage
+    }//By: SalesPerson, Inventary [Stowage no crea solicitudes de transferencia, solo concede]
         //Igual que en SOLD, se irá exe este método
             //Cada vez que presione (+)
                 //esto se escogerá a partir de la pestaña de axn selected...
@@ -146,5 +146,7 @@ public class Transferred_DAO {
             System.out.println("Error: DELETing the transferREDs: "+ sqlE.getMessage());
         }
         return false;       
-    }
+    }//salesPerson?, inventary fijo, pero ni si quiera tengo el botón
+        //como no es obligatorio este método y aprovechando xD, no DELETEAREMOS una transferred
+        //to make it easier
 }

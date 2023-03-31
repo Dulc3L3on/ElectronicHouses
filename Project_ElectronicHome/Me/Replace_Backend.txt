@@ -1467,5 +1467,616 @@ public class Report_DAO {
 
 ---------------
 
+It is not correct, puesto que estamos agarrando el ID del customer y nada 
+más, cuando en realidad necesito que se muestren los datos de él
+
+ private String getSearchingSt(){
+        return "SELECT s.customer, SUM(v.subtotal), (SUM(v.subtotal)*s.disccount),"
+             + " s.disccount, s.total FROM transactionControl.Sale as s INNER JOIN"
+             + " transactionControl.Sold as v ON s.ID = v.sale WHERE s.ID = ?";
+    }//AL final no usé el JOIN, porque si colocaba lo de las SOLD no sé como se 
+    //hubiera guardado la data de SALE, ya que es UNA sola fila. Imagino que se
+    //Repetiría esa misma data en cada una de las lineas generadas debido a SOLD...
+
+ALSO transformer, because it was designed based on the code that I pasted above.
+
+-------------
+Se cb el spinner por un simple txtF y un método para imponer la condi.
+Entonces esta clase puede ser empleada para setear las tablas xD
 
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
+
+/**
+ *
+ * @author phily
+ */
+ */
+public class TableAuxiliar {
+    
+    /*public void setSpinner(JTable table){
+        TableColumn column = table.getColumnModel().getColumn(8);
+    
+        JSpinner spinner = new JSpinner();        
+        
+        column. (new DefaultCellEditor(spinner));
+    }*///en esta vrs de java, esto ya no funciona. Ahora lo que se debe
+    //usar en un TableCellEditor, pero eso hace las cosas más dificiles,
+    //entonces lo que haré es simplemente crear un método que permita
+    //que al momento de estar editando, no se pase del número que aparece
+    //en available
+    
+}
+
+------------
+Previo a darme cta que no está bien, puesto que, con el ID del stock basta...
+
+private String getDeletionSt(){
+        return "DELETE FROM transactionControl.Sold WHERE product = ?";
+    }
+    
+    /**
+     * It will be used to delete
+     * an individual sold, before
+     * the sale was do or already
+     * did because of a CAHNGE.
+     */
+    public boolean delete(String office, long product){//qunatity no porque si no tendría que hacer que la tabla permitirera esa edición y no queiro pober maś!
+        boolean correct = true;
+        
+        try(PreparedStatement statement = 
+                connection.prepareStatement(this.getDeletionSt())){
+            statement.setLong(1, product);
+            
+            statement.executeUpdate();                        
+            
+            //about UPDATE de stock
+            //tendré que exe después de este método, pues para las devoluciones no se deber
+            //add nuevamente la cdad que existía ahí, porque la razón por la que devolvieron
+            //es porque estaba defectuoso, entonces NO aplica!!!
+                //igual lo de la anidación sigue en pie, porque de esa manera no se podrá
+                //repetir el JOP lo cual está NICE
+            
+        }catch(SQLException e){            
+            System.out.println("Error: Impossible to DELETE the Sold: "+ e.getMessage());
+            correct = false;
+        }
+        
+        if(!correct){
+            JOptionPane.showMessageDialog(null, "Impossible to DELETE the Sold.\n"
+                    + "Try one more time", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+
+    ---------
+    Previo a add el método para insertar la TRANSFERRED puesto que había
+    olvidado que aplicaba a más de 1 xD
+    
+    //de la clase SalesPerson_content
+    
+    private void button_ADDMouseClicked(java.awt.event.MouseEvent evt) {         
+     //se inserta la SOLD
+        this.salesPersonDAO.get_Sold_DAO().insert(this.lbl_SaleID.getText(),
+            Long.valueOf(this.txtF_Code.getText()),
+            (int) this.spinner_quantityAdquired.getValue(), 
+            (Double.valueOf(this.txtF_Price.getText())*((int)this.spinner_quantityAdquired.getValue())));
+        
+        //Eli productos de inventario (STOCK)
+        this.inventoryDAO.getStock_DAO().update(true,
+                this.txtF_StockID.getText(), false, (int)this.spinner_quantityAdquired.getValue());
+        
+        //ACTUALIZA interfaz
+        this.tableAux.setAreadySold(table_Already, //se muestra el producto ya adquirido
+            this.salesPersonDAO.getEmployee_IntDAO()
+                .search_SoldProduct(this.lbl_SaleID.getText()));
+        this.setNumberInfo();
+        this.clearLineOfChoosing();        
+    }
+
+-----------------
+No está erróneo, pero esto lo puedo hacer más sencillo ya que 
+indexator se encarga de hacer esto, entonces aquí ya solo tendría que
+add el PREFIX
+
+private String getSearchActualID(){
+        return "SELECT prefix, indice FROM tool.Indexator WHERE tableName = ?";       
+    }
+    
+    public String searchActualID(String tableName){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchActualID())){
+            statement.setString(1, tableName);
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer_ISS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return (result.getString(1) +"-"+ result.getInt(2));
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the current TRANSFER ID -> " +e.getMessage());            
+        }
+        return "";
+    }
+
+---------------
+Previo a darme cta que no solo debo actualizar el subtotal, porque lo demás
+no se calcula automático (descuento y total). Por lo cual hice un método
+general xD
+
+do{            
+        result = this.employeeDAO.searchExistence(
+                 JOptionPane.showInputDialog("Code of Inventary manager: "),
+                      "inventary", this.employee.getContract().getOffice());
+            
+        if(result){
+             this.salesPersonDAO.get_Sold_DAO()
+                .delete((long)(this.table_Already.getValueAt(row, 0)));
+            
+            if(!this.checkB_change.isSelected()){
+                this.inventoryDAO.getStock_DAO().update(true, 
+                    (String) this.table_Already.getValueAt(row, 5), true,                            
+                (int) this.table_Already.getValueAt(row, 7));
+            }//puesto que en ese caso, no se volvería a meter...
+            
+            //enviar la cdad pedida + ka existente
+            this.lbl_subtotal.setText(String.valueOf(
+                Double.valueOf(lbl_subtotal.getText())
+                 -(((double)this.table_Already.getValueAt(row, 5))
+                   *((int) this.table_Already.getValueAt(row, 7)))));
+        }
+}while(!result);
+
+
+------------
+Y previo a ver que el método a +/- en este caso, debería mandarse
+como un argumento, y serí alo único que se modificaría...
+
+
+private void setNumberInfo(int isAdd){
+        this.lbl_subtotal.setText(String.valueOf(Double.valueOf(lbl_subtotal.getText())+
+                              ((isAdd)*Double.valueOf(this.txtF_Price.getText())
+                               *((int)this.spinner_quantityAdquired.getValue()))));
+        this.lbl_disccount.setText(String.valueOf(Double.valueOf(this.lbl_subtotal.getText())
+                               *(Double.valueOf(this.lbl_percentage.getText()))));
+        this.lbl_total.setText(
+            String.valueOf(Double.valueOf(this.lbl_subtotal.getText())
+                    -Double.valueOf(this.lbl_disccount.getText())));
+    }
+
+------------------
+No porque esté malo sino porque me di cuenta, que estaba creando una 
+condición innecesaria, ya que esto bien podría ser manejado por el método
+ya que desde un principio fue capaz (Antes de darme cta de esa innecesidad)
+solo por la condición EXTERNA era que no podía... entonces voy a eli este
+método, pero antes voy a chequear que de verdad no afecte nada y que el borralo
+brinde más funcionalidades xD
+
+---Employee_Interface_DAO
+
+/**
+     * It is the method that gather
+     * the 2 methdos that are going
+     * to be used when a salesPerson
+     * uses the inventary-tab.
+     */
+public ArrayList<Stock_DTO> searchOnInventary(String code, String store, 
+            String brand, String type, String[] line){       
+        //el método para buscar a todos (cuando no hay filtros) está incluido en searchProduct, así que no problem xD
+        
+        if(code != null && store.equals("all") && brand.equals("all")
+                && type.equals("all") && line[0].equals("all")){
+           return this.search_similarProducts(null, code);//puesto que este espacio se dedicó al hecho de que no se especificó la store...
+        }else{//tb podría ser code == null y los demás == all... lo cual noe está mal...
+            //si hay code, solo code + store tiene sentido... pero eso dependerá del user...
+            this.searchProduct(code, store, brand, type, line);
+        }        
+        return new ArrayList<>();
+    }//tcolocaste el método search_similar porque ahí tenías un LIKE, entonces para que funcionara así como en ROY que metías una parte del número y te aparecían todas las sugerencias. Pero en todo caso podría add el like aquí en el método de abajito solo para CODE, no arruinaría nada y es más provocaría que haya oportunidad de buscar de diferentes maneras y luzca más interesante xD
+    
+y este es la query de tb Employee_Interface_DAO, pero sin LIKE :v, es que
+de verdad... xD
+
+String search = "SELECT p.code, s.office, p.name, p.theBrand, s.ID,"
+             + " s.quantity, p.price FROM goodsControl.Product as p "
+             + " INNER JOIN goodsControl.Stock as s ON s.product = p.code"
+             + " INNER JOIN goodsControl.Appliance as a ON a.name = p.name"
+             + " INNER JOIN goodsControl.Clasification as c ON c.ID = a.clasification";             
+
+-------------
+Previo a optimizarlo 
+
+--SalesPerson:Inventary-Tab 
+
+private void cbBox_inventary_storeActionPerformed(java.awt.event.ActionEvent evt) {    
+ //aquí el jueguito de las Brand según store                
+        ArrayList<String> brands;
+        ArrayList<String> types;
+        
+        if(this.cbBox_inventary_store.getSelectedIndex() == 0){// = All
+            brands = this.salesPersonDAO.getBrands();
+            types = this.salesPersonDAO.getTypes();
+        }else{
+            brands = this.salesPersonDAO.getMovUI_DAO()
+                               .search_StoresBrand((String) this.cbBox_inventary_store
+                                       .getSelectedItem());
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            if(i == 0){
+                this.cbBox_inventory_productBrand.addItem("all");
+            }else{
+                this.cbBox_inventory_productBrand.addItem(brands.get(i));
+            }
+        }
+}
+
+--------------
+Previo a addle OFFICE por si acaso store tuviera algo != All
+o sea el método está bien, pero xD para ser más específicos xD
+
+--Movements_UI_DAO
+
+private String getBrands_Types(){
+        return "SELECT c.type FROM goodsControl.Clasification as c"
+             + " INNER JOIN goodsControl.Appliance as a"
+             + " ON a.clasification = c.ID WHERE a.theBrand = ?";
+    }
+    
+    /**
+     * List all the types that are
+     * related with a specific brand
+     * of a specific office if it was
+     * declarated.
+     */
+    public ArrayList<String> list_Brands_Types(String brand){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getBrands_Types())){
+            statement.setString(1, brand);
+                
+            ResultSet result = statement.executeQuery();
+            
+            if(result!= null && this.transformer_SPS.moveBegin(result)){
+                return this.transformer_SPS.getList(result);
+            }
+        }catch(SQLException e){            
+            System.out.println("Error: Impossible FIND a StoresBrandList");
+        }
+        
+        return new ArrayList<>();
+    }//By: inventory and stowage           
+
+    ------
+
+    REEMPLAZADO puesto que traté general los 3 arreglos cuando en realidad
+    solo a 1 de ellos (states) puede app esta técnica, puesto que
+        > con los date 
+            si un dateSt y 2 dates -> requested/expired BETWEEN date1 AND date2;
+            else if: 2 dateSt y 2 dates -> requested = date1 AND expired = date2;
+
+    -- esto es de la búsqueda (en InvStow_Inter_DAO)
+
+        for (int array = 0; array < 3; array++) {//puesto que hay 3 arreglos :p xD
+            String[] reference = ((array == 0)?states:((array == 1)?dateType:date));
+            
+            if(reference != null && !reference[0].equals("All")){
+                for(int index = 0; index < reference.length; index++) {
+                    search += ((!where)?" WHERE":" AND") 
+                       + " "+ ((array == 0)?" transferState"
+                                           :((array == 1)?dateType
+                                                         :date)) +" = ?";
+                    if(!where) where = true;
+                }
+            }
+        }
+
+    --- esto es de la SEARCH la que exe la query en si
+
+        for (int array = 0; array < 3; array++) {//puesto que hay 2 arreglos :p xD
+                String[] reference = ((array == 0)?states:((array == 1)?dateType:date));
+            
+                if(reference != null && !reference[0].equals("All")){
+                    for(int actual = 0; actual < reference.length; actual++) {                        
+                        statement.setString(index, reference[actual]);
+                        index++;
+                    }                    
+                }
+            }           
+
+//////////////////
+Nostros no tenemos quantity en el product... por supuesto que fue un mistake :v
+solo voy a borrar eso...
+
+private String getUpdateSt(boolean price, boolean quantity){//pero al menos uno de los dos sino ni se mandará a exe...
+        return "UPDATE goodsControl.Product "
+             + " SET"+ ((price)?" price = ?":"")+((price && quantity)?",":"") 
+             + ((quantity)?" quantity = ?":"")+ " WHERE code = ?";
+    }
+    
+    /**
+     * It will be use to update
+     * quantity (more when is
+     * directly or there is a transfer
+     * DONE or less on sales.
+     */
+    public boolean update(long code, double price, int quantity){
+        try(PreparedStatement statement 
+                = connection.prepareStatement(this.getUpdateSt((price!=0), (quantity!=0)))){                     
+            int index = 1;
+
+            if(price != 0){
+                statement.setDouble(index, price);//serpa el nuevo total, no algo que se deba sumar...
+                index++;
+            }
+            if(quantity!=0){
+                statement.setInt(index, quantity);
+                index++;
+            }
+            
+            statement.setLong(index, code);
+            
+            statement.executeUpdate();
+            return true;
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: UPDATing an PRICE of a product"
+                    + "Try one more time.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error: impossible UPDATE an Employee");
+        }                
+        return false;
+    }//by inventary and stowage
+
+/////////////////////
+
+Previo a add lo que tenia extra en el método que esta justo arriba xd
+puesto que aquí si necesito los operadores ternarios.
+
+ private String getUpdateSt(boolean name, boolean detail){
+        return "UPDATE goodsControl.Appliance SET"
+             + " name = ?, detial = ? WHERE name = ?";
+        
+    }
+    
+    /**
+     * Por si acaso se confunden con el
+     * nomreb y quizá tb el detail por
+     * si tienen que modificarlo.     
+     */
+    public boolean update(String oldName, String newName, String detail){
+     try(PreparedStatement statement 
+                = connection.prepareStatement(this.getUpdateSt())){                     
+            statement.setString(1, newName);//serpa el nuevo total, no algo que se deba sumar...
+            statement.setString(2, oldName);
+            statement.setString(3, detail);
+            
+            statement.executeUpdate();
+            return true;
+        }catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: UPDATing a NAME of a appliance"
+                    + "Try one more time.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error: impossible UPDATE an Employee");
+        }                
+        return false;
+    }//mira si le vas a add la uodate de DETAUL is no mandatory pero si queires...
+
+
+////////
+Lo cree en la maniana, pero va a ser modificado, de seguro, porque estaba confundida en ese momento...
+
+   
+    private boolean[] checkInserted(){
+        if(!isInventary){            
+            this.stowage_DAO.getStock_DAO().search_Existence(this.txtF_product_name.getText(),
+                    this.office, this.stowage_DAO.getProduct_DAO().search_existence(this.office,
+                this.stowage_DAO.getAppliance_DAO()
+                        .search_Existence(this.txtF_product_name.getText())));
+    
+            if(this.stowage_DAO.getAppliance_DAO().getErrorMessage()!= null
+              || this.stowage_DAO.getProduct_DAO().getMessageError() != null
+              || this.stowage_DAO.getStock_DAO().isTherAnError()){
+                JOptionPane.showMessageDialog(null, ((this.stowage_DAO.getAppliance_DAO().isTherAnError())
+                                                        ?this.stowage_DAO.getAppliance_DAO().getErrorMessage()
+                                                        :"")
+                                               + ((this.stowage_DAO.getProduct_DAO().isTherAnError())
+                                                       ?this.stowage_DAO.getProduct_DAO().getMessageError()
+                                                       :"")
+                                               + "Please register the neccessary to proceed",
+                                               "Error", JOptionPane.ERROR_MESSAGE);
+                
+                if(this.stowage_DAO.getStock_DAO().isTherAnError() && this.situacion == 1){
+                    this.txtF_product_stockID.setText(this.stowage_DAO.getStock_DAO().searchActualID(this.office));
+                }
+                 
+                this.isUpdatePermissible = false;
+            }   return false;
+        }else{
+            this.inventary_DAO.getStock_DAO().search_Existence(this.txtF_product_name.getText(),
+                this.office, this.inventary_DAO.getProduct_DAO().search_existence(this.office,
+                    this.inventary_DAO.getAppliance_DAO()
+                        .search_Existence(this.txtF_product_name.getText())));
+            
+            if(this.inventary_DAO.getAppliance_DAO().getErrorMessage()!= null
+              || this.inventary_DAO.getProduct_DAO().getMessageError() != null
+              || this.inventary_DAO.getStock_DAO().isTherAnError()){
+                JOptionPane.showMessageDialog(null, "The product is not registered yet.\n"
+                                              + "Please report this to a Manaager stowage\n"
+                                              + "and wait until that is corrected.",
+                                               "Error", JOptionPane.ERROR_MESSAGE);
+                this.isUpdatePermissible = false;
+                return false;
+            }
+        }       
+        return true;
+    }    
+
+    ////////////////
+    NO porque esten mal sino porque se me olvido que los insert/update
+    deben colocarse en el botón
+
+
+    private void setupInsert(){        
+        boolean[] result = this.checkInserted();
+        
+        this.prepareToInsert();
+        
+        if(!this.isInventary){
+            if(!result[0] && !result[1] && !result[2]){//porque no debría de existir a medias. ya se que sería bueno que ayudara en eso pero...
+                this.stowage_DAO.getAppliance_DAO().insert(this.txtF_product_name.getText(),
+                (String) this.cbBox_product_brand.getSelectedItem(),
+                this.txtA_product_description.getText(),
+                (String) this.cbBox_product_type.getSelectedItem());
+            
+                this.stowage_DAO.getProduct_DAO().insert(this.txtF_product_name.getText(),
+                (String) this.cbBox_product_brand.getSelectedItem(),
+                (Double) this.spinner_product_price.getValue());
+           
+                this.stowage_DAO.getStock_DAO().insert(this.txtF_product_stockID.getText(),
+                this.stowage_DAO.getProduct_DAO()
+                   .searchCode(this.txtF_product_name.getText(),
+                             (String) this.cbBox_product_brand.getSelectedItem()),
+                            (Integer) this.spinner_product_quantity.getValue(), office);
+            }
+        }else{
+            if(result[0] && result[1] && !result[2]){  
+                this.inventary_DAO.getStock_DAO().insert(this.txtF_product_stockID.getText(),
+                this.inventary_DAO.getProduct_DAO()
+                   .searchCode(this.txtF_product_name.getText(),
+                             (String) this.cbBox_product_brand.getSelectedItem()),
+                            (Integer) this.spinner_product_quantity.getValue(), office);
+            }
+        }
+        
+        this.stowage_DAO.getStock_DAO().updateID(this.office);
+    }//listo  
+
+    private void setupUpdate(){//basarse en el insert que está listo
+        boolean[] result = this.checkInserted();
+        boolean success = false;
+        
+        if(result[0] && result[1] && result[2]){            
+            Stock_DTO stock = this.prepareToUpdate();                
+            
+            if(!this.isInventary){
+                String[] data1 = 
+                    {(this.txtF_product_name.getText().equals(stock.getProduct().getAppliance().getName()))
+                        ?null:this.txtF_product_name.getText(),
+                     (this.txtA_product_description.getText().equals(stock.getProduct().getAppliance().getDetail()))
+                        ?null:this.txtA_product_description.getText()};
+                
+                if(data1[0]!=null && data1[1]!=null){
+                    success = this.stowage_DAO.getAppliance_DAO()
+                          .update(stock.getProduct().getAppliance().getName(), data1[0], data1[1]);
+                }
+                
+                double price = ((stock.getProduct().getPrice() != ((Double)this.spinner_product_price.getValue()))
+                            ?((Double) this.spinner_product_price.getValue()):0);
+                if(price!=0){
+                    success = this.stowage_DAO.getProduct_DAO()
+                          .update(stock.getProduct().getID(), price);
+                }
+                
+                int quantity = ((stock.getQuantity() != (Integer)this.spinner_product_quantity.getValue())
+                                  ?(Integer)this.spinner_product_quantity.getValue():0);
+                
+                if(quantity!=0){
+                    success = this.stowage_DAO.getStock_DAO().update(true, stock.getID(), true, quantity);
+                }
+            }else{
+                int quantity = ((stock.getQuantity() != (Integer)this.spinner_product_quantity.getValue())
+                          ?(Integer)this.spinner_product_quantity.getValue():0);
+                
+                if(quantity!=0){
+                    success = this.inventary_DAO.getStock_DAO().update(true, stock.getID(), true, quantity);
+                }                
+            }//segun el enunciado, el de inventario no puede modificar productos
+             //auqneu en realidad para mis es faci, porque es el mismo método pero
+             //solo tendría que hacer (por la manera en que lo hice) que no pueda modif el nombre.
+             
+             //De todos modos lo add por lo de las cdads que puede ingresar a sus propias tiendas             
+        }
+        
+        this.showUpdateMessages(success);
+    }//Ready
+
+
+    ///////////////////////
+    Previo a ser spliteado
+
+     private void setupUpdate(){//basarse en el insert que está listo
+        boolean[] result = this.checkInserted();
+        boolean success = false;
+        
+        if(result[0] && result[1] && result[2]){            
+            Stock_DTO stock = this.prepareToUpdate();                
+            
+            if(!this.isInventary){
+                String[] data1 = 
+                    {(this.txtF_product_name.getText().equals(stock.getProduct().getAppliance().getName()))
+                        ?null:this.txtF_product_name.getText(),
+                     (this.txtA_product_description.getText().equals(stock.getProduct().getAppliance().getDetail()))
+                        ?null:this.txtA_product_description.getText()};
+                
+                if(data1[0]!=null && data1[1]!=null){
+                    success = this.stowage_DAO.getAppliance_DAO()
+                          .update(stock.getProduct().getAppliance().getName(), data1[0], data1[1]);
+                }
+                
+                double price = ((stock.getProduct().getPrice() != ((Double)this.spinner_product_price.getValue()))
+                            ?((Double) this.spinner_product_price.getValue()):0);
+                if(price!=0){
+                    success = this.stowage_DAO.getProduct_DAO()
+                          .update(stock.getProduct().getID(), price);
+                }
+                
+                int quantity = ((stock.getQuantity() != (Integer)this.spinner_product_quantity.getValue())
+                                  ?(Integer)this.spinner_product_quantity.getValue():0);
+                
+                if(quantity!=0){
+                    success = this.stowage_DAO.getStock_DAO().update(true, stock.getID(), true, quantity);
+                }
+            }else{
+                int quantity = ((stock.getQuantity() != (Integer)this.spinner_product_quantity.getValue())
+                          ?(Integer)this.spinner_product_quantity.getValue():0);
+                
+                if(quantity!=0){
+                    success = this.inventary_DAO.getStock_DAO().update(true, stock.getID(), true, quantity);
+                }                
+            }//segun el enunciado, el de inventario no puede modificar productos
+             //auqneu en realidad para mis es faci, porque es el mismo método pero
+             //solo tendría que hacer (por la manera en que lo hice) que no pueda modif el nombre.
+             
+             //De todos modos lo add por lo de las cdads que puede ingresar a sus propias tiendas             
+        }
+        
+        this.showUpdateMessages(success);
+    }//Ready
+
+
+////////////////////////77
+Pienso que quizá este malo, pero quiza no sea así, la cuestión es 
+que las necesidades que ahora tengo son diferentes, por ello lo voy a
+quitar para evitar hacerme bolas...
+
+private void generateID(){
+        if((!txtF_employee_name.getText().isEmpty() && !txtF_employee_name.getText().isBlank()
+                 && txtF_employee_name.getText().length() >= 6)
+            && (!spinner_employee_CUI.getValue().toString().isEmpty() && !spinner_employee_CUI.getValue().toString().isBlank())//puede que falle por el toString...
+            && (!cbBox_employee_position.getSelectedItem().toString().equals("Nothing"))
+            && txtF_employee_ID.getText().isEmpty()){//sino se reemplazaría cada vez que se modificara datos y todos ya hubieran tenido algo antes...
+            
+            txtF_employee_ID.setText("123456789012");//SHA based on CUI and name
+            formatField_hiringDate.setEnabled(true);//se activa el campo para llenar el endDate
+            
+            if(!formatField_hiringDate.getText().isBlank() && !formatField_hiringDate.getText().isEmpty()){
+                fillOutContract();
+                btn_employee_accept.setEnabled(true);
+            }//por si acaso ya tenían la fecha, porque si no hago esto y no borro el ending, tendría que volver a setear la fecha y que fastidioso sería eso...
+        }else{
+            txtF_employee_ID.setText("");//por si acaso borran la data
+            formatField_hiringDate.setEnabled(false);//tengo que desactivar este tb porque si no lo hiciera y setearan otra fecha por molestar, por ese hecho el botón de accept se activaría auqneu la data del empleado no esté completa...
+            btn_employee_accept.setEnabled(false);//este era un hecho que se debía desactivar...
+        }
+    }//LISTO       

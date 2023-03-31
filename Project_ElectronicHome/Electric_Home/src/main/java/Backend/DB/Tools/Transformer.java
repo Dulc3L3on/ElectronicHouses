@@ -103,8 +103,11 @@ public class Transformer {
     
     public Sale_DTO getSale(ResultSet result){
         try{
-            return new Sale_DTO(result.getString(1), result.getDouble(4),
-                    result.getDouble(5));
+            return new Sale_DTO(result.getString(1), 
+                       new Customer_DTO(result.getString(2), result.getString(4),
+                        result.getString(3), result.getString(5), result.getDate(6)), 
+                    result.getDate(7), result.getDouble(8), result.getDouble(10), result.getDouble(9),
+                    result.getDouble(11));
         }catch (SQLException e) {
             System.out.println("Error: setting a SALE");
         }
@@ -131,8 +134,9 @@ public class Transformer {
     
     public Sold_DTO getSold(ResultSet result){
         try{
-            return new Sold_DTO(result.getString(1),                
-                new Stock_DTO(result.getString(5), new Product_DTO(result.getLong(2), 
+            return new Sold_DTO(result.getLong(1),                
+                new Stock_DTO(result.getString(5),
+                    new Product_DTO(result.getLong(2), 
                         new Appliance_DTO(result.getString(3), result.getString(4),
                             new Clasification_DTO(0, "", ""), ""),
                         result.getDouble(6)), -1, ""), result.getInt(7),//puesto que es sold, no importa la avaiability y office...

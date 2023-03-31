@@ -676,3 +676,26 @@ en específico o no
   me recuerdo en cuál emplee esto, si es que no me acuerdo mal).
     THEN voy a enviar una sola lista en lugar de tener una por cada tienda
     y por eso tenga que setearlas en otra para que se envíe todo xD
+
+----------------
+Para el caso de las mini ventanitas (Product, Customer and Employee)
+debido a que van a servir tanto para ADD como para UPDATE, resulta
+bastante útil tener un objeto DTO en este caso, que 
+  + Cuando sea una INSERT, se llene después de presionar SAVE, para
+    así informar a la ventana por la cual se pudo invocar a esta
+    pequeñita, acerca de los datos nuevos
+  * y en el caso de UPDATE, que se reciba este objeto para tener los
+    datos viejos (puesto que sería casi imposible que alguien hubiera
+    modif los datos mientras otro está en el proceso de la modif) Y
+    así saber que actualizó y que no y después de ello se setee con los
+    datos nuevos para enviarlo de regreso de la ventana desde la que
+    se envió
+      - enviar a ventanita - o si vas a obtener la data by a query mejor.... xD es que así lo tenía y pues SI, está mejor, qué decir xD
+      - comparar para saber cbs
+      - resetear con datos ACTUALIZ
+      - enviar los datos nuevos al lugar desde el que se envió con los datos anteriores.
+
+
+el de inventario, NO MODIFICA!!!
+solo el de bodega!!!
+  así deice el enunciado xD :p y tiene lógica xD

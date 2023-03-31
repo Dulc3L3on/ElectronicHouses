@@ -4,17 +4,31 @@
  */
 package Frontend.Employee.SalesPerson;
 
+import Backend.DB.DAO.SalesPerson_DAO;
+
 /**
  *
  * @author phily
  */
 public class Payment extends javax.swing.JFrame {
-
+    private SalesPerson_DAO salesPersonDAO;
+    private String saleID;
     /**
      * Creates new form Payment
      */
-    public Payment() {
+    public Payment(String ID, String subtotal, String disccount, String total,
+            String previous, SalesPerson_DAO salesPersonDAO) {
         initComponents();
+        
+        this.txtF_subtotal.setText(subtotal);
+        this.txtF_disccount.setText(disccount);
+        this.txtF_Total.setText(total);
+        this.txtF_previousCharges.setText(previous);
+        this.txtF_final.setText(String.valueOf(Double.valueOf(total)
+                                             -Double.valueOf(previous)));
+        
+        this.salesPersonDAO = salesPersonDAO;
+        this.saleID = ID;
     }
 
     /**
@@ -28,106 +42,134 @@ public class Payment extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_preiousCharges = new javax.swing.JLabel();
-        txtF_preiousCharges = new javax.swing.JTextField();
+        txtF_previousCharges = new javax.swing.JTextField();
         lbl_disccount = new javax.swing.JLabel();
         txtF_disccount = new javax.swing.JTextField();
         lbl_subtotal = new javax.swing.JLabel();
         txtF_subtotal = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         lbl_total = new javax.swing.JLabel();
-        txtF_total = new javax.swing.JTextField();
+        txtF_final = new javax.swing.JTextField();
         button_pay = new javax.swing.JButton();
         lbl_minus = new javax.swing.JLabel();
+        lbl_final = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        txtF_Total = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbl_preiousCharges.setText("Previous:");
 
-        txtF_preiousCharges.setText("jTextField1");
+        txtF_previousCharges.setEditable(false);
 
         lbl_disccount.setText("Disccount:");
 
-        txtF_disccount.setText("jTextField2");
+        txtF_disccount.setEditable(false);
 
         lbl_subtotal.setText("SubTotal:");
 
-        txtF_subtotal.setText("jTextField3");
+        txtF_subtotal.setEditable(false);
 
         lbl_total.setText("Total:");
 
-        txtF_total.setText("jTextField4");
+        txtF_final.setEditable(false);
 
         button_pay.setText("PAY");
+        button_pay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_payActionPerformed(evt);
+            }
+        });
 
         lbl_minus.setText("-");
+
+        lbl_final.setText("Final:");
+
+        txtF_Total.setEditable(false);
+
+        jLabel2.setText("-");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(lbl_subtotal))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_preiousCharges)))
+                        .addContainerGap(89, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_total)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtF_final, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lbl_disccount)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(lbl_minus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(txtF_disccount, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lbl_subtotal)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(txtF_previousCharges, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtF_subtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtF_disccount, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtF_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtF_preiousCharges, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_total)
-                                .addGap(42, 42, 42)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(button_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 72, Short.MAX_VALUE))
-                                    .addComponent(txtF_total)))))
+                                    .addComponent(lbl_final)
+                                    .addComponent(lbl_preiousCharges))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(txtF_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(lbl_disccount)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_minus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(button_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_preiousCharges)
-                    .addComponent(txtF_preiousCharges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                    .addComponent(txtF_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_subtotal))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_disccount)
+                    .addComponent(lbl_minus)
                     .addComponent(txtF_disccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_minus))
-                .addGap(33, 33, 33)
+                    .addComponent(lbl_disccount))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_subtotal)
-                    .addComponent(txtF_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbl_total)
-                    .addComponent(txtF_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                    .addComponent(txtF_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtF_previousCharges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(lbl_preiousCharges))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_final)
+                    .addComponent(txtF_final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addComponent(button_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,18 +186,38 @@ public class Payment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void button_payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_payActionPerformed
+        if(this.txtF_previousCharges.getText().equals("0")){//SALE
+            this.salesPersonDAO.get_Sale_DAO().completeInsert(this.saleID,
+                Double.valueOf(this.txtF_subtotal.getText()),
+                Double.valueOf(this.txtF_final.getText()));
+        }else{
+            this.salesPersonDAO.get_Sale_DAO().update(this.saleID,
+                Double.valueOf(this.txtF_subtotal.getText()), 
+                Double.valueOf(this.txtF_previousCharges.getText()),
+                Double.valueOf(this.txtF_final.getText()));
+        }//CHANGE
+        
+        this.salesPersonDAO.get_Sale_DAO().updateID();//de INdexator-Sale, para evitar problemas...
+        this.dispose();
+    }//GEN-LAST:event_button_payActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_pay;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbl_disccount;
+    private javax.swing.JLabel lbl_final;
     private javax.swing.JLabel lbl_minus;
     private javax.swing.JLabel lbl_preiousCharges;
     private javax.swing.JLabel lbl_subtotal;
     private javax.swing.JLabel lbl_total;
+    private javax.swing.JTextField txtF_Total;
     private javax.swing.JTextField txtF_disccount;
-    private javax.swing.JTextField txtF_preiousCharges;
+    private javax.swing.JTextField txtF_final;
+    private javax.swing.JTextField txtF_previousCharges;
     private javax.swing.JTextField txtF_subtotal;
-    private javax.swing.JTextField txtF_total;
     // End of variables declaration//GEN-END:variables
 }

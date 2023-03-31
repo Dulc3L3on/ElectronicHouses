@@ -1,5 +1,6 @@
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Contract_DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/Tools/Transformer.java
+/home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/FrontendAuxiliar/ReportAuxiliar.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Frontend/Employee/SalesPerson/Payment.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Employee_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Stock_DTO.java
@@ -13,6 +14,7 @@
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Stowage_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Customer_DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Product_DAO.java
+/home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Frontend/Employee/SalesPerson/panel.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/Entity/Reports/Report_3F.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Position_DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Product_Interface_DAO.java
@@ -21,6 +23,7 @@
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Sale_DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Indexator_DAO.java
+/home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Position_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/Entity/Employee.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/InvStow_Interface_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Frontend/Home.java
@@ -36,6 +39,7 @@
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Transferred_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Frontend/Building/Product/Product.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Employee_DTO.java
+/home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/Main.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Stock_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Sold_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Transfer_DAO.java
@@ -45,7 +49,6 @@
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Appliance_DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/com/mycompany/electric_home/Electric_Home.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Inventary_DAO.java
-/home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/algo.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DTO/Office_DTO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Sale_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/Tools/Transformer_Reports.java
@@ -59,4 +62,5 @@
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Movement_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Contract_DAO.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/DB/DAO/Office_DAO.java
+/home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Backend/Tools/Time.java
 /home/phily/Documentos/CarpetaDeEstudios/2023/Archi/Lab/Projects/ElectronicHouses/Project_ElectronicHome/Electric_Home/src/main/java/Frontend/Login.java

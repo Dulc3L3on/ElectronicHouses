@@ -44,23 +44,35 @@ public class InvStow_Interface_DAO {
         if(to){            
             search += ((!where)?" WHERE":" AND") + " to = ?";
             if(!where) where = true;
+        }        
+        if(states != null && !states[0].equals("All")){
+           for(int index = 0; index < states.length; index++){
+                search += ((!where)?" WHERE ":" AND ")+"transferState = ?";
+                    if(!where) where = true;                
+            }
         }
-
-        for (int array = 0; array < 3; array++) {//puesto que hay 2 arreglos :p xD
-            String[] reference = ((array == 0)?states:((array == 1)?dateType:date));
-            
-            if(reference != null && !reference[0].equals("All")){
-                for(int index = 0; index < reference.length; index++) {
-                    search += ((!where)?" WHERE":" AND") 
-                       + " "+ ((array == 0)?"transferState"
-                                           :((array == 1)?dateType
-                                                         :date)) +" = ?";
+        
+        if(dateType != null && date != null){
+            if(dateType.length == 1){
+                if((date.length == 1)){
+                    search += ((!where)?" WHERE ":" AND ")+dateType[0]+" = "+date[0];
                     if(!where) where = true;
+                }else{//igual a 2
+                    search += ((!where)?" WHERE ":" AND ")+dateType[0]+" BETWEEN "+date[0]+ " AND "+date[1];
+                    if(!where) where = true;
+                }
+            }else{//Es decir 2, porque 0 no hay xD (Bueno 0 es null entonces... xD
+                if(date.length == 1){
+                    search += ((!where)?" WHERE ":" AND ")+dateType[0]+" = "+date[0]
+                            + " AND "+dateType[1] + " = "+date[0];
+                }else{
+                    search += ((!where)?" WHERE ":" AND ")+dateType[0]+" = "+date[0]
+                            + " AND "+dateType[1] + " = "+date[1];
                 }
             }
         }
         return (search += "ORDER BY since DESC");
-    }
+    }//Ready
     
     /**
      * It will be used to search
@@ -73,27 +85,24 @@ public class InvStow_Interface_DAO {
         int index = 1;
         
         try(PreparedStatement statement = 
-            connection.prepareStatement(getSearchTransfersSt((!from.equals("All")),
-                    (!to.equals("All")), states, dateType, date))){
+            connection.prepareStatement(getSearchTransfersSt((from!=null),
+                    (to!=null), states, dateType, date))){
         
-            if(!from.equals("All")){
+            if(from!=null){
                 statement.setString(index, from);
                 index++;
             }        
-            if(!to.equals("All")){
+            if(to!=null){
                 statement.setString(index, to);
                 index++;
             }
-            for (int array = 0; array < 3; array++) {//puesto que hay 2 arreglos :p xD
-                String[] reference = ((array == 0)?states:((array == 1)?dateType:date));
-            
-                if(reference != null && !reference[0].equals("All")){
-                    for(int actual = 0; actual < reference.length; actual++) {                        
-                        statement.setString(index, reference[actual]);
-                        index++;
-                    }                    
-                }
-            }           
+            if(states != null && !states[0].equals("All")){
+                for(int actual = 0; actual < states.length; actual++) {                        
+                    statement.setString(index, states[actual]);
+                    index++;
+                }                    
+            }
+            //por dateType y date ya no te tienes que preocupar puesto que los seteaste allá arribita xD 
             
             ResultSet result = statement.executeQuery();
             
@@ -104,9 +113,8 @@ public class InvStow_Interface_DAO {
             System.out.println("Error: impossible to find EMPLOYEEs");
         }
         
-        return new ArrayList<>();
-        
-    }
+        return new ArrayList<>();        
+    }//BY: inventary, stowage
     //como no sé cuantos transfer puede abarcar una búsqueda
     //con los filters aplicados, entonces siempre devolveré
     //una lista, no importando que al final tenga solo 1

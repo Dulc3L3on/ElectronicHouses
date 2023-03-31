@@ -92,21 +92,28 @@ public class Movements_UI_DAO{
         return new ArrayList<>();        
     }//By: inventory and Stowage   
     
-    private String getBrands_Types(){
+    private String getBrands_Types(boolean office){
         return "SELECT c.type FROM goodsControl.Clasification as c"
-             + " INNER JOIN goodsControl.Appliance as a"
-             + " ON a.clasification = c.ID WHERE a.theBrand = ?";
+             + " INNER JOIN goodsControl.Appliance as a ON a.clasification = c.ID"
+             + " INNER JOIN goodsControl.Product as p ON p.name = a.name"
+             + " INNER JOIN goodsControl.stock as s ON s.product = p.code"
+             + " WHERE a.theBrand = ?" + ((office)?" AND office = ?":"");
     }
     
     /**
      * List all the types that are
-     * related with a specific brand.
+     * related with a specific brand
+     * at a specific office if it was
+     * declarated.
      */
-    public ArrayList<String> list_Brands_Types(String brand){
+    public ArrayList<String> list_Brands_Types(String brand, String office){
         try(PreparedStatement statement
-                = connection.prepareStatement(this.getBrands_Types())){
+                = connection.prepareStatement(this.getBrands_Types((office!=null)))){
             statement.setString(1, brand);
-                
+            if(office != null){
+                statement.setString(2, office);
+            }
+            
             ResultSet result = statement.executeQuery();
             
             if(result!= null && this.transformer_SPS.moveBegin(result)){
@@ -119,7 +126,7 @@ public class Movements_UI_DAO{
         return new ArrayList<>();
     }//By: inventory and stowage           
 }//Ready
-    
+ //USADA por completo
     
     
     

@@ -15,7 +15,7 @@
     INSERT INTO tool.Indexator VALUES ('stock', 'ABT', 123456503);
     INSERT INTO tool.Indexator VALUES ('sale', 'SID', 50000000);    
     
-    INSERT INTO tool.Indexator VALUES ('transfer', 'BBT', 123456503);
+    INSERT INTO tool.Indexator VALUES ('transfer', 'TID', 123456503);
 
 /*OFFICE*/
     INSERT INTO officeControl.Office VALUES ('OID-12536477', 'Sucursal Central', '15a av 6-69 zona 4, Quetzaltenango');

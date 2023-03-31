@@ -27,11 +27,15 @@ public class Product_DAO {//It doesn't locate the office
     private Transformer transformer;
     private Transformer_SalesPersonSearching transformer_SPS;
     private Transformer_InvStow_Searching transformer_ISS;
+    private Indexator_DAO indexator;
+    
+    private String errorMessage = null;
     
     public Product_DAO(){
         this.transformer = new Transformer();
         this.transformer_SPS = new Transformer_SalesPersonSearching();
         this.transformer_ISS = new Transformer_InvStow_Searching();
+        this.indexator = new Indexator_DAO();
     }
     
     private String getSearchExistenceSt(){
@@ -56,43 +60,12 @@ public class Product_DAO {//It doesn't locate the office
                 return this.transformer.getProduct(result, appliance);
             }
         }catch(SQLException e) {
-            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
+            this.errorMessage = "Impossiible to find the Product\n";
+            System.out.println("Error: FINDING the PRODUCT (Ne) -> " +e.getMessage());            
         }
         return null;   
     }//By Product_UI (inventary;stowage)
-        //Será útil cuando sea el caso en el que se confundan de ventanita. Además no cae mal una 2da capa de seguridad xD
-    
-    private String getSearchProductSt(){
-        return "SELECT p.code, s.ID, p.name p.theBrand, c.type, c.line,"
-             + " p.price, s.quantity, a.details FROM goodsControl.Stock as s"
-             + " INNER JOIN goodsControl.Product as p ON s.product = p.code"
-             + " INNER JOIN goodsControl.Appliance as a ON a.name = p.name"
-             + " goodsControl.Clasification as c ON c.ID = a.clasification"
-             + " WHERE p.code = ? and s.office = ?";//estos dos para ser específico
-    }
-    
-    /**
-     * It will be used to find the
-     * particular product that was
-     * selected to see its details
-     * on the specific window.
-     */
-    public Stock_DTO searchProduct(long code, String office){
-        try(PreparedStatement statement
-                = connection.prepareStatement(this.getSearchProductSt())){
-            statement.setLong(1, code);
-            statement.setString(2, office);
-            
-            ResultSet result = statement.executeQuery();
-         
-            if(result != null && this.transformer_SPS.moveBegin(result)){//Revisa si así dice que está vacío...
-                return this.transformer_SPS.getDetailedStock(result, office);
-            }
-        }catch(SQLException e) {
-            System.out.println("Error: FINDING the selected Stock -> " +e.getMessage());            
-        }
-        return null;
-    }//by salesPerson(without edit), inventory and stowage (same permissions)
+        //Será útil cuando sea el caso en el que se confundan de ventanita. Además no cae mal una 2da capa de seguridad xD               
             
     private String getBrandsSt(){
         return "SELECT theBrand FROM goodsControl.Appliance";
@@ -143,8 +116,30 @@ public class Product_DAO {//It doesn't locate the office
     }//By: inventory AND store
     //Ready
     
+    private String getSearchCode(String name, String brand){
+        return "SELECT code FROM goodsControl.Product"
+             + " WHERE name = ? AND brand = ?";
+    }
+    
+    public long searchCode(String name, String brand){
+        try(PreparedStatement statement 
+                = connection.prepareStatement(this.getSearchCode(name, brand))){
+            
+            ResultSet result = statement.executeQuery();
+            
+            if(result!= null && this.transformer_SPS.moveBegin(result)){
+                return result.getLong(1);
+            }
+              
+        }catch(SQLException e) {
+            System.out.println("Error: finding all the BRANDS -> " +e.getMessage());
+        }
+        return 0;    
+    }
+    
     private String getInsertSt(){
-        return "INSERT INTO goodsControl.Product VALUES (?,?,?,?)";
+        return "INSERT INTO goodsControl.Product (name, theBrand, price)"
+             + " VALUES (?,?,?,?)";
     }    
     
     /**
@@ -153,10 +148,10 @@ public class Product_DAO {//It doesn't locate the office
      * because it has to exist in the
      * global DB.
      */
-    public boolean insert(String code, String name, String brand, double price){
+    public boolean insert(String name, String brand, double price){
         try(PreparedStatement statement = 
                connection.prepareStatement(this.getInsertSt())){
-            statement.setString(1, code);
+            //el code es serial
             statement.setString(2, name);
             statement.setString(3, brand);            
             statement.setDouble(4, price);
@@ -169,8 +164,9 @@ public class Product_DAO {//It doesn't locate the office
         return false;
     }//By: stowage managers - because they are the only responsables [see notes]
     
-    private String getUpdateSt(){
-        return "UPDATE goodsControl.Product SET price = ? WHERE code = ?";
+    private String getUpdateSt(boolean price){//pero al menos uno de los dos sino ni se mandará a exe...
+        return "UPDATE goodsControl.Product "
+             + " SET price = ? WHERE code = ?";
     }
     
     /**
@@ -181,8 +177,9 @@ public class Product_DAO {//It doesn't locate the office
      */
     public boolean update(long code, double price){
         try(PreparedStatement statement 
-                = connection.prepareStatement(this.getUpdateSt())){                     
-            statement.setDouble(1, price);//serpa el nuevo total, no algo que se deba sumar...
+                = connection.prepareStatement(this.getUpdateSt((price!=0)))){                                
+            
+            statement.setDouble(1, price);//serpa el nuevo total, no algo que se deba sumar...                        
             statement.setLong(2, code);
             
             statement.executeUpdate();
@@ -194,6 +191,18 @@ public class Product_DAO {//It doesn't locate the office
         }                
         return false;
     }//by inventary and stowage
+    
+    public String getMessageError(){
+        return this.errorMessage;
+    }
+    
+    public boolean isTherAnError(){
+        return (this.errorMessage != null);
+    }
+    
+    public void ressetErrorMessage(){
+        this.errorMessage = null;
+    }
     
     //about delete, see in notes [recent and prev of this]
 }

@@ -4,17 +4,28 @@
  */
 package Frontend.Employee.Admin;
 
+import Backend.DB.DAO.Admin_DAO;
+import Backend.DB.DTO.Employee_DTO;
+import Frontend.Employee.Admin.Worker.Admin_NewEmployee;
+
 /**
  *
  * @author phily
  */
-public class Admin_Content extends javax.swing.JFrame {
-
+public class Admin_Content extends javax.swing.JInternalFrame {
+    private Employee_DTO employee;        
+    private Admin_DAO adminDAO;
+    
+    private Admin_NewEmployee newEmployee;
+    
     /**
      * Creates new form Admin_Content
      */
-    public Admin_Content() {
+    public Admin_Content(Employee_DTO employee) {
         initComponents();
+        
+        this.employee = employee;
+        this.adminDAO = new Admin_DAO(this.editorPane);        
     }
 
     /**
@@ -53,7 +64,7 @@ public class Admin_Content extends javax.swing.JFrame {
         panel_admin_employee_detail = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_admin_employees = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_Add = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         button_inventoryT1_search = new javax.swing.JLabel();
@@ -61,7 +72,6 @@ public class Admin_Content extends javax.swing.JFrame {
         tab_admin_reports = new javax.swing.JPanel();
         panel_admin_reportSpecification = new javax.swing.JPanel();
         lbl_report_option1 = new javax.swing.JLabel();
-        lbl_report_option3 = new javax.swing.JLabel();
         lbl_report_option4 = new javax.swing.JLabel();
         lbl_report_option7 = new javax.swing.JLabel();
         lbl_report_option6 = new javax.swing.JLabel();
@@ -72,10 +82,10 @@ public class Admin_Content extends javax.swing.JFrame {
         lbl_report_option10 = new javax.swing.JLabel();
         lbl_admin_topReports = new javax.swing.JLabel();
         panel_admin_viewReport = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        editorPane = new javax.swing.JEditorPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panel_admin_employeeData.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "General Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
@@ -295,11 +305,16 @@ public class Admin_Content extends javax.swing.JFrame {
             table_admin_employees.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        lbl_Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        lbl_Add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_AddMouseClicked(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/less.png"))); // NOI18N
 
-        jLabel5.setText("UPdate");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/update.png"))); // NOI18N
 
         javax.swing.GroupLayout panel_admin_employee_detailLayout = new javax.swing.GroupLayout(panel_admin_employee_detail);
         panel_admin_employee_detail.setLayout(panel_admin_employee_detailLayout);
@@ -310,10 +325,10 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panel_admin_employee_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(lbl_Add)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         panel_admin_employee_detailLayout.setVerticalGroup(
             panel_admin_employee_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,10 +336,10 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addGroup(panel_admin_employee_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_admin_employee_detailLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel2)
-                        .addGap(36, 36, 36)
+                        .addComponent(lbl_Add)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
-                        .addGap(45, 45, 45)
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel3))
                     .addGroup(panel_admin_employee_detailLayout.createSequentialGroup()
                         .addContainerGap()
@@ -376,34 +391,77 @@ public class Admin_Content extends javax.swing.JFrame {
 
         lbl_report_option1.setText("     10 best-selling products");
         lbl_report_option1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
-
-        lbl_report_option3.setText("     5 products with more profit");
-        lbl_report_option3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option1MouseClicked(evt);
+            }
+        });
 
         lbl_report_option4.setText("     3 stores with more sales");
         lbl_report_option4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option4MouseClicked(evt);
+            }
+        });
 
         lbl_report_option7.setText("     3 employees with more incomes");
         lbl_report_option7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option7MouseClicked(evt);
+            }
+        });
 
         lbl_report_option6.setText("     3 employees with more sales");
         lbl_report_option6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option6MouseClicked(evt);
+            }
+        });
 
         lbl_report_option5.setText("     3 stores with more incomes ");
         lbl_report_option5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option5MouseClicked(evt);
+            }
+        });
 
         lbl_report_option9.setText("     5 best-selling products by store");
         lbl_report_option9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option9MouseClicked(evt);
+            }
+        });
 
         lbl_report_option8.setText("     10 products with more incomes");
         lbl_report_option8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option8MouseClicked(evt);
+            }
+        });
 
         lbl_report_option2.setText("     10 generators with most profits");
         lbl_report_option2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option2MouseClicked(evt);
+            }
+        });
 
         lbl_report_option10.setText("     5 products with more profits ");
         lbl_report_option10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Inter", 0, 13), new java.awt.Color(255, 153, 153))); // NOI18N
+        lbl_report_option10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_report_option10MouseClicked(evt);
+            }
+        });
 
+        lbl_admin_topReports.setFont(new java.awt.Font("Jamrul", 1, 21)); // NOI18N
         lbl_admin_topReports.setText("TOP reports");
 
         javax.swing.GroupLayout panel_admin_reportSpecificationLayout = new javax.swing.GroupLayout(panel_admin_reportSpecification);
@@ -411,7 +469,6 @@ public class Admin_Content extends javax.swing.JFrame {
         panel_admin_reportSpecificationLayout.setHorizontalGroup(
             panel_admin_reportSpecificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbl_report_option2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lbl_report_option3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbl_report_option4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbl_report_option5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbl_report_option6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -420,10 +477,10 @@ public class Admin_Content extends javax.swing.JFrame {
             .addComponent(lbl_report_option8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbl_report_option9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbl_report_option10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panel_admin_reportSpecificationLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_admin_reportSpecificationLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_admin_topReports)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
         panel_admin_reportSpecificationLayout.setVerticalGroup(
             panel_admin_reportSpecificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,8 +491,6 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addComponent(lbl_report_option1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_report_option2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_report_option3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_report_option4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -450,28 +505,28 @@ public class Admin_Content extends javax.swing.JFrame {
                 .addComponent(lbl_report_option9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_report_option10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(427, Short.MAX_VALUE))
         );
 
         panel_admin_viewReport.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel1.setText("Esto si no es obligatorio, pero podría hacer que se abrieran varias ventanas, para no cargar SOLO un reporte a la vez.");
+        jScrollPane3.setViewportView(editorPane);
 
         javax.swing.GroupLayout panel_admin_viewReportLayout = new javax.swing.GroupLayout(panel_admin_viewReport);
         panel_admin_viewReport.setLayout(panel_admin_viewReportLayout);
         panel_admin_viewReportLayout.setHorizontalGroup(
             panel_admin_viewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_admin_viewReportLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         panel_admin_viewReportLayout.setVerticalGroup(
             panel_admin_viewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_admin_viewReportLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addContainerGap(795, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tab_admin_reportsLayout = new javax.swing.GroupLayout(tab_admin_reports);
@@ -510,6 +565,48 @@ public class Admin_Content extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioButton_admin_lastNameActionPerformed
 
+    private void lbl_report_option1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option1MouseClicked
+        this.adminDAO.getReport1();
+    }//GEN-LAST:event_lbl_report_option1MouseClicked
+
+    private void lbl_report_option2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option2MouseClicked
+        this.adminDAO.getReport2();
+    }//GEN-LAST:event_lbl_report_option2MouseClicked
+
+    private void lbl_report_option4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option4MouseClicked
+        this.adminDAO.getReport3();
+    }//GEN-LAST:event_lbl_report_option4MouseClicked
+
+    private void lbl_report_option5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option5MouseClicked
+        this.adminDAO.getReport4();
+    }//GEN-LAST:event_lbl_report_option5MouseClicked
+
+    private void lbl_report_option6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option6MouseClicked
+        this.adminDAO.getReport5();
+    }//GEN-LAST:event_lbl_report_option6MouseClicked
+
+    private void lbl_report_option7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option7MouseClicked
+        this.adminDAO.getReport6();
+    }//GEN-LAST:event_lbl_report_option7MouseClicked
+
+    private void lbl_report_option8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option8MouseClicked
+        this.adminDAO.getReport7();
+    }//GEN-LAST:event_lbl_report_option8MouseClicked
+
+    private void lbl_report_option9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option9MouseClicked
+        this.adminDAO.getReport8();
+    }//GEN-LAST:event_lbl_report_option9MouseClicked
+
+    private void lbl_report_option10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_report_option10MouseClicked
+        this.adminDAO.getReport9();
+    }//GEN-LAST:event_lbl_report_option10MouseClicked
+
+    private void lbl_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_AddMouseClicked
+        this.newEmployee = new Admin_NewEmployee(this.adminDAO);
+        this.newEmployee.setVisible(true);
+        this.newEmployee.setLocationRelativeTo(null);
+    }//GEN-LAST:event_lbl_AddMouseClicked
+
     
     //nos vamos a encrgar que si, selecciona all, entonces que se deseleccionen
     //los demás, y si select todos que se select ALL
@@ -519,14 +616,15 @@ public class Admin_Content extends javax.swing.JFrame {
     private javax.swing.JLabel button_inventoryT1_search;
     private javax.swing.JComboBox<String> cbBox_filter;
     private javax.swing.JComboBox<String> cbBox_store;
+    private javax.swing.JEditorPane editorPane;
     private javax.swing.ButtonGroup group_distincion;
     private javax.swing.ButtonGroup group_filters;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lbl_Add;
     private javax.swing.JLabel lbl_admin_ID;
     private javax.swing.JLabel lbl_admin_name;
     private javax.swing.JLabel lbl_admin_store;
@@ -534,7 +632,6 @@ public class Admin_Content extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_report_option1;
     private javax.swing.JLabel lbl_report_option10;
     private javax.swing.JLabel lbl_report_option2;
-    private javax.swing.JLabel lbl_report_option3;
     private javax.swing.JLabel lbl_report_option4;
     private javax.swing.JLabel lbl_report_option5;
     private javax.swing.JLabel lbl_report_option6;

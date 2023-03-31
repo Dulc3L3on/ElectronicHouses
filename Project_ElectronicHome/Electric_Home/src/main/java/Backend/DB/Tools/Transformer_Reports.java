@@ -4,8 +4,6 @@
  */
 package Backend.DB.Tools;
 
-import Backend.DB.DTO.Contract_DTO;
-import Backend.DB.DTO.Employee_DTO;
 import Backend.Entity.Reports.Report_3F;
 import Backend.Entity.Reports.Report_4F;
 import java.sql.ResultSet;

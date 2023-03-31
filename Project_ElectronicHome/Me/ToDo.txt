@@ -257,3 +257,70 @@ TO DO
   probar []
 
   y arreglar sold xD 
+
+  ahí revisasa los métodos que hiciste
+    más wue todo las queries
+     y si no dejaste algo perdido por ahí sin setear
+     o revolviste conceptos
+  acoplamiento
+    login y home no, solo lo de salesPerson...
+
+
+TO DO
+  SALESPERSON-Inventary
+ * agregar el método para add los resultados de prod a la tabla
+ * ver si de verdad olvidaste el método para mostrar todos los prod
+    (code tb == null)     [LISTO y no, ahí estaba xd]
+* terminar de setear en el cbBox de store las store xD [LISTO]
+* hacer ek jueguito entre store - brand - tipes  [LISTO]
+
+INVENTARY
++ inventaryTab
+* pasar a product
+* o mira si antes stowage
+* pasar a admin
+    * reajusta la interfaz que estpa muy larga
+* reportes
+* probar
+
+
+/// revisar las tablas que tienen ID autoincre por Indexator
+  porque yo recuerdo solo haberlo app a una :v ///
+
+
+///chequear dond e se emplear el getID de transfer, porque se supone
+   deberpía estar, ya que ya creo transfer, con el salesperson...
+
+
+TO DO
++ ver si vas a hacer lo de OFFICE en contract, sino mejor siguele así aunque lo que esperabas era el nombre y no el código...
++ terminar inserción  
+  para el de stowage
+    revisar si existe appliance
+            si existe producto
+            si existe stock
+    insertar
+ para el de inventario
+    revisar si existe appliance
+    (deplano que los otros tb, no son tan nec como en stowage, pero xD)
+    insertar
+      mas que todo o mejor dicho lo que se insertará es 
+      STOCK, poque lo demás ya debe existir, si no, no peude hacer nada
+      tiene que esperar y a los de stowage les cae de paso xd
+ transferencias
+ employees
+   creacion, modif
+    si te da tiempo eli
+ reportes!!!
+ Probar :'v 
+
+
+- terminar el check [LISTO]
+- terminal el update  [LISTO]
+-reportes
+  tablas
+- employee
+- pasatse a transfer-
+  
+  revisar
+  docu

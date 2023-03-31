@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author phily
  */
-public class Indexator_DAO {
+public class Indexator_DAO {//Will be used inside of the class DAO correspondent, I mean which need the ID searching and setting
     private Connection connection = DBMS.initConnection();    
     
     private String getSerialSt(){
@@ -49,22 +49,25 @@ public class Indexator_DAO {
     
     /**
      * It will be used to UPDATE
-     * with the value that was given
-     * by the search method of
-     * this class.
+     * the correspondent index,
+     * because the number was
+     * already choosen.
      */
-    public boolean update(Long indice){
+    public String update(String prefix){
         try(PreparedStatement statement = 
             connection.prepareStatement(this.getUpdateSt())){
             
-            statement.setString(1, indice.toString());
+            String ID = String.valueOf(this.search(prefix));
+            statement.setString(1, ID);
             
-            statement.executeUpdate();
-            return true;
+            if(!ID.equals("-1")){
+                statement.executeUpdate();
+                return ID;
+            }            
         }catch(SQLException e) {
             System.out.println("Error: impossible to UPDATE serial IDEXATOR");
         }        
-        return false;
+        return null;
     }//Ready
     
 }//END

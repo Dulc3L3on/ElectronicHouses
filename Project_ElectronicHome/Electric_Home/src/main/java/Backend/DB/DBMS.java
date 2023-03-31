@@ -19,8 +19,8 @@ public class DBMS {
     
     private DBMS(){
         String url = "jdbc:postgresql://localhost:5432/electronichome";//recuerda que postgre guarda todo en minúsculas...
-        String user = "postgresql";
-        String password = "PO5T3greZZ";//podría usar un sha xdxd
+        String user = "general";
+        String password = "postgresql";//podría usar un sha xdxd
         
         try{
             connection = DriverManager.getConnection(url, user, password);

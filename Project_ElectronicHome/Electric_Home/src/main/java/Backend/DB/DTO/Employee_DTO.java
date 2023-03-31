@@ -81,6 +81,9 @@ public class Employee_DTO {
         this._contract = contract;
     }
     
+    public Contract_DTO getContract(){
+        return this._contract;
+    }
 }
 
 

@@ -38,7 +38,7 @@ public class Transferred_DTO {
         this._transfer = _transfer;
     }
 
-    public Stock_DTO getStock_DTO() {
+    public Stock_DTO getStockDTO() {
         return _stock_DTO;
     }
 

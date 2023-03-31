@@ -40,6 +40,7 @@ public class Report_DAO {
              + " GROUP BY p.name"
              + " ORDER BY c DESC LIMIT 10";
     }//4F
+    //bien podría poner o.name... en lugar del codigo...
     
     /**
      * Top 10: clientes que
@@ -148,6 +149,25 @@ public class Report_DAO {
     //el 6 es un reporte repetido    
 
     /**
+     * To send report 1.     
+     */
+    public ArrayList<Report_4F> searchReport_4F(){
+         try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchReport1(), ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE)){            
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformerReports.moveBegin(result)){//Revisa si así dice que está vacío...
+                return this.transformerReports.getReports_4F(result);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the REPORT1(3F) -> " +e.getMessage());            
+        }
+        return null;
+    }//aplica a 1
+    
+    /**
      * To send reports 2-7     
      */    
     public ArrayList<Report_3F> chooseReport(int report){
@@ -174,25 +194,6 @@ public class Report_DAO {
         }
         return null;
     }//aplica a reportes: 2-7
-    
-    /**
-     * To send report 1.     
-     */
-    public ArrayList<Report_4F> searchReport_4F(){
-         try(PreparedStatement statement
-                = connection.prepareStatement(this.getSearchReport1(), ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE)){            
-            
-            ResultSet result = statement.executeQuery();
-         
-            if(result != null && this.transformerReports.moveBegin(result)){//Revisa si así dice que está vacío...
-                return this.transformerReports.getReports_4F(result);
-            }
-        }catch(SQLException e) {
-            System.out.println("Error: FINDING the REPORT1(3F) -> " +e.getMessage());            
-        }
-        return null;
-    }//aplica a 1
     
     /**
      * To send reports 8-9.     

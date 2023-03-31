@@ -4,8 +4,6 @@
  */
 package Backend.DB.DTO;
 
-import java.util.Date;
-
 /**
  *
  * @author phily
@@ -14,14 +12,21 @@ public class Sale_DTO {
     private String _code;
     private String _office;
     private String _tender;
-    private String _customer;
-    private Date _salesDate;
+    private Customer_DTO _customer;
+    private java.util.Date _salesDate;
+    private double _subtotal;
+    private double _percentage;
     private double _disccount;
     private double _total;
     private double _pastTotal;//porque aquí se guardará la cdad antigua...
     
-    public Sale_DTO(String customer, double disccount, double total){
+    public Sale_DTO(String code, Customer_DTO customer, java.sql.Date salesDate,
+            double subtotal, double percentage, double disccount, double total){
+        this._code = code;
         this._customer = customer;
+        this._salesDate = new java.util.Date(salesDate.getTime());
+        this._subtotal = subtotal;
+        this._percentage = percentage;
         this._disccount = disccount;
         this._total = total;
     }
@@ -50,22 +55,38 @@ public class Sale_DTO {
         this._tender = _tender;
     }
 
-    public String getCustomer() {
+    public Customer_DTO getCustomer() {
         return _customer;
     }
 
-    public void setCustomer(String _customer) {
+    public void setCustomer(Customer_DTO _customer) {
         this._customer = _customer;
     }
 
-    public Date getSalesDate() {
+    public java.util.Date getSalesDate() {
         return _salesDate;
     }
 
-    public void setSalesDate(Date _salesDate) {
+    public void setSalesDate(java.util.Date _salesDate) {
         this._salesDate = _salesDate;
     }
 
+    public double getSubtotal() {
+        return _subtotal;
+    }
+
+    public void setSubtotal(double _subtotal) {
+        this._subtotal = _subtotal;
+    }    
+    
+    public double getPercentage() {
+        return _percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this._percentage = percentage;
+    }
+    
     public double getDisccount() {
         return _disccount;
     }

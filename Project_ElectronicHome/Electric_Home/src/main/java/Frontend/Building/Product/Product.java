@@ -4,17 +4,70 @@
  */
 package Frontend.Building.Product;
 
+import Backend.DB.DAO.Inventary_DAO;
+import Backend.DB.DAO.Stowage_DAO;
+import Backend.DB.DTO.Product_DTO;
+import Backend.DB.DTO.Stock_DTO;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author phily
  */
-public class Product extends javax.swing.JFrame {
+public class Product extends javax.swing.JFrame {   
+    private Inventary_DAO inventary_DAO;
+    private Stowage_DAO stowage_DAO;
+    private boolean isInventary;
+    
+    private int situacion;
+    private long code;
+    private String office;
+    private boolean[] results = {false, false, false};
+    private Stock_DTO stock = null;
 
     /**
-     * Creates new form NewProduct
+     * This one is for VIEWS     
      */
-    public Product() {
+    public Product(long code, String office,int situacion, boolean isInventary,
+            Inventary_DAO inventaryDAO, Stowage_DAO stowageDAO){        
+        this(office, situacion, isInventary, inventaryDAO, stowageDAO);
+        this.code = code;//este va a ser seteado cuando cuando sea un VIEW      
+        
+        this.setUpViews();
+    }
+    
+    /**
+     * And this one for UPDATES or
+     * INSERTIONS
+     */
+    public Product(String office, int situacion, boolean isInventary,
+            Inventary_DAO inventaryDAO, Stowage_DAO stowageDAO) {//1. INSERT, 2. UPDATE, 3. Just see
         initComponents();
+        
+        this.office = office;
+        this.inventary_DAO = inventaryDAO;
+        this.stowage_DAO = stowageDAO;
+        this.situacion = situacion;
+        this.isInventary = isInventary;
+        
+        if(this.situacion == 1){//INSERT
+            if(!this.isInventary){
+               this.setEditableFields(false, true, true, true, true, true, true, true);
+            }else{
+                this.setEditableFields(false, true, false, false, false, false, true, false);
+            }//tampoco tiene sentido que add de esta manera, porque se supone que por transferencias debería recibir los prod y así solo aprobar... pero así como había dicho hacer tiempo, como para hacer un medio "acuerdo" digamos que los producots llegaron a la tienda sin aviso, porque a los de bodega no les tocaba o era demasiado. LO cual no tendría por qué suceder pero xD               
+        }else if(this.situacion == 2){//UPDATE
+            if(!this.isInventary){
+                this.setEditableFields(true, false, false, false, false, true, true, true);
+            }else{
+                this.setEditableFields(true, false, false, false, false, false, true, false);
+            }// this.setEditableFields(true, false, false, false, false, false, true, false);//ni aun la cdad modificaría, porque no puede no eli no add directamente, ya que lo hace con las trasnferencias...                         
+            
+            //Cabe resaltar que el código aunque esté habilitado, es para guardar no ser cambiado...
+        }else{
+            this.setEditableFields(false, false, false, false, false, false, false, false);
+        }
     }
 
     /**
@@ -52,7 +105,7 @@ public class Product extends javax.swing.JFrame {
         lbl_product_price = new javax.swing.JLabel();
         lbl_product_quantity = new javax.swing.JLabel();
         spinner_product_price = new javax.swing.JSpinner();
-        lbl_product_Add = new javax.swing.JLabel();
+        btn_ejecutar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +116,7 @@ public class Product extends javax.swing.JFrame {
         txtF_product_stockID.setEditable(false);
 
         txtF_product_code.setEditable(false);
+        txtF_product_code.setText("------");
 
         lbl_product_stockID.setText("Stock ID:");
 
@@ -83,7 +137,7 @@ public class Product extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(lbl_product_photo, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(lbl_product_photo, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_change_photo)
                 .addContainerGap())
@@ -125,6 +179,12 @@ public class Product extends javax.swing.JFrame {
         );
 
         panel_product_generalDesc.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("General Desc.")));
+
+        txtF_product_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtF_product_nameKeyPressed(evt);
+            }
+        });
 
         lbl_product_name.setText("Name:");
 
@@ -252,20 +312,23 @@ public class Product extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        lbl_product_Add.setText("add/modif - depen del employ");
+        btn_ejecutar.setText("EJECUTAR");
+        btn_ejecutar.setEnabled(false);
+        btn_ejecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ejecutarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_product_containerLayout = new javax.swing.GroupLayout(panel_product_container);
         panel_product_container.setLayout(panel_product_containerLayout);
         panel_product_containerLayout.setHorizontalGroup(
             panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_product_containerLayout.createSequentialGroup()
-                .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_product_containerLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(panel_product_picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_product_containerLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbl_product_Add)))
+                .addGap(12, 12, 12)
+                .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_product_picture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_ejecutar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_product_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panel_product_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,8 +350,8 @@ public class Product extends javax.swing.JFrame {
                     .addGroup(panel_product_containerLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(panel_product_picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(lbl_product_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -306,6 +369,267 @@ public class Product extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtF_product_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_product_nameKeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){           
+            this.results = this.checkInserted();        
+            
+            if(this.situacion == 1){
+                if(!this.isInventary){
+                    if(!results[0] && !results[1] && !results[2]){//porque no debría de existir a medias. ya se que sería bueno que ayudara en eso pero...
+                        this.prepareToInsert();
+                        this.btn_ejecutar.setEnabled(true);
+                    }else if(results[0] && results[1] && results[2]){
+                        JOptionPane.showMessageDialog(null, "It looks like the product already\n"
+                       + "exist, go to Update option. ", "Existent", JOptionPane.ERROR_MESSAGE);
+                    }//otro caso no podría ser posible, o no debería...
+                }else{
+                    if(results[0] && results[1] && !results[2]){  
+                       this.prepareToInsert();
+                       this.btn_ejecutar.setEnabled(true);
+                    }else if(results[0] && results[1] && results[2]){
+                        JOptionPane.showMessageDialog(null, "It looks like the product already\n"
+                       + "exist, go to Update option. ", "Existent", JOptionPane.ERROR_MESSAGE);
+                    }//otro caso no podría ser posible, o no debería...
+                }
+            }else{
+                if(results[0] && results[1] && results[2]){
+                    stock = this.prepareToUpdate();  
+                    this.btn_ejecutar.setEnabled(true);                
+                }else{
+                    JOptionPane.showMessageDialog(null, "It looks like you will need\n"
+                       + "to create the product", "Unexistent", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+        }
+    }//GEN-LAST:event_txtF_product_nameKeyPressed
+
+    private void btn_ejecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ejecutarActionPerformed
+        if(this.situacion == 1){
+            if(!this.isInventary){                    
+                this.setupInsert_Stowage();                    
+            }else{
+                this.setupInsert_inventary();
+            }
+        }else{  
+            if(!this.isInventary){
+                this.setupUpdate_stowage();
+            }else{
+                this.setupUpdate_inventary();
+            }               
+        }//solo podría ser 2, porque con 3, esta opción nunca se habilita xD        
+    }//GEN-LAST:event_btn_ejecutarActionPerformed
+    
+    private boolean[] checkInserted(){
+        boolean result[] = {false, false, false};
+        
+        if(!isInventary){            
+            this.stowage_DAO.getStock_DAO().search_Existence(this.txtF_product_name.getText(),
+                    this.office, this.stowage_DAO.getProduct_DAO().search_existence(this.office,
+                this.stowage_DAO.getAppliance_DAO()
+                        .search_Existence(this.txtF_product_name.getText())));
+    
+            result[0] = this.stowage_DAO.getAppliance_DAO().getErrorMessage()!=null;//si hubo un error, entonces no EXISTE!!!
+            result[1] = this.stowage_DAO.getProduct_DAO().getMessageError()!=null;
+            result[2] = this.stowage_DAO.getStock_DAO().isTherAnError();
+        }else{
+            this.inventary_DAO.getStock_DAO().search_Existence(this.txtF_product_name.getText(),
+                this.office, this.inventary_DAO.getProduct_DAO().search_existence(this.office,
+                    this.inventary_DAO.getAppliance_DAO()
+                        .search_Existence(this.txtF_product_name.getText())));
+            
+            result[0] = this.inventary_DAO.getAppliance_DAO().getErrorMessage()!=null;//si hubo un error, entonces no EXISTE!!!
+            result[1] = this.inventary_DAO.getProduct_DAO().getMessageError()!=null;
+            result[2] = this.inventary_DAO.getStock_DAO().isTherAnError();
+            
+        }       
+        return result;
+    }    
+    
+    private void prepareToInsert(){
+        if(this.isInventary){            
+            Product_DTO productDTO = this.inventary_DAO.getProduct_DAO()
+                    .search_existence(this.txtF_product_name.getText(),
+                        this.inventary_DAO.getAppliance_DAO().search_Existence(this.txtF_product_name.getText()));
+            if(productDTO != null){
+                this.txtF_product_code.setText(String.valueOf(productDTO.getID()));                
+                this.txtF_product_name.setText(productDTO.getAppliance().getName());
+                this.cbBox_product_brand.addItem(productDTO.getAppliance().getBrand());
+                this.cbBox_product_type.addItem(productDTO.getAppliance().getClasification().getType());
+                this.cbBox_product_line.addItem(productDTO.getAppliance().getClasification().getLine());
+                this.spinner_product_price.setValue(String.valueOf(productDTO.getPrice()));                
+                this.txtA_product_description.append(productDTO.getAppliance().getDetail());
+            }            
+        }
+
+        this.txtF_product_stockID.setText(this.stowage_DAO.getStock_DAO().searchActualID(office));                    
+        //aqui lo de brand, tyoe y todo eso, si queires que se haga como en lo de producto, pcomo solo es de copiar y pegar...
+            //pero seria todas las brand y a lo de types seria donde se app
+                //las type segun la brand... y las line segun type, seria mejor al reves xd
+    }//Ready
+    
+    private void setupInsert_Stowage(){
+        this.stowage_DAO.getAppliance_DAO().insert(this.txtF_product_name.getText(),
+            (String) this.cbBox_product_brand.getSelectedItem(),
+            this.txtA_product_description.getText(),
+            (String) this.cbBox_product_type.getSelectedItem());
+           
+        this.stowage_DAO.getProduct_DAO().insert(this.txtF_product_name.getText(),
+            (String) this.cbBox_product_brand.getSelectedItem(),
+            (Double) this.spinner_product_price.getValue());
+           
+        this.stowage_DAO.getStock_DAO().insert(this.txtF_product_stockID.getText(),
+            this.stowage_DAO.getProduct_DAO()
+            .searchCode(this.txtF_product_name.getText(),
+                   (String) this.cbBox_product_brand.getSelectedItem()),
+                   (Integer) this.spinner_product_quantity.getValue(), office);          
+        
+        this.stowage_DAO.getStock_DAO().updateID(this.office);
+    }
+    
+    private void setupInsert_inventary(){
+        this.inventary_DAO.getStock_DAO().insert(this.txtF_product_stockID.getText(),
+            this.inventary_DAO.getProduct_DAO()
+                .searchCode(this.txtF_product_name.getText(),
+                        (String) this.cbBox_product_brand.getSelectedItem()),
+                        (Integer) this.spinner_product_quantity.getValue(), office);
+    
+        this.inventary_DAO.getStock_DAO().updateID(this.office);
+    }//listo  
+    
+    private Stock_DTO prepareToUpdate(){        
+        if(!this.isInventary){
+            stock = this.stowage_DAO.getStock_DAO()
+               .search(Long.valueOf(this.txtF_product_code.getText()),
+                   office);
+        }else{
+            stock = this.stowage_DAO.getStock_DAO()
+                .search(Long.valueOf(this.txtF_product_code.getText()),
+                    office);
+        }
+            
+        if(stock != null){
+           this.txtF_product_code.setText(String.valueOf(stock.getProduct().getID()));
+           this.txtF_product_stockID.setText(stock.getID());
+           this.txtF_product_name.setText(stock.getProduct().getAppliance().getName());
+           this.cbBox_product_brand.addItem(stock.getProduct().getAppliance().getBrand());
+           this.cbBox_product_type.addItem(stock.getProduct().getAppliance().getClasification().getType());
+           this.cbBox_product_line.addItem(stock.getProduct().getAppliance().getClasification().getLine());
+           this.spinner_product_price.setValue(String.valueOf(stock.getProduct().getPrice()));
+           this.spinner_product_quantity.setValue(String.valueOf(stock.getQuantity()));
+           this.txtA_product_description.append(stock.getProduct().getAppliance().getDetail());
+        }        
+        return null;
+    }//Ready
+    
+    private void setupUpdate_stowage(){//basarse en el insert que está listo        
+        boolean success = false;                                   
+        
+        String[] data = 
+            {(this.txtF_product_name.getText().equals(stock.getProduct().getAppliance().getName()))
+                ?null:this.txtF_product_name.getText(),
+              (this.txtA_product_description.getText().equals(stock.getProduct().getAppliance().getDetail()))
+                ?null:this.txtA_product_description.getText()};
+                
+        if(data[0]!=null || data[1]!=null){
+            success = this.stowage_DAO.getAppliance_DAO()
+                .update(stock.getProduct().getAppliance().getName(), data[0], data[1]);
+        }
+                
+        double price = ((stock.getProduct().getPrice() != ((Double)this.spinner_product_price.getValue()))
+            ?((Double) this.spinner_product_price.getValue()):0);
+        
+        if(price!=0){
+            success = this.stowage_DAO.getProduct_DAO()
+                .update(stock.getProduct().getID(), price);
+        }
+                
+        int quantity = ((stock.getQuantity() != (Integer)this.spinner_product_quantity.getValue())
+            ?(Integer)this.spinner_product_quantity.getValue():0);
+                
+        if(quantity!=0){
+            success = this.stowage_DAO.getStock_DAO().update(true, stock.getID(), true, quantity);
+        }        
+        
+        this.showUpdateMessages(success);
+    }//Ready
+    
+    private void setupUpdate_inventary(){
+        boolean success = false;        
+    
+        int quantity = ((stock.getQuantity() != (Integer)this.spinner_product_quantity.getValue())
+                ?(Integer)this.spinner_product_quantity.getValue():0);
+                
+        if(quantity!=0){
+            success = this.inventary_DAO.getStock_DAO().update(true, stock.getID(), true, quantity);
+        }                
+        
+        this.showUpdateMessages(success);
+        //segun el enunciado, el de inventario no puede modificar productos
+        //auqneu en realidad para mis es faci, porque es el mismo método pero
+        //solo tendría que hacer (por la manera en que lo hice) que no pueda modif el nombre.
+             
+        //De todos modos lo add por lo de las cdads que puede ingresar a sus propias tiendas     
+    }
+    
+     private void showUpdateMessages(boolean success){
+        if(!success){                 
+            if(!this.isInventary){
+             JOptionPane.showMessageDialog(null, ((this.stowage_DAO.getAppliance_DAO().isTherAnError())
+                                             ?this.stowage_DAO.getAppliance_DAO().getErrorMessage()
+                                             :"")
+                                         + ((this.stowage_DAO.getProduct_DAO().isTherAnError())
+                                             ?this.stowage_DAO.getProduct_DAO().getMessageError()
+                                             :"")
+                                         + "Please register the neccessary to proceed",
+                                            "Error", JOptionPane.ERROR_MESSAGE);             
+            }else{
+             JOptionPane.showMessageDialog(null, "The product is not registered yet.\n"
+                                              + "Please report this to a Manaager stowage\n"
+                                              + "and wait until that is corrected.",
+                                               "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            this.stowage_DAO.getAppliance_DAO().ressetErrorMessage();
+            this.stowage_DAO.getProduct_DAO().ressetErrorMessage();
+            this.stowage_DAO.getStock_DAO().ressetError();
+        }else{
+            JOptionPane.showMessageDialog(null,
+                  ((success)?"Updated Successfully"
+                               :"Update with errors\nDo it one more time"),
+                     "Results", ((success)?JOptionPane.INFORMATION_MESSAGE:JOptionPane.ERROR_MESSAGE));
+        }
+    }
+    
+    private void setUpViews(){
+        Stock_DTO stockDTO = inventary_DAO.getStock_DAO().search(this.code, this.office);                
+        
+        this.txtF_product_code.setText(String.valueOf(stockDTO.getProduct().getID()));
+        this.txtF_product_stockID.setText(stockDTO.getID());
+        this.txtF_product_name.setText(stockDTO.getProduct().getAppliance().getName());        
+        this.cbBox_product_brand.addItem(stockDTO.getProduct().getAppliance().getBrand());        
+        this.cbBox_product_type.addItem(stockDTO.getProduct().getAppliance().getClasification().getType());        
+        this.cbBox_product_line.addItem(stockDTO.getProduct().getAppliance().getClasification().getLine());        
+        this.spinner_product_price.setValue(stockDTO.getProduct().getPrice());        
+        this.spinner_product_quantity.setValue(stockDTO.getQuantity());        
+        this.txtA_product_description.setText(stockDTO.getProduct().getAppliance().getDetail());        
+    }//Ready    
+    
+    private void setEditableFields(boolean code, boolean name, boolean brand, 
+          boolean type, boolean line, boolean price, boolean quantity, boolean desc){
+        this.txtF_product_code.setEditable(code);
+        this.txtF_product_name.setEditable(name);
+        this.cbBox_product_brand.setEditable(brand);
+        this.cbBox_product_type.setEditable(type);
+        this.cbBox_product_line.setEditable(line);
+        this.spinner_product_price.setEnabled(price);
+        this.spinner_product_quantity.setEnabled(quantity);
+        this.txtA_product_description.setEditable(desc);  
+    }//Ready
+    
+    
+    
+    
     //Métodos a usar de Product_DAO
         //insert
         //update - aún no ses como directamente
@@ -321,13 +645,13 @@ public class Product extends javax.swing.JFrame {
             //BODEGA, el caso contrario
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_ejecutar;
     private javax.swing.JComboBox<String> cbBox_product_brand;
     private javax.swing.JComboBox<String> cbBox_product_line;
     private javax.swing.JComboBox<String> cbBox_product_type;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_change_photo;
-    private javax.swing.JLabel lbl_product_Add;
     private javax.swing.JLabel lbl_product_brand;
     private javax.swing.JLabel lbl_product_code;
     private javax.swing.JLabel lbl_product_line;

@@ -5,13 +5,17 @@
 
 package com.mycompany.electric_home;
 
+import Frontend.Login;
+
 /**
  *
  * @author phily
  */
 public class Electric_Home {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+     public static void main(String[] args) {              
+        Login login = new Login();
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
     }
 }

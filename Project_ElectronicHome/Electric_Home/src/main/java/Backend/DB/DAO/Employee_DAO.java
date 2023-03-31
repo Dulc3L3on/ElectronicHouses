@@ -7,6 +7,7 @@ package Backend.DB.DAO;
 import Backend.DB.DBMS;
 import Backend.DB.DTO.Employee_DTO;
 import Backend.DB.Tools.Transformer;
+import Backend.Tools.Tool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +24,57 @@ public class Employee_DAO {
     
     private Contract_DAO contract_DAO;
     private Transformer transformer;
+    private Tool tool;
+    private Indexator_DAO indexator;
     
     public Employee_DAO(){
         this.contract_DAO = new Contract_DAO();
         this.transformer = new Transformer();
+        this.tool = new Tool();
+        this.indexator = new Indexator_DAO();
     }    
+    
+    private String getSearchExistence(){
+        return "SELECT e.hired, c.position c.office"
+             + " FROM humanResourcesControl.Employee as e"
+             + " INNER JOIN humanResourcesControl.Contract as c ON e.ID = c.employee"
+             + " WHERE e.ID = ?";
+    }
+    
+    /**
+     * It will be used to 
+     * confirm the deletion
+     * of a SOLD, beccause
+     * it is mandatory check if 
+     * the brought ID from inventary
+     * was valid.
+     */
+    public boolean searchExistence(String ID, String type, String office){
+        try(PreparedStatement statement = 
+            connection.prepareStatement(getSearchExistence())){            
+            
+            statement.setString(1, ID);                           
+            
+            ResultSet result = statement.executeQuery();
+            
+            if(result!= null && transformer.moveBegin(result)){
+                if(result.getBoolean(1) && result.getString(2).equals(type)
+                        && result.getString(3).equals(office))
+                return true;
+            }            
+        }catch(SQLException e) {
+            System.out.println("Error: impossible to find EMPLOYEE");
+        }        
+        return false;
+    }
+    
+     public String searchActualID(){
+        return ""+this.indexator.search("SID");//y así con las 4 restantes
+    }
+    
+    public void updateID(){
+        this.indexator.update("SID");//y así con las 4 restantes
+    }
     
     private String getEmployeesSt(String name, String office, String[] position,
                                     String orderBy){
@@ -159,8 +206,8 @@ public class Employee_DAO {
     }//READY
     
     private String getInsertionSt(){
-        return "INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password) "
-             + "VALUES (?,?,?,?)";
+        return "INSERT INTO humanResourcesControl.Employee"
+            + " (ID, CUI, name, password, since) VALUES (?,?,?,?)";
     }
     
     /**
@@ -169,8 +216,8 @@ public class Employee_DAO {
      * position.
      * 
      */
-    public void insert(String ID, String CUI, String name, String password,
-            String office, String position, String dueDate){
+    public boolean insert(String ID, String CUI, String name, String password,
+            String office, String position, String initialDate, String dueDate){
         boolean correct = true;
         
          try(PreparedStatement statement = 
@@ -179,10 +226,11 @@ public class Employee_DAO {
             statement.setString(2, CUI);
             statement.setString(3, name);
             statement.setString(4, password);
+            statement.setDate(5, this.tool.toSQLDate(initialDate));
             
             statement.executeUpdate();
             
-            correct = this.contract_DAO.insert(true, ID, office, position, dueDate);
+            return (correct = this.contract_DAO.insert(true, ID, office, position, dueDate));
         }catch(SQLException e){
             correct = false;
             System.out.println("Error: creating an EMPLOYEE" + e.getMessage());
@@ -191,7 +239,8 @@ public class Employee_DAO {
          if(!correct){
             JOptionPane.showMessageDialog(null, "Error trying to ADD an employee."
                     + "Try one more time.", "Error", JOptionPane.ERROR_MESSAGE);
-         }      
+         }  
+         return false;
     }//Ready
     
     private String getUpdateSt(boolean name, boolean pwd){//at least one of them has to be true

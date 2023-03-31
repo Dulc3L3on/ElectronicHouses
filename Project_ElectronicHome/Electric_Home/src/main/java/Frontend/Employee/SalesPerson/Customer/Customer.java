@@ -4,17 +4,39 @@
  */
 package Frontend.Employee.SalesPerson.Customer;
 
+import Backend.DB.DAO.SalesPerson_DAO;
+import Backend.DB.DTO.Customer_DTO;
+import Backend.Tools.Tool;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author phily
  */
 public class Customer extends javax.swing.JFrame {
-
+    private SalesPerson_DAO salesPersonDAO;
+    private String NIT;
+    private boolean edit;
+    private Customer_DTO customerDTO;
+    private Tool tool;
+    
     /**
      * Creates new form SalesPerson_NewCustomer
      */
-    public Customer() {
+    public Customer(boolean edit, String NIT, SalesPerson_DAO salesPersonDAO) {
         initComponents();
+        
+        this.NIT = NIT;
+        this.salesPersonDAO = salesPersonDAO;
+        this.edit = edit;
+        this.tool = new Tool();
+        
+        if(this.edit){
+            this.setToEdition();
+        }else{
+            this.Ftxt_JoiningDate.setValue(
+                    this.tool.currentDate(this.tool.getFormatDate()));//si da problemas pones un txtF y ya xD
+        }                
     }
 
     /**
@@ -32,16 +54,16 @@ public class Customer extends javax.swing.JFrame {
         txtF_customer_CUI = new javax.swing.JTextField();
         lbl_customer_CUI = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        button_save = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtF_customer_NIT = new javax.swing.JTextField();
         lbl_customer_NIT = new javax.swing.JLabel();
         lbl_customer_adress = new javax.swing.JLabel();
-        txtF_customer_adress = new javax.swing.JTextField();
+        txtF_customer_address = new javax.swing.JTextField();
         txtF_customer_name = new javax.swing.JTextField();
         lbl_customer_name = new javax.swing.JLabel();
         lbl_customer_dateOfJoining = new javax.swing.JLabel();
-        spinner_customer_DateJoining = new javax.swing.JSpinner();
+        Ftxt_JoiningDate = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -87,19 +109,27 @@ public class Customer extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SavePlane.png"))); // NOI18N
+        button_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SavePlane.png"))); // NOI18N
+        button_save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_saveMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Customer Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
+        txtF_customer_NIT.setEditable(false);
+
         lbl_customer_NIT.setText("NIT:");
 
-        lbl_customer_adress.setText("Adress:");
+        lbl_customer_adress.setText("Address:");
 
         lbl_customer_name.setText("Name:");
 
         lbl_customer_dateOfJoining.setText("Date of joining:");
 
-        spinner_customer_DateJoining.setEnabled(false);
+        Ftxt_JoiningDate.setEditable(false);
+        Ftxt_JoiningDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,18 +138,18 @@ public class Customer extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_customer_dateOfJoining)
                         .addGap(18, 18, 18)
-                        .addComponent(spinner_customer_DateJoining))
+                        .addComponent(Ftxt_JoiningDate))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_customer_NIT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtF_customer_NIT, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_customer_adress)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtF_customer_address, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_customer_name)
                         .addGap(18, 18, 18)
@@ -132,14 +162,14 @@ public class Customer extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_customer_dateOfJoining)
-                    .addComponent(spinner_customer_DateJoining, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(Ftxt_JoiningDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_customer_name, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtF_customer_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtF_customer_adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtF_customer_address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_customer_adress))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -161,7 +191,7 @@ public class Customer extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_customer_newLayout.createSequentialGroup()
                         .addGap(127, 127, 127)
-                        .addComponent(jLabel1)))
+                        .addComponent(button_save)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         panel_customer_newLayout.setVerticalGroup(
@@ -173,7 +203,7 @@ public class Customer extends javax.swing.JFrame {
                     .addGroup(panel_customer_newLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(button_save, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -195,6 +225,70 @@ public class Customer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void button_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_saveMouseClicked
+        if(!this.txtF_customer_CUI.getText().isBlank() && !this.txtF_customer_CUI.getText().isEmpty() &&
+           !this.txtF_customer_NIT.getText().isBlank() && !this.txtF_customer_NIT.getText().isEmpty() &&
+           !this.txtF_customer_name.getText().isBlank() && !this.txtF_customer_name.getText().isEmpty() &&
+           !this.txtF_customer_address.getText().isBlank() && !this.txtF_customer_address.getText().isEmpty()){
+            if(!this.edit){
+                this.setCxData();
+                this.salesPersonDAO.get_Customer_DAO().insert(this.customerDTO.getNIT(),
+                        this.getCustomer().getCUI(), this.getCustomer().getName(),
+                        this.customerDTO.getAddress());
+            }else{
+                boolean newName = (!this.txtF_customer_name.getText().equals(this.customerDTO.getName()));
+                boolean newAddress = (!this.txtF_customer_address.getText().equals(this.customerDTO.getAddress()));
+                
+                if(newName || newAddress){
+                    this.salesPersonDAO.get_Customer_DAO().update(this.NIT,
+                     ((newName)?this.txtF_customer_name.getText():null),
+                     ((newAddress)?this.txtF_customer_address.getText():null));
+                    
+                    this.customerDTO.setName(this.txtF_customer_name.getText());
+                    this.customerDTO.setAddress(this.txtF_customer_address.getText());
+                }
+            }            
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos\n"
+                + "antes de GUARDAR.", "Campos faltantes", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_button_saveMouseClicked
+
+    private void setToEdition(){
+        this.customerDTO = this.salesPersonDAO.get_Customer_DAO().search(NIT);
+        
+        this.txtF_customer_name.setText(this.customerDTO.getName());
+        this.txtF_customer_address.setText(this.customerDTO.getAddress());
+        this.Ftxt_JoiningDate.setValue(this.customerDTO.getSince().toString());
+        this.txtF_customer_NIT.setText(this.customerDTO.getNIT());
+        this.txtF_customer_CUI.setText(this.customerDTO.getCUI());                
+        
+        this.txtF_customer_CUI.setEnabled(false);
+    }
+    
+    /*
+    * It will be used when INSERT
+    * is the reason of the invokation
+    * of this little window.
+    */
+    private void setCxData(){
+        this.customerDTO = new Customer_DTO(this.NIT, this.txtF_customer_CUI.getText(),
+                this.txtF_customer_name.getText(), this.txtF_customer_address.getText(),
+                this.tool.toSQLDate((String)this.Ftxt_JoiningDate.getValue()));        
+    }
+    
+    /**
+     * It will be useful to obtain
+     * all the data, that was CREATED
+     * or already UPDATED, in the place
+     * that was the origin of the invokation
+     * of this window.
+     */
+    public Customer_DTO getCustomer(){
+        return this.customerDTO;
+    }//será usado para mostrar los datos nuevos y los datos actualizados
+    
     //It is going to appear suddenly as a MODAL when there is NO
     //customer with the specified NIT on the DB
     
@@ -203,7 +297,8 @@ public class Customer extends javax.swing.JFrame {
     //el botón cb a EDIT, luego de presionarlo una vez para que no haya errores
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFormattedTextField Ftxt_JoiningDate;
+    private javax.swing.JLabel button_save;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_customer_CUI;
@@ -214,10 +309,9 @@ public class Customer extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_customer_photo;
     private javax.swing.JPanel panel_customer_new;
     private javax.swing.JPanel panel_customer_photo;
-    private javax.swing.JSpinner spinner_customer_DateJoining;
     private javax.swing.JTextField txtF_customer_CUI;
     private javax.swing.JTextField txtF_customer_NIT;
-    private javax.swing.JTextField txtF_customer_adress;
+    private javax.swing.JTextField txtF_customer_address;
     private javax.swing.JTextField txtF_customer_name;
     // End of variables declaration//GEN-END:variables
 }

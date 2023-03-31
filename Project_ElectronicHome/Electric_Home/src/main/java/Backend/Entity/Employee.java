@@ -9,7 +9,7 @@ package Backend.Entity;
  * @author phily
  */
 public record Employee(String type, String ID, String CUI, 
-                        String name, String password) {
+                        String name, String password, String office) {
     
     //a menos que hiciera una página para que el empleado pueda usar
     //solo para su persona (como cosmos o una simple donde cheque sus

@@ -25,12 +25,52 @@ public class Transfer_DAO {
     
     private Transformer transformer = new Transformer();
     private Transformer_InvStow_Searching transformer_ISS;
+    private Indexator_DAO indexator;
     private Tool tool;
     
     public Transfer_DAO(){
         this.transformer = new Transformer();
         this.transformer_ISS = new Transformer_InvStow_Searching();
+        this.indexator = new Indexator_DAO();
         this.tool = new Tool();
+    }    
+    
+    /**
+     * To obtain the correspondent ID     
+     */
+    public String searchActualID(){
+        return "TID-"+this.indexator.search("TID");
+    }//Est
+    
+    private String getSearchQuantityOfSt(boolean state){
+        return "SELECT COUNT(transferState) FROM transactionControl.Transfer"
+             + ((state)?" WHERE transferState = ?":"");
+    }
+    
+    //----at gain FOCUS
+    
+    /**
+     * It will be used to find
+     * the number of transfers
+     * with a determinated state.
+     */
+    public int searchQuantityOf(String state){
+        try(PreparedStatement statement
+                = connection.prepareStatement(this.getSearchQuantityOfSt(state!=null))){
+            if(state!=null){
+                statement.setString(1, state);
+            }
+            
+            ResultSet result = statement.executeQuery();
+         
+            if(result != null && this.transformer_ISS.moveBegin(result)){//Revisa si así dice que está vacío...
+                return result.getInt(1);
+            }
+        }catch(SQLException e) {
+            System.out.println("Error: FINDING the total of transfers("+state+") -> "
+                    +e.getMessage());            
+        }
+        return 0;
     }
     
     //-------------To show on Movement window
@@ -38,7 +78,7 @@ public class Transfer_DAO {
     private String getSelectedTransferSt(){
         return "SELECT ID, origin, trasnferState, since, until, reason"
              + " WHERE ID = ?";
-    }
+    }    
     
     /**
      * It will be used when a specific
@@ -46,7 +86,7 @@ public class Transfer_DAO {
      * detailed on the MOVE window.
      */
     public Transfer_DTO searchSelectedTransfer(String ID){
-          try(PreparedStatement statement
+        try(PreparedStatement statement
                 = connection.prepareStatement(this.getSelectedTransferSt())){
             statement.setString(1, ID);            
             
@@ -61,6 +101,8 @@ public class Transfer_DAO {
         return null;
     }
     
+    
+    
     //----------
     
     private String getInsertionSt(){
@@ -72,24 +114,27 @@ public class Transfer_DAO {
      * It is used when a 
      * TRANSFER is CREATED.
      */
-    public boolean insert(String ID, String origin, String destiny,
+    public boolean insert(String origin, String destiny,
                 String until, String reason){
+        String ID = this.indexator.update("TID");
         
-         try(PreparedStatement statement = 
-                connection.prepareStatement(this.getInsertionSt())){
-            statement.setString(1, ID);
-            statement.setString(2, origin);
-            statement.setString(3, destiny);
-            statement.setDate(4, this.tool.toSQLDate(until));
-            statement.setString(5, reason);
+        if(ID != null){//pues sin ID no se peude exe la insertion...
+            try(PreparedStatement statement = 
+                    connection.prepareStatement(this.getInsertionSt())){
+                statement.setString(1, ID);
+                statement.setString(2, origin);
+                statement.setString(3, destiny);
+                statement.setDate(4, this.tool.toSQLDate(until));
+                statement.setString(5, reason);
             
-            statement.executeUpdate();
-            return true;
-        }catch(SQLException e){            
-            JOptionPane.showMessageDialog(null, "Impossible to CREATE the Transfer."
-                                        + "\n Try one more time.", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Error: creating the Transfer" + e.getMessage());
-        }
+                statement.executeUpdate();
+                return true;
+            }catch(SQLException e){                            
+                    System.out.println("Error: creating the Transfer" + e.getMessage());
+            }        
+        }        
+        JOptionPane.showMessageDialog(null, "Impossible to CREATE the Transfer."
+           + "\n Try one more time.", "Error", JOptionPane.ERROR_MESSAGE);
         return false;
     }//By: SalesPerson, Inventary and Stowage
         //al igual que Sale, se crerá previo a tener el listado add... xD
@@ -109,10 +154,14 @@ public class Transfer_DAO {
     public boolean update(String ID, String date, String state){//puesto que puede ser utilizado para decir PROCESSED (with did), or solo DONE
         try(PreparedStatement statement = connection.prepareStatement
                 (this.getUpdateSt((date!= null)))){
-                        
+            int index = 2;            
+            
             statement.setString(1, state);
-            statement.setDate(2, this.tool.toSQLDate(date));            
-            statement.setString(3, ID);
+            if(date!=null){
+                statement.setDate(index, this.tool.toSQLDate(date));
+                index++;
+            }            
+            statement.setString(index, ID);
             
             statement.executeUpdate();
             return true;

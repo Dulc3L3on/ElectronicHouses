@@ -4,17 +4,26 @@
  */
 package Frontend.Employee.Admin.Worker;
 
+import Backend.DB.DAO.Admin_DAO;
+import Backend.DB.DAO.Employee_DAO;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author phily
  */
 public class Admin_NewEmployee extends javax.swing.JFrame {
+    private Admin_DAO adminDAO;
     
     /**
      * Creates new form Admin_NewEmployee
      */
-    public Admin_NewEmployee() {
+    public Admin_NewEmployee(Admin_DAO adminDAO) {
         initComponents();
+        
+        this.adminDAO = adminDAO;
+        
     }
 
     /**
@@ -41,7 +50,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         lbl_employee_salary = new javax.swing.JLabel();
         txtF_employee_salary = new javax.swing.JTextField();
         spinner_employee_CUI = new javax.swing.JSpinner();
-        comboBox_office = new javax.swing.JComboBox<>();
+        cbBox_office = new javax.swing.JComboBox<>();
         lbl_employee_position = new javax.swing.JLabel();
         lbl_password = new javax.swing.JLabel();
         txtF_password = new javax.swing.JTextField();
@@ -68,13 +77,6 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
 
         lbl_employee_name.setText("Name:");
 
-        txtF_employee_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtF_employee_nameActionPerformed(evt);
-            }
-        });
-
-        cbBox_employee_position.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing lo demas de la tbl" }));
         cbBox_employee_position.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbBox_employee_positionActionPerformed(evt);
@@ -112,20 +114,12 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         txtF_employee_salary.setEnabled(false);
 
         spinner_employee_CUI.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        spinner_employee_CUI.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spinner_employee_CUIStateChanged(evt);
-            }
-        });
-
-        comboBox_office.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lbl_employee_position.setText("Position:");
 
         lbl_password.setText("Password:");
 
         txtF_password.setEditable(false);
-        txtF_password.setText("byMD5");
 
         javax.swing.GroupLayout panel_employee_dataLayout = new javax.swing.GroupLayout(panel_employee_data);
         panel_employee_data.setLayout(panel_employee_dataLayout);
@@ -145,7 +139,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
                             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                                 .addComponent(lbl_employee_office)
                                 .addGap(18, 18, 18)
-                                .addComponent(comboBox_office, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbBox_office, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panel_employee_dataLayout.createSequentialGroup()
                                 .addComponent(lbl_password)
                                 .addGap(18, 18, 18)
@@ -197,7 +191,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
                             .addComponent(cbBox_employee_position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_employee_position)
                             .addComponent(lbl_employee_office)
-                            .addComponent(comboBox_office, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbBox_office, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panel_employee_dataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_employee_salary)
@@ -220,7 +214,6 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         lbl_employee_endDate.setText("Date of ending:");
 
         formatField_hiringDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        formatField_hiringDate.setEnabled(false);
         formatField_hiringDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 formatField_hiringDateActionPerformed(evt);
@@ -228,8 +221,18 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         });
 
         formatField_endingDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        formatField_endingDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formatField_endingDateActionPerformed(evt);
+            }
+        });
 
         btn_employee_accept.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Accept.png"))); // NOI18N
+        btn_employee_accept.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_employee_acceptMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_employee_contractLayout = new javax.swing.GroupLayout(panel_employee_contract);
         panel_employee_contract.setLayout(panel_employee_contractLayout);
@@ -307,47 +310,77 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void spinner_employee_CUIStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_employee_CUIStateChanged
-        generateID();
-    }//GEN-LAST:event_spinner_employee_CUIStateChanged
-
-    private void txtF_employee_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_employee_nameActionPerformed
-        generateID();
-    }//GEN-LAST:event_txtF_employee_nameActionPerformed
-
     private void cbBox_employee_positionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBox_employee_positionActionPerformed
-        generateID();
+        this.txtF_employee_salary
+                .setText(this.adminDAO.getPositionDAO()
+                        .searchSalary((String)this.cbBox_employee_position.getSelectedItem()));
     }//GEN-LAST:event_cbBox_employee_positionActionPerformed
 
     private void formatField_hiringDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatField_hiringDateActionPerformed
-        if(!formatField_hiringDate.getText().isBlank() && !formatField_hiringDate.getText().isEmpty()){
+        if(!formatField_endingDate.getText().isBlank()
+                && !formatField_endingDate.getText().isEmpty()
+          && !formatField_hiringDate.getText().isBlank() 
+                && !formatField_hiringDate.getText().isEmpty()){
             fillOutContract();
             btn_employee_accept.setEnabled(true);
         }else{
             btn_employee_accept.setEnabled(false);
         }
+        
     }//GEN-LAST:event_formatField_hiringDateActionPerformed
 
-    private void generateID(){
-        if((!txtF_employee_name.getText().isEmpty() && !txtF_employee_name.getText().isBlank()
-                 && txtF_employee_name.getText().length() >= 6)
-            && (!spinner_employee_CUI.getValue().toString().isEmpty() && !spinner_employee_CUI.getValue().toString().isBlank())//puede que falle por el toString...
-            && (!cbBox_employee_position.getSelectedItem().toString().equals("Nothing"))
-            && txtF_employee_ID.getText().isEmpty()){//sino se reemplazaría cada vez que se modificara datos y todos ya hubieran tenido algo antes...
+    private void formatField_endingDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatField_endingDateActionPerformed
+        if(!formatField_endingDate.getText().isBlank()
+                && !formatField_endingDate.getText().isEmpty()
+          && !formatField_hiringDate.getText().isBlank() 
+                && !formatField_hiringDate.getText().isEmpty()){
             
-            txtF_employee_ID.setText("123456789012");//SHA based on CUI and name
-            formatField_hiringDate.setEnabled(true);//se activa el campo para llenar el endDate
-            
-            if(!formatField_hiringDate.getText().isBlank() && !formatField_hiringDate.getText().isEmpty()){
                 fillOutContract();
                 btn_employee_accept.setEnabled(true);
-            }//por si acaso ya tenían la fecha, porque si no hago esto y no borro el ending, tendría que volver a setear la fecha y que fastidioso sería eso...
-        }else{
-            txtF_employee_ID.setText("");//por si acaso borran la data
-            formatField_hiringDate.setEnabled(false);//tengo que desactivar este tb porque si no lo hiciera y setearan otra fecha por molestar, por ese hecho el botón de accept se activaría auqneu la data del empleado no esté completa...
-            btn_employee_accept.setEnabled(false);//este era un hecho que se debía desactivar...
+         //por si acaso ya tenían la fecha, porque si no hago esto y no borro el ending, tendría que volver a setear la fecha y que fastidioso sería eso...
+       }else{
+            btn_employee_accept.setEnabled(false);
         }
+    }//GEN-LAST:event_formatField_endingDateActionPerformed
+
+    private void btn_employee_acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_employee_acceptMouseClicked
+       if(this.adminDAO.getEmployee_DAO()
+            .insert(this.txtF_employee_ID.getText(), (String) this.spinner_employee_CUI.getValue(),
+                    this.txtF_employee_name.getText(), this.txtF_password.getText(), 
+                    (String) this.cbBox_office.getSelectedItem(),
+                    (String) this.cbBox_employee_position.getSelectedItem(), 
+                    this.formatField_hiringDate.getText(),
+                    this.formatField_endingDate.getText())){
+           this.adminDAO.getEmployee_DAO().updateID();
+           JOptionPane.showMessageDialog(null, "Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+       }else{
+           JOptionPane.showMessageDialog(null, "impossible to create the employee", "Error", JOptionPane.ERROR_MESSAGE);
+       }
+       
+    }//GEN-LAST:event_btn_employee_acceptMouseClicked
+    
+    private void prepareCreation(){
+        this.txtF_employee_ID.setText(this.adminDAO.getEmployee_DAO().searchActualID());
+        this.setupOffices();  
+        this.setupPositions();
+        this.txtF_password.setText(this.adminDAO.getTool().generatePwd());
     }//LISTO   
+    
+    private void setupOffices(){
+        ArrayList<String> list = this.adminDAO.getOfficeDAO().searchAll();
+        
+        for (int index = 0; index < list.size(); index++) {
+            this.cbBox_office.addItem(list.get(index));
+        }
+    }
+    
+    private void setupPositions(){
+        ArrayList<String> list = this.adminDAO.getPositionDAO().searchPositions();
+        
+        for (int index = 0; index < list.size(); index++) {
+            this.cbBox_employee_position.addItem(list.get(index));
+        }
+    }
     
     private void fillOutContract(){
         txtA_employee_contract.setText("");
@@ -358,7 +391,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
                 + " como la reglamentación interna me lo ordene.\n Habiendo dicho esto"
                 + " acepto el puesto de " 
                 + cbBox_employee_position.getSelectedItem().toString().toUpperCase()
-                + " en la ofcina " + comboBox_office.getSelectedItem().toString().toUpperCase()
+                + " en la ofcina " + cbBox_office.getSelectedItem().toString().toUpperCase()
                 + " en el periodo del " + formatField_endingDate.getText()
                 + " al " + formatField_hiringDate.getText()
                 + " con un salario de Q." + lbl_employee_salary
@@ -378,7 +411,7 @@ public class Admin_NewEmployee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_employee_accept;
     private javax.swing.JComboBox<String> cbBox_employee_position;
-    private javax.swing.JComboBox<String> comboBox_office;
+    private javax.swing.JComboBox<String> cbBox_office;
     private javax.swing.JFormattedTextField formatField_endingDate;
     private javax.swing.JFormattedTextField formatField_hiringDate;
     private javax.swing.JScrollPane jScrollPane1;

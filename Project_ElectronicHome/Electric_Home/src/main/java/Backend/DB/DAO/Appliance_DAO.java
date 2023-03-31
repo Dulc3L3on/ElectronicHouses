@@ -22,6 +22,8 @@ public class Appliance_DAO {
     private Clasification_DAO clasification_DAO;
     private Transformer transformer;    
     
+    private String errorMessage = null;//Es para ir concatenando los errores de Existencia...
+    
     public Appliance_DAO(){
         clasification_DAO = new Clasification_DAO();
         this.transformer = new Transformer();        
@@ -51,6 +53,7 @@ public class Appliance_DAO {
                 return this.transformer.getAppliance(result);
             }
         }catch(SQLException e) {
+            this.errorMessage = "Impossiible to find the Appliance\n";
             System.out.println("Error: FINDING if an APPLIANCE exist -> " +e.getMessage());            
         }
         return null;   
@@ -83,8 +86,10 @@ public class Appliance_DAO {
     }//BY: stowage
     //about the clasifID, it will be find by a subSELECT or by a method on clasif IF it is so much difficult... OR if it is better for you xD because TIME!!! XD
     
-    private String getUpdateSt(){
-        return "UPDATE goodsControl.Appliance SET name = ? WHERE name = ?";
+    private String getUpdateSt(boolean newName, boolean detail){
+        return "UPDATE goodsControl.Appliance SET"
+             + ((newName)?" name = ?":"")+((newName && detail)?",":"") 
+             + ((detail)?" detail = ?":"")+ " WHERE name = ?";
     }
     
     /**
@@ -92,11 +97,22 @@ public class Appliance_DAO {
      * nomreb y quizá tb el detail por
      * si tienen que modificarlo.     
      */
-    public boolean update(String oldName, String newName){
+    public boolean update(String name, String newName, String detail){
      try(PreparedStatement statement 
-                = connection.prepareStatement(this.getUpdateSt())){                     
-            statement.setString(1, newName);//serpa el nuevo total, no algo que se deba sumar...
-            statement.setString(2, oldName);
+                = connection.prepareStatement(this.getUpdateSt((newName!=null),
+                        (detail!=null)))){                     
+            int index = 1;
+
+            if(newName != null){
+                statement.setString(index, newName);//serpa el nuevo total, no algo que se deba sumar...
+                index++;
+            }
+            if(detail != null){
+                statement.setString(index, detail);                
+                index++;
+            }
+            
+            statement.setString(index, name);            
             
             statement.executeUpdate();
             return true;
@@ -106,5 +122,18 @@ public class Appliance_DAO {
             System.out.println("Error: impossible UPDATE an Employee");
         }                
         return false;
+     
     }//mira si le vas a add la uodate de DETAUL is no mandatory pero si queires...
+    
+    public String getErrorMessage(){
+        return this.errorMessage;
+    }
+    
+    public boolean isTherAnError(){
+        return (this.errorMessage != null);
+    }
+    
+    public void ressetErrorMessage(){
+        this.errorMessage = null;
+    }
 }

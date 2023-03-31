@@ -19,8 +19,7 @@ public class Contract_DAO {
     private Connection connection = DBMS.initConnection();
     private Tool tool = new Tool();
     
-    
-    //SEARCH is not necessary porque use JOIN
+    //SEARCH for employee is not necessary porque use JOIN-
 
     /**
      * It will be used to do an

@@ -106,11 +106,12 @@ public class Transformer_SalesPersonSearching {
     
     public Sold_DTO getSoldProduct(ResultSet result){//office es no nec, porque con el code de la SOLD basta...
         try{
-            return new Sold_DTO(result.getString(1),                
-                new Stock_DTO(result.getString(5), new Product_DTO(result.getLong(2), 
-                    new Appliance_DTO(result.getString(3), result.getString(4), 
-                        new Clasification_DTO(0, "", ""), ""),
-                    result.getDouble(6)), -1, ""), result.getInt(7), result.getDouble(8));
+            return new Sold_DTO(result.getLong(1),                
+                new Stock_DTO(result.getString(5),
+                    new Product_DTO(result.getLong(2), 
+                        new Appliance_DTO(result.getString(3), result.getString(4), 
+                            new Clasification_DTO(0, "", ""), ""),
+                        result.getDouble(6)), -1, ""), result.getInt(7), result.getDouble(8));
         }catch (SQLException e) {
             System.out.println("Error: setting a PRODUCT");
         }

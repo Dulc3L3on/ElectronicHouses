@@ -9,14 +9,14 @@ package Backend.DB.DTO;
  * @author phily
  */
 public class Sold_DTO {
-    private String _code;
+    private long _code;
     private String _sale;
     //esto no incluirá producto aquí fuera, porque Stock, le incluye...
     private Stock_DTO _stockDTO;
     private int _quantity;
     private double _subtotal;
 
-    public Sold_DTO(String code, Stock_DTO stock,
+    public Sold_DTO(long code, Stock_DTO stock,
             int _quantity, double _subtotal) {
         this._code = code;
         this._sale = "";        
@@ -25,11 +25,11 @@ public class Sold_DTO {
         this._subtotal = _subtotal;
     }
     
-    public String getCode() {
+    public long getCode() {
         return _code;
     }
 
-    public void setCode(String code) {
+    public void setCode(long code) {
         this._code = code;
     }
 

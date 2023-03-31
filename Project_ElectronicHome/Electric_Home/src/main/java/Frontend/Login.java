@@ -4,17 +4,25 @@
  */
 package Frontend;
 
+import Backend.DB.DAO.Login_DAO;
+import Backend.DB.DTO.Employee_DTO;
+
 /**
  *
  * @author phily
  */
 public class Login extends javax.swing.JFrame {
-
+    private Home home;
+    
+    private Login_DAO loginDAO;
+    private Employee_DTO employee;    
+    
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        this.loginDAO = new Login_DAO();
     }
 
     /**
@@ -46,6 +54,11 @@ public class Login extends javax.swing.JFrame {
         cbBox_store.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btn_login.setText("Login");
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
 
         txtF_username.setFont(new java.awt.Font("Jamrul", 0, 12)); // NOI18N
 
@@ -105,6 +118,22 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+        this.employee = this.loginDAO.search_User(txtF_username.getText(),
+                txtF_password.getText(), String.valueOf(cbBox_store.getSelectedItem()));
+        
+        if(this.employee != null){
+            this.home = new Home(employee);     
+            this.home.setLocationRelativeTo(null);
+            this.dispose();//instead of setVisible(false)
+            this.home.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_loginActionPerformed
+
+    public Employee_DTO getEmployee(){
+        return this.employee;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_login;
     private javax.swing.JComboBox<String> cbBox_store;
@@ -115,3 +144,4 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtF_username;
     // End of variables declaration//GEN-END:variables
 }
+//READY

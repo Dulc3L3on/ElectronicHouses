@@ -39,15 +39,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="panel_product_picture" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="lbl_product_Add" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="panel_product_picture" max="32767" attributes="0"/>
+                      <Component id="btn_ejecutar" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -74,8 +69,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="panel_product_picture" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="lbl_product_Add" min="-2" pref="75" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btn_ejecutar" min="-2" pref="109" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -150,6 +145,7 @@
             <Component class="javax.swing.JTextField" name="txtF_product_code">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="------"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_product_stockID">
@@ -173,7 +169,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lbl_product_photo" pref="146" max="32767" attributes="0"/>
+                          <Component id="lbl_product_photo" pref="158" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lbl_change_photo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -252,6 +248,9 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtF_product_name">
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtF_product_nameKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_product_name">
               <Properties>
@@ -459,10 +458,14 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="lbl_product_Add">
+        <Component class="javax.swing.JButton" name="btn_ejecutar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="add/modif - depen del employ"/>
+            <Property name="text" type="java.lang.String" value="EJECUTAR"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ejecutarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

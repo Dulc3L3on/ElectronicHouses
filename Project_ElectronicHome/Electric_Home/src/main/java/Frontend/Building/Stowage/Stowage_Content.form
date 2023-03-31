@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JTabbedPane" name="tabbedPan_inventoryOptions">
 
@@ -566,7 +566,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -583,21 +582,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="tbPane_StowageContent" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="1" max="32767" attributes="0"/>
+          <Component id="tbPane_StowageContent" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="tbPane_StowageContent">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="tab_Request">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tab_RequestFocusGained"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Request">
@@ -636,11 +638,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panel_requestStates" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="panel_filters" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                          <Component id="panel_filters" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="421" max="-2" attributes="0"/>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -664,11 +666,11 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="lbl_from1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cbBox_From" min="-2" pref="273" max="-2" attributes="0"/>
+                          <Component id="cbBox_request_From" min="-2" pref="273" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="lbl_to1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="cbBox_To1" min="-2" pref="266" max="-2" attributes="0"/>
+                          <Component id="cbBox_request_To" min="-2" pref="266" max="-2" attributes="0"/>
                           <EmptySpace pref="83" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -679,9 +681,9 @@
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lbl_from1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbBox_From" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbBox_request_From" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_to1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbBox_To1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbBox_request_To" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="22" max="32767" attributes="0"/>
                       </Group>
@@ -697,18 +699,13 @@
                     <Property name="text" type="java.lang.String" value="From:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cbBox_From">
+                <Component class="javax.swing.JComboBox" name="cbBox_request_From">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Inter" size="13" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -723,15 +720,13 @@
                     <Property name="text" type="java.lang.String" value="To:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cbBox_To1">
+                <Component class="javax.swing.JComboBox" name="cbBox_request_To">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Inter" size="13" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Stowage"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -762,8 +757,8 @@
                                   <Component id="radioButton_requested1" min="-2" pref="107" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtF_read1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtF_requested1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtF_number_read" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtF_number_requested" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -779,13 +774,13 @@
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtF_recceived" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtF_processed1" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="txtF_number_recceived" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtF_number_processed" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                           <Component id="radioButton_all1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtF_all1" min="-2" pref="68" max="-2" attributes="0"/>
+                          <Component id="txtF_number_all" min="-2" pref="68" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -797,12 +792,12 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtF_requested1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtF_number_requested" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="radioButton_requested1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtF_read1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtF_number_read" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="radioButton_read1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -810,16 +805,16 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="radioButton_all1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtF_all1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtF_number_all" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                          <Component id="txtF_processed1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtF_number_processed" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="radioButton_processed1" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtF_recceived" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtF_number_recceived" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="radioButton_received" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -838,16 +833,13 @@
                     <Property name="text" type="java.lang.String" value="All:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtF_all1">
+                <Component class="javax.swing.JTextField" name="txtF_number_all">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Gayathri Thin" size="13" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtF_all1ActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="radioButton_received">
                   <Properties>
@@ -864,11 +856,8 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Processed:"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButton_processed1ActionPerformed"/>
-                  </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtF_recceived">
+                <Component class="javax.swing.JTextField" name="txtF_number_recceived">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -876,7 +865,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtF_processed1">
+                <Component class="javax.swing.JTextField" name="txtF_number_processed">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -884,7 +873,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtF_requested1">
+                <Component class="javax.swing.JTextField" name="txtF_number_requested">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -892,7 +881,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtF_read1">
+                <Component class="javax.swing.JTextField" name="txtF_number_read">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -934,7 +923,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
@@ -947,20 +936,18 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="button_inventoryT1_search" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="spinner_inventary_until" alignment="1" pref="171" max="32767" attributes="0"/>
-                                          <Component id="spinner_inventary_since" alignment="1" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="button_searchTransfer" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Ftxt_until" min="-2" pref="171" max="-2" attributes="0"/>
+                                      <Component id="Ftxt_since" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="radioButton_inventory_dateOfRequest" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="radioButton_inventory_requeredDate" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="25" max="32767" attributes="0"/>
+                          <EmptySpace pref="45" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -974,17 +961,17 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="spinner_inventary_since" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_inventary_since" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Ftxt_since" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="spinner_inventary_until" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_until" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Ftxt_until" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="button_inventoryT1_search" min="-2" pref="76" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="button_searchTransfer" min="-2" pref="76" max="-2" attributes="0"/>
+                          <EmptySpace pref="10" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -994,17 +981,11 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Requered date"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButton_inventory_requeredDateActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="radioButton_inventory_dateOfRequest">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Date of request"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButton_inventory_dateOfRequestActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_inventary_since">
                   <Properties>
@@ -1012,13 +993,6 @@
                       <Font name="Jamrul" size="13" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Since:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSpinner" name="spinner_inventary_since">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Jamrul" size="13" style="0"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_until">
@@ -1029,19 +1003,19 @@
                     <Property name="text" type="java.lang.String" value="Until:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="spinner_inventary_until">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Jamrul" size="13" style="0"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="button_inventoryT1_search">
+                <Component class="javax.swing.JLabel" name="button_searchTransfer">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/SearchPlane.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button_searchTransferMouseClicked"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="Ftxt_until">
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="Ftxt_since">
                 </Component>
               </SubComponents>
             </Container>
@@ -1075,7 +1049,10 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="tab_Stowage">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tab_StowageFocusGained"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Stowage">
@@ -1089,11 +1066,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="scrollPanel_inventary_details" min="-2" pref="1058" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="scrollPanel_inventary_details" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="button_store_add" min="-2" max="-2" attributes="0"/>
-                          <Component id="button_transfer" min="-2" max="-2" attributes="0"/>
+                          <Component id="button_update" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="button_add" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="button_transfer" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
@@ -1108,7 +1086,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                              <Component id="button_store_add" min="-2" max="-2" attributes="0"/>
+                              <Component id="button_add" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="button_update" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="button_transfer" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1178,6 +1158,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="table_store_detailsMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1187,13 +1170,19 @@
                   <Image iconType="3" name="/transfer.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="button_transferKeyPressed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="button_store_add">
+            <Component class="javax.swing.JLabel" name="button_add">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/plus.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button_addMouseClicked"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="panel_searchOptions1">
 
@@ -1207,7 +1196,7 @@
                           <Component id="panel_store_category" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="button_store_search" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="9" max="32767" attributes="0"/>
+                          <EmptySpace pref="29" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1244,17 +1233,27 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lbl_store_productCode" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_inventary_productBrand" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_store_productCode" min="-2" pref="163" max="-2" attributes="0"/>
-                                  <Component id="cbBox_inventory_productBrand" min="-2" pref="235" max="-2" attributes="0"/>
+                                  <Component id="lbl_store_productCode" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_inventary_store" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="210" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="txt_store_productCode" min="-2" pref="163" max="-2" attributes="0"/>
+                                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Component id="cbBox_inventary_store" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="lbl_inventary_productBrand" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cbBox_inventory_productBrand" min="-2" pref="186" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1270,6 +1269,8 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lbl_inventary_productBrand" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="cbBox_inventory_productBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_inventary_store" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbBox_inventary_store" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -1281,10 +1282,13 @@
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="1">
-                            <StringItem index="0" value="de la tabla"/>
+                            <StringItem index="0" value="All"/>
                           </StringArray>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbBox_inventory_productBrandActionPerformed"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -1306,6 +1310,27 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Brand:"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_inventary_store">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Jamrul" size="13" style="0"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Store:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="cbBox_inventary_store">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbBox_inventary_storeActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1379,7 +1404,7 @@
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="1">
-                            <StringItem index="0" value="All (lo dem&#xe1;s lo sacas de una tabla)"/>
+                            <StringItem index="0" value="All"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -1427,9 +1452,22 @@
                       <Image iconType="3" name="/SearchVertical.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button_store_searchMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="button_update">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/update.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button_updateMouseClicked"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

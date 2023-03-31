@@ -41,7 +41,7 @@ public class Employees_Interface_DAO {
         return "SELECT p.code, s.office, p.name, p.brand, s.ID, s.quantity"
              + " p.price FROM goodsControl.Product as p "
              + " INNER JOIN goodsControl.Stock as s ON p.code = s.product"
-             + " "+ ((office)?"WHERE s.office = ? AND ": "") 
+             + " "+ ((office)?"WHERE s.office = ? AND ": " WHERE") 
              + " p.code LIKE \'" + like + "%\'";//to find any code that starts with the given entrance
     }//cuando se use para SALE -> WHERE = true, caso contrario en inventary
         //aunque tb hubiera podido hacer que en el caso de inventary office = current()
@@ -169,27 +169,7 @@ public class Employees_Interface_DAO {
         return null;
     }
     
-    //------to navigate on inventory
-
-    /**
-     * It is the method that gather
-     * the 2 methdos that are going
-     * to be used when a salesPerson
-     * uses the inventary-tab.
-     */
-    
-    public ArrayList<Stock_DTO> searchOnInventary(String code, String store, 
-            String brand, String type, String[] line){       
-        
-        if(code != null && store.equals("all") && brand.equals("all")
-                && type.equals("all") && line[0].equals("all")){
-           return this.search_similarProducts(null, code);//puesto que este espacio se dedicó al hecho de que no se especificó la store...
-        }else{//tb podría ser code == null y los demás == all... lo cual noe está mal...
-            //si hay code, solo code + store tiene sentido... pero eso dependerá del user...
-            this.searchProduct(code, store, brand, type, line);
-        }        
-        return new ArrayList<>();
-    }
+    //------to navigate on inventory   
     
     private String getSearchProductSt(boolean code, boolean office, 
         boolean brand, boolean type, String[] line){//al menos uno debe estar seleccionado...
@@ -202,7 +182,7 @@ public class Employees_Interface_DAO {
              + " INNER JOIN goodsControl.Clasification as c ON c.ID = a.clasification";             
         
         if(code){//cuando algo más a parte de code se escribe es cuando este aplica, porque si estuviera solo entonces se emplearía el método de getSimilar
-            search += " WHERE p.code = ?";
+            search += " WHERE p.code LIKE \'" + code + "%\'";
             where = true;
         }if(office){
             search += ((!where)?" WHERE":" AND") + " s.office = ?";
@@ -225,9 +205,10 @@ public class Employees_Interface_DAO {
     /**
      * It will be used to search a
      * product when the filters were
-     * used.
+     * or not used to surfarce on the
+     * whole inventary xD.
      */
-    private ArrayList<Stock_DTO> searchProduct(String code, String office, String brand,
+    public ArrayList<Stock_DTO> searchOnInventary(String code, String office, String brand,
         String type, String[] line){
         
         int index = 1;
@@ -236,10 +217,7 @@ public class Employees_Interface_DAO {
                 = connection.prepareStatement(
                   this.getSearchProductSt((code!=null),(!office.equals("all")),
                    (!brand.equals("all")), (!type.equals("all")), line))){
-            if(code != null){
-                statement.setString(index, code);
-                index++;
-            }        
+            //code no está aquí, por la presencia del LIKE...
             if(!office.equals("All")){
                 statement.setString(index, office);
                 index++;

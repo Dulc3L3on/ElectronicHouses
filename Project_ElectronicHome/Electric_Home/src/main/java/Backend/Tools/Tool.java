@@ -4,6 +4,7 @@
  */
 package Backend.Tools;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -13,6 +14,15 @@ import java.util.Random;
  * @author phily
  */
 public class Tool {
+    
+    public DateFormat getFormatDate(){
+        DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+        return dateFormat;        
+    }    
+    
+    public String currentDate(DateFormat dateFormat){
+        return dateFormat.format(new java.util.Date());
+    }
     
     public java.util.Date toUtilDate(String date){
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");

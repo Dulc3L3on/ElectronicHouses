@@ -48,8 +48,8 @@ public class Customer_DAO {
             }else{
                 return new Customer_DTO();
             }
-        }catch(SQLException e) {
-            System.out.println("Error: FINDING the Custoemr -> " +e.getMessage());
+        }catch(SQLException e) {            
+            System.out.println("Error: FINDING the Customer -> " +e.getMessage());
             return null;
         }
     }//BY: SalesPerson
@@ -65,7 +65,7 @@ public class Customer_DAO {
      * new customer and with that
      * register a sale.
      */
-    public void insert(String NIT, String name, String CUI, String address){
+    public void insert(String NIT, String CUI, String name, String address){
         try(PreparedStatement statement = 
                 connection.prepareStatement(this.getInsertionSt())){
             statement.setString(1, NIT);

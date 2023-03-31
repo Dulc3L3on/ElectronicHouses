@@ -4,17 +4,40 @@
  */
 package Frontend.Building.Stowage;
 
+import Backend.DB.DAO.Stowage_DAO;
+import Backend.DB.DTO.Employee_DTO;
+import Backend.FrontendAuxiliar.TableAuxiliar;
+import Backend.Tools.Tool;
+import Frontend.Building.Inventary.Transfer.Movement;
+import Frontend.Building.Product.Product;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author phily
  */
-public class Stowage_Content extends javax.swing.JFrame {
-
+public class Stowage_Content extends javax.swing.JInternalFrame{
+    private Employee_DTO employee;
+    
+    private Product product_window;
+    private Movement movement_window;
+    
+    private Stowage_DAO stowageDAO;
+    private TableAuxiliar tableAux;
+    private Tool tool;
+    
     /**
      * Creates new form Store_Content
      */
-    public Stowage_Content() {
+    public Stowage_Content(Employee_DTO employee) {
         initComponents();
+        
+        this.employee = employee;
+        
+        this.stowageDAO = new Stowage_DAO();
+        this.tableAux = new TableAuxiliar();
+        this.tool = new Tool();
     }
 
     /**
@@ -70,45 +93,47 @@ public class Stowage_Content extends javax.swing.JFrame {
         table_inventaryDetails = new javax.swing.JTable();
         btn_transfer = new javax.swing.JButton();
         btn_add = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        tbPane_StowageContent = new javax.swing.JTabbedPane();
+        tab_Request = new javax.swing.JPanel();
         panel_especifications = new javax.swing.JPanel();
         lbl_from1 = new javax.swing.JLabel();
-        cbBox_From = new javax.swing.JComboBox<>();
+        cbBox_request_From = new javax.swing.JComboBox<>();
         lbl_to1 = new javax.swing.JLabel();
-        cbBox_To1 = new javax.swing.JComboBox<>();
+        cbBox_request_To = new javax.swing.JComboBox<>();
         panel_requestStates = new javax.swing.JPanel();
         radioButton_all1 = new javax.swing.JRadioButton();
-        txtF_all1 = new javax.swing.JTextField();
+        txtF_number_all = new javax.swing.JTextField();
         radioButton_received = new javax.swing.JRadioButton();
         radioButton_processed1 = new javax.swing.JRadioButton();
-        txtF_recceived = new javax.swing.JTextField();
-        txtF_processed1 = new javax.swing.JTextField();
-        txtF_requested1 = new javax.swing.JTextField();
-        txtF_read1 = new javax.swing.JTextField();
+        txtF_number_recceived = new javax.swing.JTextField();
+        txtF_number_processed = new javax.swing.JTextField();
+        txtF_number_requested = new javax.swing.JTextField();
+        txtF_number_read = new javax.swing.JTextField();
         radioButton_read1 = new javax.swing.JRadioButton();
         radioButton_requested1 = new javax.swing.JRadioButton();
         panel_filters = new javax.swing.JPanel();
         radioButton_inventory_requeredDate = new javax.swing.JRadioButton();
         radioButton_inventory_dateOfRequest = new javax.swing.JRadioButton();
         lbl_inventary_since = new javax.swing.JLabel();
-        spinner_inventary_since = new javax.swing.JSpinner();
         lbl_until = new javax.swing.JLabel();
-        spinner_inventary_until = new javax.swing.JSpinner();
-        button_inventoryT1_search = new javax.swing.JLabel();
+        button_searchTransfer = new javax.swing.JLabel();
+        Ftxt_until = new javax.swing.JFormattedTextField();
+        Ftxt_since = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         table_requests1 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        tab_Stowage = new javax.swing.JPanel();
         scrollPanel_inventary_details = new javax.swing.JScrollPane();
         table_store_details = new javax.swing.JTable();
         button_transfer = new javax.swing.JLabel();
-        button_store_add = new javax.swing.JLabel();
+        button_add = new javax.swing.JLabel();
         panel_searchOptions1 = new javax.swing.JPanel();
         panel_store_especifications = new javax.swing.JPanel();
         cbBox_inventory_productBrand = new javax.swing.JComboBox<>();
         txt_store_productCode = new javax.swing.JTextField();
         lbl_store_productCode = new javax.swing.JLabel();
         lbl_inventary_productBrand = new javax.swing.JLabel();
+        lbl_inventary_store = new javax.swing.JLabel();
+        cbBox_inventary_store = new javax.swing.JComboBox<>();
         panel_store_category = new javax.swing.JPanel();
         lbl_inventary_productType = new javax.swing.JLabel();
         cbBox_inventary_productType = new javax.swing.JComboBox<>();
@@ -117,6 +142,7 @@ public class Stowage_Content extends javax.swing.JFrame {
         radioButton_store_PAE = new javax.swing.JRadioButton();
         radioButton_store_grayLine = new javax.swing.JRadioButton();
         button_store_search = new javax.swing.JLabel();
+        button_update = new javax.swing.JLabel();
 
         table_requests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -447,21 +473,25 @@ public class Stowage_Content extends javax.swing.JFrame {
 
         tabbedPan_inventoryOptions.addTab("Inventory", tab_inventory);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tab_Request.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tab_RequestFocusGained(evt);
+            }
+        });
 
         panel_especifications.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
         lbl_from1.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_from1.setText("From:");
 
-        cbBox_From.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        cbBox_From.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBox_request_From.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
 
         lbl_to1.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_to1.setText("To:");
 
-        cbBox_To1.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        cbBox_To1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stowage" }));
+        cbBox_request_To.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout panel_especificationsLayout = new javax.swing.GroupLayout(panel_especifications);
         panel_especifications.setLayout(panel_especificationsLayout);
@@ -471,11 +501,11 @@ public class Stowage_Content extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(lbl_from1)
                 .addGap(18, 18, 18)
-                .addComponent(cbBox_From, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbBox_request_From, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(lbl_to1)
                 .addGap(26, 26, 26)
-                .addComponent(cbBox_To1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbBox_request_To, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         panel_especificationsLayout.setVerticalGroup(
@@ -484,9 +514,9 @@ public class Stowage_Content extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panel_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_from1)
-                    .addComponent(cbBox_From, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbBox_request_From, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_to1)
-                    .addComponent(cbBox_To1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbBox_request_To, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -495,36 +525,26 @@ public class Stowage_Content extends javax.swing.JFrame {
         radioButton_all1.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_all1.setText("All:");
 
-        txtF_all1.setEditable(false);
-        txtF_all1.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
-        txtF_all1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtF_all1ActionPerformed(evt);
-            }
-        });
+        txtF_number_all.setEditable(false);
+        txtF_number_all.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
 
         radioButton_received.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_received.setText("Received:");
 
         radioButton_processed1.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_processed1.setText("Processed:");
-        radioButton_processed1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButton_processed1ActionPerformed(evt);
-            }
-        });
 
-        txtF_recceived.setEditable(false);
-        txtF_recceived.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
+        txtF_number_recceived.setEditable(false);
+        txtF_number_recceived.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
 
-        txtF_processed1.setEditable(false);
-        txtF_processed1.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
+        txtF_number_processed.setEditable(false);
+        txtF_number_processed.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
 
-        txtF_requested1.setEditable(false);
-        txtF_requested1.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
+        txtF_number_requested.setEditable(false);
+        txtF_number_requested.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
 
-        txtF_read1.setEditable(false);
-        txtF_read1.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
+        txtF_number_read.setEditable(false);
+        txtF_number_read.setFont(new java.awt.Font("Gayathri Thin", 0, 13)); // NOI18N
 
         radioButton_read1.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_read1.setText("Read:");
@@ -544,8 +564,8 @@ public class Stowage_Content extends javax.swing.JFrame {
                         .addComponent(radioButton_requested1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtF_read1)
-                            .addComponent(txtF_requested1))))
+                            .addComponent(txtF_number_read)
+                            .addComponent(txtF_number_requested))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_requestStatesLayout.createSequentialGroup()
@@ -555,12 +575,12 @@ public class Stowage_Content extends javax.swing.JFrame {
                         .addComponent(radioButton_processed1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtF_recceived)
-                    .addComponent(txtF_processed1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtF_number_recceived)
+                    .addComponent(txtF_number_processed, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(117, 117, 117)
                 .addComponent(radioButton_all1)
                 .addGap(18, 18, 18)
-                .addComponent(txtF_all1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtF_number_all, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
         panel_requestStatesLayout.setVerticalGroup(
@@ -570,23 +590,23 @@ public class Stowage_Content extends javax.swing.JFrame {
                 .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_requestStatesLayout.createSequentialGroup()
                         .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_requested1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtF_number_requested, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(radioButton_requested1))
                         .addGap(18, 18, 18)
                         .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_read1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtF_number_read, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(radioButton_read1)))
                     .addGroup(panel_requestStatesLayout.createSequentialGroup()
                         .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(radioButton_all1)
-                                .addComponent(txtF_all1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtF_number_all, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtF_processed1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtF_number_processed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(radioButton_processed1)))
                         .addGap(18, 18, 18)
                         .addGroup(panel_requestStatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtF_recceived, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtF_number_recceived, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(radioButton_received))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -594,30 +614,21 @@ public class Stowage_Content extends javax.swing.JFrame {
         panel_filters.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filters", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
         radioButton_inventory_requeredDate.setText("Requered date");
-        radioButton_inventory_requeredDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButton_inventory_requeredDateActionPerformed(evt);
-            }
-        });
 
         radioButton_inventory_dateOfRequest.setText("Date of request");
-        radioButton_inventory_dateOfRequest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButton_inventory_dateOfRequestActionPerformed(evt);
-            }
-        });
 
         lbl_inventary_since.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_inventary_since.setText("Since:");
 
-        spinner_inventary_since.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
-
         lbl_until.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_until.setText("Until:");
 
-        spinner_inventary_until.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
-
-        button_inventoryT1_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SearchPlane.png"))); // NOI18N
+        button_searchTransfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SearchPlane.png"))); // NOI18N
+        button_searchTransfer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_searchTransferMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_filtersLayout = new javax.swing.GroupLayout(panel_filters);
         panel_filters.setLayout(panel_filtersLayout);
@@ -635,15 +646,14 @@ public class Stowage_Content extends javax.swing.JFrame {
                                 .addComponent(lbl_until)))
                         .addGap(18, 18, 18)
                         .addGroup(panel_filtersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(button_inventoryT1_search)
-                            .addGroup(panel_filtersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(spinner_inventary_until, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                                .addComponent(spinner_inventary_since))))
+                            .addComponent(button_searchTransfer)
+                            .addComponent(Ftxt_until, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Ftxt_since, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panel_filtersLayout.createSequentialGroup()
                         .addComponent(radioButton_inventory_dateOfRequest)
                         .addGap(18, 18, 18)
                         .addComponent(radioButton_inventory_requeredDate)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         panel_filtersLayout.setVerticalGroup(
             panel_filtersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,15 +664,15 @@ public class Stowage_Content extends javax.swing.JFrame {
                     .addComponent(radioButton_inventory_dateOfRequest))
                 .addGap(18, 18, 18)
                 .addGroup(panel_filtersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinner_inventary_since, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_inventary_since))
+                    .addComponent(lbl_inventary_since)
+                    .addComponent(Ftxt_since, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panel_filtersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinner_inventary_until, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_until))
+                    .addComponent(lbl_until)
+                    .addComponent(Ftxt_until, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_inventoryT1_search, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(button_searchTransfer, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         table_requests1.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
@@ -687,38 +697,44 @@ public class Stowage_Content extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table_requests1);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout tab_RequestLayout = new javax.swing.GroupLayout(tab_Request);
+        tab_Request.setLayout(tab_RequestLayout);
+        tab_RequestLayout.setHorizontalGroup(
+            tab_RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_RequestLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tab_RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(tab_RequestLayout.createSequentialGroup()
+                        .addGroup(tab_RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panel_requestStates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panel_especifications, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panel_filters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(13, 13, 13))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        tab_RequestLayout.setVerticalGroup(
+            tab_RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_RequestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(tab_RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(tab_RequestLayout.createSequentialGroup()
                         .addComponent(panel_especifications, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panel_requestStates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panel_filters, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panel_filters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Request", jPanel1);
+        tbPane_StowageContent.addTab("Request", tab_Request);
+
+        tab_Stowage.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tab_StowageFocusGained(evt);
+            }
+        });
 
         table_store_details.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -739,6 +755,11 @@ public class Stowage_Content extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_store_details.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_store_detailsMouseClicked(evt);
+            }
+        });
         scrollPanel_inventary_details.setViewportView(table_store_details);
         if (table_store_details.getColumnModel().getColumnCount() > 0) {
             table_store_details.getColumnModel().getColumn(0).setResizable(false);
@@ -755,12 +776,27 @@ public class Stowage_Content extends javax.swing.JFrame {
         }
 
         button_transfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/transfer.png"))); // NOI18N
+        button_transfer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                button_transferKeyPressed(evt);
+            }
+        });
 
-        button_store_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        button_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        button_add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_addMouseClicked(evt);
+            }
+        });
 
         panel_store_especifications.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Jamrul", 0, 13))); // NOI18N
 
-        cbBox_inventory_productBrand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "de la tabla" }));
+        cbBox_inventory_productBrand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
+        cbBox_inventory_productBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBox_inventory_productBrandActionPerformed(evt);
+            }
+        });
 
         lbl_store_productCode.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_store_productCode.setText("Code:");
@@ -768,20 +804,37 @@ public class Stowage_Content extends javax.swing.JFrame {
         lbl_inventary_productBrand.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_inventary_productBrand.setText("Brand:");
 
+        lbl_inventary_store.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
+        lbl_inventary_store.setText("Store:");
+
+        cbBox_inventary_store.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBox_inventary_storeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_store_especificationsLayout = new javax.swing.GroupLayout(panel_store_especifications);
         panel_store_especifications.setLayout(panel_store_especificationsLayout);
         panel_store_especificationsLayout.setHorizontalGroup(
             panel_store_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_store_especificationsLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(panel_store_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_store_productCode)
-                    .addComponent(lbl_inventary_productBrand))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addGroup(panel_store_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_store_productCode, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbBox_inventory_productBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(210, Short.MAX_VALUE))
+                    .addComponent(lbl_store_productCode)
+                    .addComponent(lbl_inventary_store))
+                .addGroup(panel_store_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_store_especificationsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_store_productCode, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE))
+                    .addGroup(panel_store_especificationsLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cbBox_inventary_store, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
+                .addComponent(lbl_inventary_productBrand)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbBox_inventory_productBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         panel_store_especificationsLayout.setVerticalGroup(
             panel_store_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,7 +846,9 @@ public class Stowage_Content extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panel_store_especificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_inventary_productBrand)
-                    .addComponent(cbBox_inventory_productBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbBox_inventory_productBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_inventary_store)
+                    .addComponent(cbBox_inventary_store, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -802,7 +857,7 @@ public class Stowage_Content extends javax.swing.JFrame {
         lbl_inventary_productType.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         lbl_inventary_productType.setText("Type:");
 
-        cbBox_inventary_productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All (lo demás lo sacas de una tabla)" }));
+        cbBox_inventary_productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
 
         radioButton_store_WhiteLine.setFont(new java.awt.Font("Jamrul", 0, 13)); // NOI18N
         radioButton_store_WhiteLine.setText("White line");
@@ -855,6 +910,11 @@ public class Stowage_Content extends javax.swing.JFrame {
         );
 
         button_store_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SearchVertical.png"))); // NOI18N
+        button_store_search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_store_searchMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_searchOptions1Layout = new javax.swing.GroupLayout(panel_searchOptions1);
         panel_searchOptions1.setLayout(panel_searchOptions1Layout);
@@ -867,7 +927,7 @@ public class Stowage_Content extends javax.swing.JFrame {
                 .addComponent(panel_store_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_store_search)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         panel_searchOptions1Layout.setVerticalGroup(
             panel_searchOptions1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -882,49 +942,59 @@ public class Stowage_Content extends javax.swing.JFrame {
                 .addComponent(button_store_search, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        button_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/update.png"))); // NOI18N
+        button_update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_updateMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout tab_StowageLayout = new javax.swing.GroupLayout(tab_Stowage);
+        tab_Stowage.setLayout(tab_StowageLayout);
+        tab_StowageLayout.setHorizontalGroup(
+            tab_StowageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_StowageLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(scrollPanel_inventary_details, javax.swing.GroupLayout.PREFERRED_SIZE, 1058, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_store_add)
-                    .addComponent(button_transfer))
+                .addComponent(scrollPanel_inventary_details)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tab_StowageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(button_update, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button_add, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button_transfer, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18))
             .addComponent(panel_searchOptions1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        tab_StowageLayout.setVerticalGroup(
+            tab_StowageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_StowageLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panel_searchOptions1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(tab_StowageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_StowageLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(button_store_add)
+                        .addComponent(button_add)
+                        .addGap(18, 18, 18)
+                        .addComponent(button_update)
                         .addGap(18, 18, 18)
                         .addComponent(button_transfer)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(tab_StowageLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(scrollPanel_inventary_details, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                         .addGap(14, 14, 14))))
         );
 
-        jTabbedPane1.addTab("Stowage", jPanel2);
+        tbPane_StowageContent.addTab("Stowage", tab_Stowage);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tbPane_StowageContent)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(tbPane_StowageContent, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -934,47 +1004,258 @@ public class Stowage_Content extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioButton_processedActionPerformed
 
-    private void txtF_all1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_all1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtF_all1ActionPerformed
+    //-----INVENTARY-Tab
+    
+    private void tab_StowageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tab_StowageFocusGained
+        ArrayList<String> offices = this.stowageDAO.getOfficeDAO().searchAll();
+        ArrayList<String> brands = this.stowageDAO.getBrands();
+        ArrayList<String> types = this.stowageDAO.getTypes();
+        
+        this.trasnferBraTypTocbBox(offices, this.cbBox_inventary_store);
+        this.trasnferBraTypTocbBox(brands, this.cbBox_inventory_productBrand);        
+        this.trasnferBraTypTocbBox(types, this.cbBox_inventary_productType);  
+    }//GEN-LAST:event_tab_StowageFocusGained
 
-    private void radioButton_processed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton_processed1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioButton_processed1ActionPerformed
+    private void cbBox_inventary_storeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBox_inventary_storeActionPerformed
+         //aquí el jueguito de las Brand según store                
+        ArrayList<String> brands;
+        ArrayList<String> types;
+        
+        if(this.cbBox_inventary_store.getSelectedIndex() == 0){// = All
+            brands = this.stowageDAO.getBrands();
+            types = this.stowageDAO.getTypes();
+        }else{
+            brands = this.stowageDAO.getMovUI_DAO()
+                               .search_StoresBrand((String) this.cbBox_inventary_store
+                                       .getSelectedItem());
+            types = this.stowageDAO.getMovUI_DAO()
+                               .list_BrandsTypes((String) this.cbBox_inventary_store
+                                       .getSelectedItem());
+        }
+        
+        this.trasnferBraTypTocbBox(brands, this.cbBox_inventory_productBrand);
+        this.trasnferBraTypTocbBox(types, this.cbBox_inventary_productType);      
+    }//GEN-LAST:event_cbBox_inventary_storeActionPerformed
 
-    private void radioButton_inventory_requeredDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton_inventory_requeredDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioButton_inventory_requeredDateActionPerformed
+    private void cbBox_inventory_productBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBox_inventory_productBrandActionPerformed
+        //aquí el jueguito de los Type según Brand
+        ArrayList<String> types;
+        
+        if(this.cbBox_inventory_productBrand.getSelectedIndex() == 0){// = All
+            if(this.cbBox_inventary_store.getSelectedIndex() == 0){
+                types = this.stowageDAO.getTypes();
+            }else{
+                types = this.stowageDAO.getMovUI_DAO()
+                               .list_BrandsTypes((String) this.cbBox_inventary_store
+                                       .getSelectedItem());
+            }            
+        }else{
+            if(this.cbBox_inventary_store.getSelectedIndex() == 0){
+                types = this.stowageDAO.getMovUI_DAO()
+                      .list_Brands_Types((String)this.cbBox_inventory_productBrand
+                            .getSelectedItem(), null);
+            }else{
+                types = this.stowageDAO.getMovUI_DAO()
+                      .list_Brands_Types((String)this.cbBox_inventory_productBrand
+                            .getSelectedItem(), (String) this.cbBox_inventary_store
+                                       .getSelectedItem());
+            }            
+        }
+        
+        this.trasnferBraTypTocbBox(types, this.cbBox_inventary_productType);        
+    }//GEN-LAST:event_cbBox_inventory_productBrandActionPerformed
 
-    private void radioButton_inventory_dateOfRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton_inventory_dateOfRequestActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioButton_inventory_dateOfRequestActionPerformed
+    private void button_store_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_store_searchMouseClicked
+         this.tableAux.setInventaryTab(this.table_inventaryDetails, 
+            this.stowageDAO.getEmployee_IntDAO().searchOnInventary(
+                ((!this.txt_store_productCode.getText().isEmpty() || !this.txt_store_productCode.getText().isBlank())
+                    ?this.txt_store_productCode.getText():null),
+                (String)this.cbBox_inventary_store.getSelectedItem(),
+                (String)this.cbBox_inventory_productBrand.getSelectedItem(),
+                (String)this.cbBox_inventary_productType.getSelectedItem(),
+                this.setLines()));
+    }//GEN-LAST:event_button_store_searchMouseClicked
 
+    //--- (REQUEST- tab (pero ahora si de transfer xD, no solo de búsqueda)
+    
+    private void tab_RequestFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tab_RequestFocusGained
+        this.trasnferBraTypTocbBox(this.stowageDAO.getOfficeDAO().searchAll(), cbBox_request_From);
+        this.trasnferBraTypTocbBox(this.stowageDAO.getOfficeDAO().searchAll(), cbBox_request_To);
+        
+        this.txtF_requested.setText(String.valueOf(this.stowageDAO.getTransferDAO().searchQuantityOf("pending")));
+        this.txtF_requested.setText(String.valueOf(this.stowageDAO.getTransferDAO().searchQuantityOf("read")));
+        this.txtF_requested.setText(String.valueOf(this.stowageDAO.getTransferDAO().searchQuantityOf("processed")));
+        this.txtF_requested.setText(String.valueOf(this.stowageDAO.getTransferDAO().searchQuantityOf("done")));
+        this.txtF_requested.setText(String.valueOf(this.stowageDAO.getTransferDAO().searchQuantityOf(null)));        
+        
+    }//GEN-LAST:event_tab_RequestFocusGained
+    
+    private void button_searchTransferMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_searchTransferMouseClicked
+        String[] dates = this.setDates();
+        String[] dateTypes = this.setFilterDates();
+        
+        if(dates == null || dateTypes == null){
+            this.tableAux.setTransferTable(this.table_requests1,
+                    this.stowageDAO.getInvStow_In_DAO()
+                        .searchTransfers(((String)this.cbBox_from.getSelectedItem()),
+                                ((String)this.cbBox_To.getSelectedItem()), 
+                                this.setStates(),
+                                ((dateTypes == null || dates == null)?null:dateTypes),
+                                ((dateTypes == null || dates == null)?null:dates)));            
+        }
+    }//GEN-LAST:event_button_searchTransferMouseClicked
 
+    private void button_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_addMouseClicked
+        this.product_window = new Product(this.employee.getContract().getOffice(), 1,
+                false, null, this.stowageDAO);
+    }//GEN-LAST:event_button_addMouseClicked
+
+    private void button_updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_updateMouseClicked
+        this.product_window = new Product(this.employee.getContract().getOffice(), 2,
+                false, null, this.stowageDAO);
+    }//GEN-LAST:event_button_updateMouseClicked
+
+    private void button_transferKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_button_transferKeyPressed
+        this.movement_window = new Movement();// TODO add your handling code here:
+        
+        //also you can open this window just as a viewer doing 2ble click on a row of athe correspondent table        
+    }//GEN-LAST:event_button_transferKeyPressed
+
+    private void table_store_detailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_store_detailsMouseClicked
+        //este será utilizado para VER
+        int row = this.table_store_details.getSelectedRow();
+        if(row != -1){
+            this.product_window 
+               = new Product(((Long)this.table_store_details.getValueAt(row, 1)),
+                       this.employee.getContract().getOffice(), 3, true, null, this.stowageDAO);
+            this.product_window.setLocationRelativeTo(null);
+            this.product_window.setVisible(true);
+        }//VIEW, ready     
+    }//GEN-LAST:event_table_store_detailsMouseClicked
+
+    
+    //---- AUXILIARIES
+    
+    private void trasnferBraTypTocbBox(ArrayList<String> list, JComboBox cbBox){
+        for (int i = 0; i < list.size(); i++) {
+            if(i == 0){
+                cbBox.addItem("all");
+            }else{
+                cbBox.addItem(list.get(i));
+            }
+        }   
+    }
+
+    //----- para lineas de los elctrodométicos
+    
+    private String[] setLines(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        
+        if(this.radioButton_store_WhiteLine.isSelected() && this.radioButton_store_grayLine.isSelected()
+            && this.radioButton_store_BrownLine.isSelected() && this.radioButton_store_PAE.isSelected()){
+            arrayList.add("all");
+        }else if(this.radioButton_store_WhiteLine.isSelected()){
+            arrayList.add("White Line");
+        }else if(this.radioButton_store_BrownLine.isSelected()){
+            arrayList.add("Brown Line");
+        }else if(this.radioButton_store_PAE.isSelected()){
+            arrayList.add("PAE");
+        }else if(this.radioButton_store_grayLine.isSelected()){
+            arrayList.add("Gray Line");
+        }else{
+            arrayList.add("all");//puesto que no seleccionó ninguna tb significa que todas xD
+        }   
+        
+        if(arrayList.isEmpty()){
+            return null;
+        }
+        return (String[]) arrayList.toArray();
+    }
+    
+    //---- Estos 3 son para hacer la búsqueda de las TRANSFER
+    
+    private String[] setStates(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        
+        if((this.radioButton_requested1.isSelected() && this.radioButton_read1.isSelected()
+            && this.radioButton_processed1.isSelected() && this.radioButton_received.isSelected())
+            || this.radioButton_all.isSelected()){
+            arrayList.add("all");
+        }else if(this.radioButton_requested1.isSelected()){
+            arrayList.add("pending");
+        }else if(this.radioButton_read1.isSelected()){
+            arrayList.add("read");
+        }else if(this.radioButton_processed1.isSelected()){
+            arrayList.add("processed");
+        }else if(this.radioButton_received.isSelected()){
+            arrayList.add("done");
+        }else{//si no seleccionana algo tn es atrasp xd
+            arrayList.add("all");//puesto que no seleccionó ninguna tb significa que todas xD
+        }
+        
+        if(arrayList.isEmpty()){
+            return null;
+        }
+        return (String[]) arrayList.toArray();
+    }
+    
+    private String[] setFilterDates(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        
+        if(this.radioButton_inventory_dateOfRequest.isSelected()){
+            arrayList.add(this.radioButton_inventory_dateOfRequest.getText());
+        }
+        if(this.radioButton_inventory_requeredDate.isSelected()){
+            arrayList.add(this.radioButton_inventory_requeredDate.getText());
+        }
+        
+        if(arrayList.isEmpty()){
+            return null;
+        }
+        return (String[]) arrayList.toArray();//devolverá null si no hay ninguno de ambos
+    }
+    
+    private String[] setDates(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        
+        if(!this.Ftxt_since.getText().equals("")){
+            arrayList.add(this.Ftxt_since.getText());
+        }
+        if(!this.Ftxt_until.getText().equals("")){
+            arrayList.add(this.Ftxt_until.getText());
+        }        
+        
+        if(arrayList.isEmpty()){
+            return null;
+        }
+        return (String[]) arrayList.toArray();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField Ftxt_since;
+    private javax.swing.JFormattedTextField Ftxt_until;
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_inventarySearch;
     private javax.swing.JButton btn_transfer;
-    private javax.swing.JLabel button_inventoryT1_search;
+    private javax.swing.JLabel button_add;
     private javax.swing.JButton button_search;
-    private javax.swing.JLabel button_store_add;
+    private javax.swing.JLabel button_searchTransfer;
     private javax.swing.JLabel button_store_search;
     private javax.swing.JLabel button_transfer;
-    private javax.swing.JComboBox<String> cbBox_From;
+    private javax.swing.JLabel button_update;
     private javax.swing.JComboBox<String> cbBox_InventaryType;
     private javax.swing.JComboBox<String> cbBox_To;
-    private javax.swing.JComboBox<String> cbBox_To1;
     private javax.swing.JComboBox<String> cbBox_brand;
     private javax.swing.JComboBox<String> cbBox_from;
     private javax.swing.JComboBox<String> cbBox_inventaryStore;
     private javax.swing.JComboBox<String> cbBox_inventary_productType;
+    private javax.swing.JComboBox<String> cbBox_inventary_store;
     private javax.swing.JComboBox<String> cbBox_inventory_productBrand;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox<String> cbBox_request_From;
+    private javax.swing.JComboBox<String> cbBox_request_To;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbl_date_since;
     private javax.swing.JLabel lbl_from;
     private javax.swing.JLabel lbl_from1;
@@ -986,6 +1267,7 @@ public class Stowage_Content extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_inventary_productBrand;
     private javax.swing.JLabel lbl_inventary_productType;
     private javax.swing.JLabel lbl_inventary_since;
+    private javax.swing.JLabel lbl_inventary_store;
     private javax.swing.JLabel lbl_store_productCode;
     private javax.swing.JLabel lbl_title_requestCategories;
     private javax.swing.JLabel lbl_to;
@@ -1020,10 +1302,10 @@ public class Stowage_Content extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioButton_store_grayLine;
     private javax.swing.JScrollPane scrollPanel_inventaryDetails;
     private javax.swing.JScrollPane scrollPanel_inventary_details;
-    private javax.swing.JSpinner spinner_inventary_since;
-    private javax.swing.JSpinner spinner_inventary_until;
     private javax.swing.JSpinner spinner_since;
     private javax.swing.JSpinner spinner_to;
+    private javax.swing.JPanel tab_Request;
+    private javax.swing.JPanel tab_Stowage;
     private javax.swing.JPanel tab_inventory;
     private javax.swing.JPanel tab_requests;
     private javax.swing.JTabbedPane tabbedPan_inventoryOptions;
@@ -1031,16 +1313,17 @@ public class Stowage_Content extends javax.swing.JFrame {
     private javax.swing.JTable table_requests;
     private javax.swing.JTable table_requests1;
     private javax.swing.JTable table_store_details;
+    private javax.swing.JTabbedPane tbPane_StowageContent;
     private javax.swing.JTextField txtF_all;
-    private javax.swing.JTextField txtF_all1;
+    private javax.swing.JTextField txtF_number_all;
+    private javax.swing.JTextField txtF_number_processed;
+    private javax.swing.JTextField txtF_number_read;
+    private javax.swing.JTextField txtF_number_recceived;
+    private javax.swing.JTextField txtF_number_requested;
     private javax.swing.JTextField txtF_processed;
-    private javax.swing.JTextField txtF_processed1;
     private javax.swing.JTextField txtF_read;
-    private javax.swing.JTextField txtF_read1;
-    private javax.swing.JTextField txtF_recceived;
     private javax.swing.JTextField txtF_receved;
     private javax.swing.JTextField txtF_requested;
-    private javax.swing.JTextField txtF_requested1;
     private javax.swing.JTextField txt_code;
     private javax.swing.JTextField txt_store_productCode;
     // End of variables declaration//GEN-END:variables

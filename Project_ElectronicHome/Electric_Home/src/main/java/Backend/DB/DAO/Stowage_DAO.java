@@ -4,6 +4,8 @@
  */
 package Backend.DB.DAO;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author phily
@@ -11,6 +13,10 @@ package Backend.DB.DAO;
 public class Stowage_DAO{
     private Movements_UI_DAO movement_UI_DAO;//all? I think xD
     private Employees_Interface_DAO e_interfacce_DAO;//ALL
+    private InvStow_Interface_DAO insvStowDAO;
+    private Office_DAO office_DAO;//ambos (para hallar todas y todas EXCEPTO)
+    private Transfer_DAO transfer_DAO;//update y....
+    private Transferred_DAO transferred_DAO;
     private Stock_DAO stock_DAO;//ALL: existencia, add y update
     private Product_DAO product_DAO;//ALL: existencia, update e insert
     private Appliance_DAO appliance_DAO;//ALL: existencia, update e insert
@@ -25,12 +31,28 @@ public class Stowage_DAO{
         this.clasification_DAO = new Clasification_DAO();
     }
     
-    public Movements_UI_DAO getMovements_UI_DAO(){
+    public Movements_UI_DAO getMovUI_DAO(){
         return this.movement_UI_DAO;
     }
     
-    public Employees_Interface_DAO getE_interfacce_DAO(){
+    public Employees_Interface_DAO getEmployee_IntDAO(){
         return this.e_interfacce_DAO;
+    }
+    
+    public InvStow_Interface_DAO getInvStow_In_DAO(){
+        return this.insvStowDAO;
+    }//
+    
+    public Office_DAO getOfficeDAO(){
+        return this.office_DAO;
+    }
+    
+    public Transfer_DAO getTransferDAO(){
+        return this.transfer_DAO;
+    }
+    
+    public Transferred_DAO getTransferredDAO(){
+        return this.transferred_DAO;
     }
     
     public Stock_DAO getStock_DAO(){
@@ -49,5 +71,13 @@ public class Stowage_DAO{
         //All except for Store_Brands
             //because everything will be base on 
             //stowage
+ 
+    public ArrayList<String> getBrands(){
+        return this.product_DAO.list_Brands();
+    }
+    
+    public ArrayList<String> getTypes(){
+        return this.product_DAO.list_Types();
+    }
     
 }
