@@ -22,6 +22,7 @@
     INSERT INTO officeControl.Office VALUES ('OID-12536478', 'Sucursal Norte', '8va calle 8-85 zona 12, Quetzaltenango');
     INSERT INTO officeControl.Office VALUES ('OID-12536479', 'Sucursal Sur', '7a av 7-55 zona 5, Quetzaltenango');
     INSERT INTO officeControl.Office VALUES ('OID-12536480', 'Bodega Central', '15a av 6-695 zona 4, Quetzaltenango');
+    INSERT INTO officeControl.Office VALUES ('OIG-12536481', 'Todas', 'ninguna');
 
 /*POSITION*/
     INSERT INTO humanResourcesControl.Position VALUES ('sales', 3700);
@@ -33,27 +34,27 @@
     /*EOC- central*/
     INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOC-0000000', '235698741326', 'Anthony Brown', 'pass', '13-03-2001');/*no puse fecha*/
     INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOC-0000001', '169778354204', 'William Ardley', 'pass1', '18-03-2001');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOC-0000002', '568746216446', 'Terrence Grandchester', 'sales', 'pass2', '14-03-2001');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOC-0000003', '622553789154', 'Neil Leagan', 'inventary', 'pass3', '27-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOC-0000002', '568746216446', 'Terrence Grandchester', 'pass2', '14-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOC-0000003', '622553789154', 'Neil Leagan', 'pass3', '27-03-2001');
     /*EON- norte*/
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000000', '632544899979', 'Archivald Cornwell', 'sales', 'pass4', '13-08-2001');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000001', '563287444100', 'Alistear Cornwell', 'sales', 'pass5', '17-05-2004');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000002', '899657523301', 'Annie Britter', 'sales', 'pass6', '13-02-2013');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000003', '579856324633', 'Mery Jane', 'inventary', 'pass7', '13-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000000', '632544899979', 'Archivald Cornwell', 'pass4', '13-08-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000001', '563287444100', 'Alistear Cornwell', 'pass5', '17-05-2004');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000002', '899657523301', 'Annie Britter', 'pass6', '13-02-2013');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EON-3000003', '579856324633', 'Mery Jane', 'pass7', '13-03-2001');
     /*EOS- sur*/
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000000', '784576213879', 'Flamie Hamilton', 'sales', 'pass8', '12-11-2012');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000001', '103654745698', 'Eleanor Baker', 'sales', 'pass9', '13-03-2007');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000002', '256799566331', 'Patricia Obrian', 'sales', 'pass10', '15-03-2001');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000003', '489876531650', 'Eliza Leagan', 'inventary', 'pass11', '14-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000000', '784576213879', 'Flamie Hamilton', 'pass8', '12-11-2012');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000001', '103654745698', 'Eleanor Baker', 'pass9', '13-03-2007');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000002', '256799566331', 'Patricia Obrian', 'pass10', '15-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOS-6000003', '489876531650', 'Eliza Leagan', 'pass11', '14-03-2001');
     
     /*bodega*/
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000000', '565799331557', 'Patty Clint', 'stowage', 'pass12', '13-03-2001');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000001', '345623687915', 'Susana Marlow', 'stowage', 'pass13', '12-03-2002');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000002', '589687431321', 'Maria Lott', 'stowage', 'pass14', '16-07-2009');
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000003', '589786500546', 'Rosaline Manchester', 'stowage', 'pass15', '13-12-2012');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000000', '565799331557', 'Patty Clint', 'pass12', '13-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000001', '345623687915', 'Susana Marlow', 'pass13', '12-03-2002');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000002', '589687431321', 'Maria Lott', 'pass14', '16-07-2009');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOT-9000003', '589786500546', 'Rosaline Manchester', 'pass15', '13-12-2012');
 
     /*administrador*/
-    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOA-10000000', '791230647713', 'Candice White', 'administrator', 'passA', , '13-03-2001');
+    INSERT INTO humanResourcesControl.Employee (ID, CUI, name, password, since) VALUES ('EOA-10000000', '791230647713', 'Candice White', 'passA', '13-03-2001');
 
 /*CONTRACT*/
     /*EOC*/
@@ -81,7 +82,7 @@
     INSERT INTO humanResourcesControl.Contract (employee, office, position, dueDate) VALUES ('EOT-9000003', 'OID-12536480', 'stowage', '31-12-2024');
 
     /*ADMIN*//*pertenece a una tienda??*/
-    INSERT INTO humanResourcesControl.Contract (employee, office, position, dueDate) VALUES ('EOA-8000003', '', 'administrator', '31-12-2024');
+    INSERT INTO humanResourcesControl.Contract (employee, office, position, dueDate) VALUES ('EOA-10000000', 'OIG-12536481', 'administrator', '31-12-2024');
 
 /*CUSTOMER*/
     INSERT INTO customerControl.Customer VALUES ('766740-K', '253696857414', 'Anfaly Monzon', '5a calle 6-80 zona 1, Retalhuleu');
@@ -89,33 +90,34 @@
     INSERT INTO customerControl.Customer VALUES ('1086564-A', '632598745663', 'Dulce Leon', '6a av 6-69 zona 4, Quetzaltenango');
     INSERT INTO customerControl.Customer VALUES ('2623277-3', '426598753230', 'Emmanuel Lopez', '8a av 7-69 zona 1, San Marcos');        
     INSERT INTO customerControl.Customer VALUES ('6598723-S', '245631658294', 'Federeck Hernandez', 'ciudad');        
+    INSERT INTO customerControl.Customer VALUES ('CF', '00000000', 'Consumidor Final', 'never');        
 
 /*CLASIFICATION*/
-    INSERT INTO goodsControl.Clasification VALUES ('Stove', 'White Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Refrigerator', 'White Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Microwave', 'White Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Washer', 'White Line');    
-    INSERT INTO goodsControl.Clasification VALUES ('Dish washer', 'White Line');/*5*/
-    INSERT INTO goodsControl.Clasification VALUES ('Dryer', 'White Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Oven', 'White Line');    
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Stove', 'White Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Refrigerator', 'White Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Microwave', 'White Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Washer', 'White Line');    
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Dish washer', 'White Line');/*5*/
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Dryer', 'White Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Oven', 'White Line');    
 
-    INSERT INTO goodsControl.Clasification VALUES ('TV', 'Brown Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Stereo', 'Brown Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Video game console', 'Brown Line');/*10*/    
-    INSERT INTO goodsControl.Clasification VALUES ('Photographic camera', 'Brown Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Radio', 'Brown Line');    
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('TV', 'Brown Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Stereo', 'Brown Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Video game console', 'Brown Line');/*10*/    
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Photographic camera', 'Brown Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Radio', 'Brown Line');    
 
-    INSERT INTO goodsControl.Clasification VALUES ('Iron', 'PAE');
-    INSERT INTO goodsControl.Clasification VALUES ('Vacuum cleaner', 'PAE');
-    INSERT INTO goodsControl.Clasification VALUES ('Fryer', 'PAE');/*15*/
-    INSERT INTO goodsControl.Clasification VALUES ('Beater', 'PAE');
-    INSERT INTO goodsControl.Clasification VALUES ('Blender', 'PAE');
-    INSERT INTO goodsControl.Clasification VALUES ('Coffee maker', 'PAE');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Iron', 'PAE');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Vacuum cleaner', 'PAE');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Fryer', 'PAE');/*15*/
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Beater', 'PAE');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Blender', 'PAE');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Coffee maker', 'PAE');
 
-    INSERT INTO goodsControl.Clasification VALUES ('Desktop Computer', 'Gray Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Laptop', 'Gray Line');/*20*/    
-    INSERT INTO goodsControl.Clasification VALUES ('Tablet', 'Gray Line');
-    INSERT INTO goodsControl.Clasification VALUES ('Mobile phone', 'Gray Line');/*22*/
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Desktop Computer', 'Gray Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Laptop', 'Gray Line');/*20*/    
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Tablet', 'Gray Line');
+    INSERT INTO goodsControl.Clasification (type, line) VALUES ('Mobile phone', 'Gray Line');/*22*/
 
 /*APPLIANCE*/    
     INSERT INTO goodsControl.Appliance VALUES ('Door French Refrigerator', 'Frigidaire', 2, '');
@@ -162,12 +164,12 @@
     INSERT INTO goodsControl.Appliance VALUES ('Laptop Dell 3501 CORE i3', 'Dell', 20, ', 15.6 inches |4GB RAM |1TB');
     INSERT INTO goodsControl.Appliance VALUES ('Laptop Dell 3502 Celeron', 'Dell', 20, '15.6 inches |4GB RAM |128GB SSD');
 
-    INSERT INTO goodsControl.Appliance VALUES ('ASUS X515EA-BQ868W i3 1115G4', 'ASUS', 2. '3GHZ |4GB |256GB SSD |15.6 inches |W11');
+    INSERT INTO goodsControl.Appliance VALUES ('ASUS X515EA-BQ868W i3 1115G4', 'ASUS', 2, '3GHZ |4GB |256GB SSD |15.6 inches |W11');
     INSERT INTO goodsControl.Appliance VALUES ('DEMO - ASUS X515EP-BQ222T i5 1135G7', 'ASUS', 2, '2.4G |8GB |512GB SSD |15.6 inches |W10H MX330');
     
-    INSERT INTO goodsControl.Appliance VALUES ('CELULAR XIAOMI REDMI A1', 'XIAOMI', 2, '2GB |32GB |6.52 inches |8MP |GREEN US');
-    INSERT INTO goodsControl.Appliance VALUES ('CELULAR XIAOMI REDMI 10A', 'XIAOMI', 2, '3GB |64GB |6.53 inches |13MP |SILVER EU');
-    INSERT INTO goodsControl.Appliance VALUES ('CELULAR REALME C11 2021 OCTA', 'XIAOMI', 2, '1.6GHZ |4GB |64GB |6.5 inches |8MP |GRAY US');
+    INSERT INTO goodsControl.Appliance VALUES ('CELULAR XIAOMI REDMI A1', 'Xiaomi', 2, '2GB |32GB |6.52 inches |8MP |GREEN US');
+    INSERT INTO goodsControl.Appliance VALUES ('CELULAR XIAOMI REDMI 10A', 'Xiaomi', 2, '3GB |64GB |6.53 inches |13MP |SILVER EU');
+    INSERT INTO goodsControl.Appliance VALUES ('CELULAR REALME C11 2021 OCTA', 'Xiaomi', 2, '1.6GHZ |4GB |64GB |6.5 inches |8MP |GRAY US');
 
     INSERT INTO goodsControl.Appliance VALUES ('Nintendo Switch', 'Nintendo', 10, 'Modelo OLED paquete blanco');
     INSERT INTO goodsControl.Appliance VALUES ('Nintendo Switch Lite', 'Nintendo', 10, 'Turquoise | Coral | Yellow');
@@ -181,13 +183,13 @@
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('BLACK+DECKER IRBD100 QUICK AND EASY', 'BLACK+DECKER', 3453.04);
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('CORE I3 Desktop Computer', 'HP', 10236.35);
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('DEMO - ASUS X515EP-BQ222T i5 1135G7', 'ASUS', 13250.47);
-    INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('CELULAR XIAOMI REDMI A1', 'XIAOMI', 6580.35);
+    INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('CELULAR XIAOMI REDMI A1', 'Xiaomi', 6580.35);
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('Over-The-Range Microwave', 'Frigidaire', 3680.35);
 
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('Nintendo Switch', 'Nintendo', 3453.04);
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('Laptop Dell 3502 Celeron', 'Dell', 10236.35);
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('Dish-washer', 'Whirlpool', 13250.47);
-    INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('CELULAR XIAOMI REDMI A1', 'XIAOMI', 6580.35);
+    INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('CELULAR XIAOMI REDMI A1', 'Xiaomi', 6580.35);
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('Oster BLST4655 Blender', 'Oster', 3680.35);
 
     INSERT INTO goodsControl.Product (name, theBrand, price) VALUES ('HP PAVILION X360 14-DY0008LA i5 1135G7', 'HP', 3453.04);
@@ -204,34 +206,34 @@
 
 /*STOCK*/
     /*Central*/
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456500', 100000000000, 3, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456501', 100000000012, 2, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456502', 100000000011, 4, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456503', 100000000021, 7, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456504', 100000000019, 3, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456505', 100000000010, 3, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456506', 100000000003, 2, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456507', 100000000018, 2, 'OID-12536477');
-    INSERT INTO goodsControl.Stock VALUES ('ABC-123456508', 100000000022, 4, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456500', 2, 3, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456501', 5, 2, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456502', 25, 4, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456503', 7, 7, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456504', 14, 3, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456505', 3, 3, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456506', 4, 2, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456507', 12, 2, 'OID-12536477');
+    INSERT INTO goodsControl.Stock VALUES ('ABC-123456508', 9, 4, 'OID-12536477');
 
     /*Norte*/
-    INSERT INTO goodsControl.Stock VALUES ('ABN-123456500', 100000000017, 9, 'OID-12536478');
-    INSERT INTO goodsControl.Stock VALUES ('ABN-123456501', 100000000014, 7, 'OID-12536478');
-    INSERT INTO goodsControl.Stock VALUES ('ABN-123456502', 100000000006, 4, 'OID-12536478');
-    INSERT INTO goodsControl.Stock VALUES ('ABN-123456503', 100000000001, 2, 'OID-12536478');
-    INSERT INTO goodsControl.Stock VALUES ('ABN-123456504', 100000000003, 3, 'OID-12536478');
+    INSERT INTO goodsControl.Stock VALUES ('ABN-123456500', 11, 9, 'OID-12536478');
+    INSERT INTO goodsControl.Stock VALUES ('ABN-123456501', 6, 7, 'OID-12536478');
+    INSERT INTO goodsControl.Stock VALUES ('ABN-123456502', 8, 4, 'OID-12536478');
+    INSERT INTO goodsControl.Stock VALUES ('ABN-123456503', 13, 2, 'OID-12536478');
+    INSERT INTO goodsControl.Stock VALUES ('ABN-123456504', 15, 3, 'OID-12536478');
 
     /*Sur*/
-    INSERT INTO goodsControl.Stock VALUES ('ABS-123456500', 100000000016, 3, 'OID-12536479');
-    INSERT INTO goodsControl.Stock VALUES ('ABS-123456501', 100000000005, 2, 'OID-12536479');
-    INSERT INTO goodsControl.Stock VALUES ('ABS-123456502', 100000000002, 4, 'OID-12536479');
-    INSERT INTO goodsControl.Stock VALUES ('ABS-123456503', 100000000022, 3, 'OID-12536479');
-    INSERT INTO goodsControl.Stock VALUES ('ABS-123456504', 100000000012, 1, 'OID-12536479');
-    INSERT INTO goodsControl.Stock VALUES ('ABS-123456505', 100000000011, 2, 'OID-12536479');
+    INSERT INTO goodsControl.Stock VALUES ('ABS-123456500', 12, 3, 'OID-12536479');
+    INSERT INTO goodsControl.Stock VALUES ('ABS-123456501', 19, 2, 'OID-12536479');
+    INSERT INTO goodsControl.Stock VALUES ('ABS-123456502', 21, 4, 'OID-12536479');
+    INSERT INTO goodsControl.Stock VALUES ('ABS-123456503', 20, 3, 'OID-12536479');
+    INSERT INTO goodsControl.Stock VALUES ('ABS-123456504', 10, 1, 'OID-12536479');
+    INSERT INTO goodsControl.Stock VALUES ('ABS-123456505', 3, 2, 'OID-12536479');
 
     /*Bodega*/
-    INSERT INTO goodsControl.Stock VALUES ('ABT-123456500', 100000000015, 4, 'OID-12536480');
-    INSERT INTO goodsControl.Stock VALUES ('ABT-123456501', 100000000008, 9, 'OID-12536480');
-    INSERT INTO goodsControl.Stock VALUES ('ABT-123456502', 100000000001, 15, 'OID-12536480');
-    INSERT INTO goodsControl.Stock VALUES ('ABT-123456503', 100000000017, 4, 'OID-12536480');
+    INSERT INTO goodsControl.Stock VALUES ('ABT-123456500', 16, 4, 'OID-12536480');
+    INSERT INTO goodsControl.Stock VALUES ('ABT-123456501', 17, 9, 'OID-12536480');
+    INSERT INTO goodsControl.Stock VALUES ('ABT-123456502', 2, 15, 'OID-12536480');
+    INSERT INTO goodsControl.Stock VALUES ('ABT-123456503', 3, 4, 'OID-12536480');
 
